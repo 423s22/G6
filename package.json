@@ -15,6 +15,7 @@
   "dependencies": {
     "@koa/router": "^8.0.8",
     "@shopify/koa-shopify-auth": "^4.1.4",
+    "@shopify/polaris": "^8.2.1",
     "dotenv": "^16.0.0",
     "isomorphic-fetch": "^3.0.0",
     "koa": "^2.13.4",
