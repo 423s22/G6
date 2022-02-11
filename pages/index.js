@@ -1,5 +1,6 @@
-import { AppProvider, Card, Page, ResourceList, TextStyle, Avatar} from "@shopify/polaris";
+import { AppProvider, Card} from "@shopify/polaris";
 import React from "react";
+import "@shopify/polaris/dist/styles.css";
 
 function index() {
     return (
