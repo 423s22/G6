@@ -41,3 +41,6 @@ Members: William, Lenin, Alyssa
 * You should now see the application embedded in your Shopify Admin
 ![embedded app](https://github.com/alyssanewhart/Test/blob/main/embedded_app.png)
 
+#### UML documentation 
+* Link to UML documentation https://docs.google.com/document/d/16QTPFoli6WdQCEaP6LexPH-tnEzxwN659zZ1LCt9sWI/edit?usp=sharing 
+
