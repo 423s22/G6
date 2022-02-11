@@ -3,9 +3,25 @@ import React from "react";
 
 function index() {
     return (
-        <AppProvider>
-            <Page>
-            <TextStyle variation="strong">Hello World</TextStyle>
+        <AppProvider
+  i18n={{
+    Polaris: {
+      ResourceList: {
+        sortingLabel: 'Sort by',
+        defaultItemSingular: 'item',
+        defaultItemPlural: 'items',
+        showing: 'Showing {itemsCount} {resource}',
+        Item: {
+          viewItem: 'View details for {itemName}',
+        },
+      },
+      Common: {
+        checkbox: 'checkbox',
+      },
+    },
+  }}
+>
+  <Page>
     <Card>
       <ResourceList
         showHeader
@@ -39,10 +55,7 @@ function index() {
       />
     </Card>
   </Page>
-        <div>
-            <p>Hello World</p>
-        </div>  
-        </AppProvider>
+</AppProvider>
     )
 }
 
