@@ -17,6 +17,9 @@ Members: William, Lenin, Alyssa
 * Node.js
 * Next.js
 
+### Description 
+* A Shopify plugin to update product price with modifiers on the product page instead of in the cart. 
+
 #### Instructions
 
 * Clone repository
