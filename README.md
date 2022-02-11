@@ -3,6 +3,8 @@ Shopify App
 
 Members: William, Lenin, Alyssa
 
+[Burndown Chart](https://docs.google.com/spreadsheets/d/1qWjqU1w1oxYyYeYFQ7EqP9aI5dt4SIy14x6kxzEHuD4/edit#gid=0)
+
 ## Custom Shopify Options Application
 
 ### Frontend Technologies
