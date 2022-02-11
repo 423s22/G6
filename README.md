@@ -1,6 +1,9 @@
 # G6
 Shopify App
 
+### Description 
+* A Shopify plugin to update product price with modifiers on the product page instead of in the cart. 
+
 Members: William, Lenin, Alyssa
 
 [Burndown Chart](https://docs.google.com/spreadsheets/d/1qWjqU1w1oxYyYeYFQ7EqP9aI5dt4SIy14x6kxzEHuD4/edit#gid=0)<br/> 
@@ -17,8 +20,6 @@ Members: William, Lenin, Alyssa
 * Node.js
 * Next.js
 
-### Description 
-* A Shopify plugin to update product price with modifiers on the product page instead of in the cart. 
 
 #### Instructions
 
