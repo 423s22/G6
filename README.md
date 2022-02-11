@@ -40,7 +40,7 @@ Members: William, Lenin, Alyssa
 * Navigate back to your application's page in Shopify and `Select` a `Development Store` to install your application on
 * Once you have installed the application your development store, navigate to the `Apps` section of your Shopify Admin and click on the application
 * You should now see the application embedded in your Shopify Admin
-![embedded app](https://github.com/alyssanewhart/Test/blob/main/embedded_app.png)
+![embedded app](https://github.com/423s22/G6/blob/main/screenshots/embedded_app.png)
 
 #### UML documentation 
 * Link to UML documentation https://docs.google.com/document/d/16QTPFoli6WdQCEaP6LexPH-tnEzxwN659zZ1LCt9sWI/edit?usp=sharing 
