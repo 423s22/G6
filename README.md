@@ -5,6 +5,7 @@ Members: William, Lenin, Alyssa
 
 [Burndown Chart](https://docs.google.com/spreadsheets/d/1qWjqU1w1oxYyYeYFQ7EqP9aI5dt4SIy14x6kxzEHuD4/edit#gid=0)<br/> 
 [Scrum Board](https://leninlewis.atlassian.net/jira/software/projects/SHOP/boards/1)
+[Shopify Dev Store + App](https://esof-test-store.myshopify.com/admin/apps/options-2)
 
 ## Custom Shopify Options Application
 
