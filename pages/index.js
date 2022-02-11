@@ -5,10 +5,10 @@ import '@shopify/polaris/build/esm/styles.css';
 function index() {
     return (
         <AppProvider>
-        <Card title="Hello World" sectioned>
-        <p>Hello Universe</p>
-      </Card>
-</AppProvider>
+            <Card title="Hello World" sectioned>
+                <p>Hello Universe</p>
+            </Card>
+        </AppProvider>
     )
 }
 
