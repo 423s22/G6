@@ -2,7 +2,7 @@
 Shopify App
 
 ### Description 
-* A Shopify plugin to update product price with modifiers on the product page instead of in the cart. 
+Shopify app that will allow merchants to add additional options and customization variations to their products, bypassing Shopify’s default option/variant limit. The additional cost of these options will be added dynamically to the product total on the product page. The app will embed directly into the merchant’s Shopify admin for a seamless experience.  
 
 Members: William, Lenin, Alyssa
 
