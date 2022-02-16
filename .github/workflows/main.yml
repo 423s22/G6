@@ -14,7 +14,11 @@ jobs:
         with: 
           node-version: "14.x"
       - name: Install dependencies
-        run: npm install
+        run: npm install --save mocha chai
+      - name: Install dependencies 2 
+        run: npm install --save request
+      - name: Install dependencies 3 
+        run: npm install --save express
       - name: Run test
         run: npm test
 
