@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'tests/**/*.js' --recursive --reporter mocha-junit-reporter --timeout 60000 --exit",
+    "test": "mocha 'tests/**/*.js' --recursive --reporter spec --timeout 60000 --exit",
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
