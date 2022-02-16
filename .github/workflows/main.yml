@@ -9,14 +9,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
+      - name: Use server.js
         uses: actions/setup-node@v2
         with: 
           node-version: "14.x"
       - name: Install dependencies
         run: npm install
       - name: Run test
-        run: npm server.js
+        run: npm test
 
   deploy:
     runs-on: ubuntu-latest
