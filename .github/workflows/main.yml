@@ -23,6 +23,22 @@ jobs:
         run: npm install --save isomorphic-fetch
       - name: Install dependencies 5
         run: npm install --save dotenv
+      - name: Install dependencies 6
+        run: npm install --save koa
+      - name: Install dependencies 7
+        run: npm install --save koa-router
+      - name: Install dependencies 8
+        run: npm install --save koa-session
+      - name: Install dependencies 9
+        run: npm install --save next
+      - name: Install dependencies 10
+        run: npm install --save path
+      - name: Install dependencies 11
+        run: npm install --save react
+      - name: Install dependencies 12
+        run: npm install --save react-dom
+      - name: Install dependencies 13
+        run: npm install --save split
       - name: Run test
         run: npm test
 
