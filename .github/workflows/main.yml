@@ -19,6 +19,8 @@ jobs:
         run: npm install --save request
       - name: Install dependencies 3 
         run: npm install --save express
+      - name: Install dependencies 4
+        run: npm install --save isomorphic-fetch
       - name: Run test
         run: npm test
 
