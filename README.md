@@ -46,6 +46,9 @@ Shopify app that will allow merchants to add additional options and customizatio
 * You should now see the application embedded in your Shopify Admin
 ![embedded app](https://github.com/423s22/G6/blob/main/screenshots/embedded_app.png)
 
+#### User Documentation 
+* Link to User Documentation https://github.com/423s22/G6/blob/main/UserDocumentation.md
+
 #### UML documentation 
 * Link to UML documentation https://docs.google.com/document/d/16QTPFoli6WdQCEaP6LexPH-tnEzxwN659zZ1LCt9sWI/edit?usp=sharing 
 
