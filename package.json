@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "",
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
@@ -13,16 +13,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/client": "^3.5.9",
     "@koa/router": "^8.0.8",
-    "@shopify/koa-shopify-auth": "^4.1.4",
+    "@shopify/app-bridge-react": "^2.0.10",
+    "@shopify/app-bridge-utils": "^2.0.10",
+    "@shopify/koa-shopify-auth": "^4.1.5",
     "@shopify/polaris": "^8.2.1",
+    "apollo-boost": "^0.4.9",
     "dotenv": "^16.0.0",
+    "graphql": "^16.3.0",
     "isomorphic-fetch": "^3.0.0",
+    "js-cookie": "^3.0.1",
     "koa": "^2.13.4",
     "koa-router": "^10.1.1",
     "koa-session": "^6.2.0",
     "next": "^12.0.10",
     "react": "^17.0.2",
+    "react-apollo": "^3.1.5",
     "react-dom": "^17.0.2"
   }
 }
