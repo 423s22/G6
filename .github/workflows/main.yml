@@ -1,7 +1,7 @@
 name: Main
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 jobs:
   build:
@@ -47,6 +47,8 @@ jobs:
         run: npm install --save @koa/router
       - name: install Heroku
         run: heroku git:remote -a pricing-options-app
+      - name: Heroku patch
+        run: heroku login -i
       - name: Run test
         run: npm test
 
@@ -55,8 +57,17 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "pricing-options-app"
           heroku_email: "alyssanewhart1@gmail.com"
+          env_file: ".env"
+          dontuseforce: 1
+          usedocker: t
+          docker_build_args: |
+            NODE_ENV
+            SECRET_KEY
+        env:
+          NODE_ENV: production
+          SECRET_KEY: ${{ secrets.SHOPIFY_API_SECRET }}
