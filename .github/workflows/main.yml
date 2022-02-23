@@ -70,4 +70,4 @@ jobs:
             SECRET_KEY
         env:
           NODE_ENV: production
-          SECRET_KEY: ${{ secrets.SHOPIFY_API_SECRET }}
+          SECRET_KEY: ${{ secrets.SHOPIFY_API_KEY }}
