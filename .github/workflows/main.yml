@@ -67,7 +67,9 @@ jobs:
           usedocker: t
           docker_build_args: |
             NODE_ENV
-            SECRET_KEY
+            SHOPIFY_API_KEY
+            SHOPIFY_API_SECRET
         env:
-          NODE_ENV: production
-          SECRET_KEY: ${{ secrets.SHOPIFY_API_KEY }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          SHOPIFY_API_KEY: ${{ secrets.SHOPIFY_API_KEY }}
+          SHOPIFY_API_SECRET: ${{ secrets.SHOPIFY_API_SECRET }}
