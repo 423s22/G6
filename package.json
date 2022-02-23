@@ -9,8 +9,15 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "heroku",
+    "github",
+    "github-actions"
+  ],
   "author": "",
+  "bugs": {
+    "url": "https://github.com/dldf/423s22/G6/issues"
+  },
   "license": "ISC",
   "dependencies": {
     "@apollo/client": "^3.5.9",
