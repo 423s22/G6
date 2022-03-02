@@ -1,0 +1,16 @@
+this class is getting called by ProductList when
+this class is called it will take the product
+and get the count of attributes from polulateVarients
+to then have a for loop that will go over each product
+to add to the overall count to create a price. the base
+price will automatically go into the count 
+
+
+countAttributes
+
+for num of countAttributes
+    count
+    naming = 'attribute' + count 
+
+    if attribute == true
+        prodcutCost += price

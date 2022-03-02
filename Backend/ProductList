@@ -1,0 +1,7 @@
+follows the code from ProductList
+should be getting all the product and
+making inventory list. We will have a 
+seperate class that takes these Products 
+and make a sum based off the attributes
+
+this class will also call the variants class

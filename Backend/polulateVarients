@@ -1,0 +1,7 @@
+this class will be called by ProductList
+when it is call it will ask the user
+the varients that they want for the product
+and it will associate a price with it 
+create a count to keep track of num of 
+attributes per item.  Limit the variants to 
+150, for config time?-- figure out how to optimize
