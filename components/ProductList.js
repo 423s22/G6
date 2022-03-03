@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import {Card, ResourceList, Stack, TextStyle} from '@shopify/polaris';
+import {Button, Card, ResourceList, Stack, TextStyle} from '@shopify/polaris';
 
 const GET_PRODUCTS = gql`
   query {
@@ -30,8 +30,9 @@ export default function ProductList () {
       const { loading, error, data, networkStatus } = useQuery(GET_PRODUCTS)
           if (loading) { return <div>Loading…</div>; }
           if (error) { return <div>{error.message}</div>; }
-          console.log(data.products);
-          console.log(data.products.edges[4].node.variants.edges[0].node.price);
+         // console.log(data.products);
+         // console.log(data.products.edges[4].node.variants);
+        //  console.log(data.products.edges[4].node.variants.edges[0].node.price);
           return (
             <Card>
                <ResourceList
@@ -41,13 +42,28 @@ export default function ProductList () {
                 renderItem={(item) => {
               
                   const price = item.node.variants.edges[0].node.price;
+                  const id = item.node.id;
+
+                  const updatePrice = (price, id) => {
+                    console.log("handle price")
+                    console.log(price)
+                    console.log(id)
+
+                    const UPDATE_PRICE_MUTATION = gql `
+                    mutation {
+
+                    } 
+                    `
+
+                    
+                  }
 
                   return (
                     <ResourceList.Item
                       id={item.node.id}
                       accessibilityLabel={`View details for ${item.node.title}`}
                       onClick={() => {
-                        console.log(item.node)
+                      //  console.log(item.node)
                         
                       }
                       }
@@ -62,6 +78,10 @@ export default function ProductList () {
                         </Stack.Item>
                         <Stack.Item>
                           <p>${price}</p>
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Button
+                          onClick={() => updatePrice(price, id)}>Change Price</Button>
                         </Stack.Item>
                       </Stack>
                     </ResourceList.Item>
