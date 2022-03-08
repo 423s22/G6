@@ -1,6 +1,7 @@
 import {React, useState, useCallback} from 'react';
 import {Select, Form, FormLayout, Checkbox, TextField, Button, Card} from '@shopify/polaris';
 import OptionForm from './OptionForm';
+import styles from '../components/OptionSelect.module.css'
 
 function OptionSelect() {
         const [selected, setSelected] = useState('engraving');
@@ -15,6 +16,7 @@ function OptionSelect() {
       
         if (!addOption) {
         return (
+    <div className={styles.optionCard}>
             <Card
             sectioned
             title="Options"
@@ -27,6 +29,7 @@ function OptionSelect() {
               different sizes or colors.
             </p>
           </Card>
+          </div>
          /* <Select
             label="Option Types"
             options={options}
