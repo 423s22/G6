@@ -11,6 +11,7 @@ class HomePage extends React.Component {
             <Page>
                 <Button onClick={() => Router.push('/optionSelection')}>Option Selection</Button>
                 <Button onClick={() => Router.push('/')}>Help</Button>
+                {/* I dont think this is nessary 
                 <Layout>
                     <EmptyState
                         heading="Home Page"
@@ -24,7 +25,7 @@ class HomePage extends React.Component {
                         }}
                         >
                     </EmptyState>
-                </Layout>
+                    </Layout> */}
              </Page>
         );
     }
