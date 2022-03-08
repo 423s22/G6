@@ -1,9 +1,11 @@
 import React from 'react';
-import { Heading, Page, TextStyle, Layout, EmptyState, Form, FormLayout, TextField, Button, Card} from "@shopify/polaris";
+import { Heading, Page, TextStyle, Layout, EmptyState, Form, FormLayout, TextField, Button, Card, CalloutCard, Banner, VisuallyHidden} from "@shopify/polaris";
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import ProductList from '../components/ProductList';
 import Router from 'next/router';
 import ProductCard from '../components/ProductCard';
+import OptionSelect from '../components/OptionSelect';
+import styles from '../css/add-options.module.css';
 
 class CustomOptions extends React.Component {
 
@@ -25,8 +27,9 @@ class CustomOptions extends React.Component {
     return (
 
       <Page>
+            
           {/* redirect user to home page */}
-          <Button onClick = {() => Router.push('/')}>Homepage</Button>
+       {/* <Button onClick = {() => Router.push('/')}>Homepage</Button> */}
         <ResourcePicker // Resource picker component to select products
           resourceType="Product"
           showVariants={false}
@@ -53,7 +56,25 @@ class CustomOptions extends React.Component {
   }
   else {
     return (
-    <ProductCard product = {this.state.product} />
+      <Layout>
+         <Layout.Section>
+           <div className={styles.Banner}>
+           <Banner
+              title="Selected Product"
+              onDismiss={() => this.setState({productSelect: false})}
+            >
+             <ProductCard product = {this.state.product} />
+             </Banner>
+
+   
+    </div>
+  </Layout.Section>
+  <Layout.Section>
+    <OptionSelect />
+    </Layout.Section>
+    </Layout>
+  
+    
     )
   }
   }
