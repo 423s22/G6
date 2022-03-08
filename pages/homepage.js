@@ -9,7 +9,7 @@ class HomePage extends React.Component {
     render(){
         return (
             <Page>
-                <Button onClick={() => Router.push('/optionSelection')}>Option Selection</Button>
+                <Button onClick={() => Router.push('/index')}>Option Selection</Button>
                 <Button onClick={() => Router.push('/')}>Help</Button>
                 {/* I dont think this is nessary 
                 <Layout>
