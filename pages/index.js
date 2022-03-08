@@ -8,7 +8,7 @@ class Index extends React.Component {
     return (
       <Page>
             {/* redirect user to custom options page */}  
-            <Button onClick = {() => Router.push('/optionSelection')}>Product Selection Page</Button>        
+           {/* <Button onClick = {() => Router.push('/add-options')}>Product Selection Page</Button>  */}      
       </Page>          
     )
   }

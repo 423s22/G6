@@ -1,8 +1,8 @@
 import React from "react";
 //import {Card} from "react-bootstrap";
-import {Card, ResourceList, Thumbnail, Stack, ResourceItem, TextStyle}  from '@shopify/polaris';
+import {Card, ResourceList, Thumbnail, Stack, ResourceItem, TextStyle, CalloutCard}  from '@shopify/polaris';
 import styles from './ProductCard.module.css';
-
+import { Router } from "next/router";
 function ProductCard({product}) {
 
     console.log(product)
@@ -11,8 +11,10 @@ function ProductCard({product}) {
 return (
    
    // <Card style="width: 400px">
-   <Card>
-    <h1>Selected Product</h1>
+  // <div style="width: 400px">
+ // <div className={styles.productCard}>
+ //<Card>
+      
     <ResourceList
       resourceName={{singular: 'product', plural: 'products'}}
       items={[
@@ -49,7 +51,8 @@ return (
         );
       }}
      />
-  </Card>      
+//</Card>
+//</div>  
 );
 
 } 
