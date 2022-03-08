@@ -11,21 +11,15 @@ class HomePage extends React.Component {
             <Page>
                 <Button onClick={() => Router.push('/index')}>Option Selection</Button>
                 <Button onClick={() => Router.push('/')}>Help</Button>
-                {/* I dont think this is nessary 
                 <Layout>
                     <EmptyState
-                        heading="Home Page"
-                        action={{
-                            content: 'Option Selection',
-                            onAction: () => this.setState({open: true}),
-                        }}
                         action={{
                             content: 'Help',
                             onAction: () => this.setState({open: true}),
                         }}
                         >
                     </EmptyState>
-                    </Layout> */}
+                    </Layout> 
              </Page>
         );
     }
