@@ -6,15 +6,33 @@ import Router from 'next/router';
 
 class HomePage extends React.Component {
     state = {open: false};
-
     render(){
         return (
             <Page>
-                <Button onClick={() => Router.push('/')}>Option Selection</Button>
+                <Button onClick={() => Router.push('/optionSelection')}>Option Selection</Button>
                 <Button onClick={() => Router.push('/')}>Help</Button>
+                <Layout>
+                    <EmptyState
+                        heading="Home Page"
+                        action={{
+                            content: 'Option Selection',
+                            onAction: () => this.setState({open: true}),
+                        }}
+                        action={{
+                            content: 'Help',
+                            onAction: () => this.setState({open: true}),
+                        }}
+                        >
+                    </EmptyState>
+                </Layout>
              </Page>
-
-        )
+        );
+    }
+    handleSelection = (resources) => {
+        this.setState({open:fasle});
+        console.log(resources);
     }
     //directing to options page
 }
+
+export default HomePage;
