@@ -5,6 +5,16 @@ import ProductList from '../components/ProductList';
 import Router from 'next/router';
 
 class HomePage extends React.Component {
+    state = {open: false};
 
-    
+    render(){
+        return (
+            <Page>
+                <Button onClick={() => Router.push('/')}>Option Selection</Button>
+                <Button onClick={() => Router.push('/')}>Help</Button>
+             </Page>
+
+        )
+    }
+    //directing to options page
 }
