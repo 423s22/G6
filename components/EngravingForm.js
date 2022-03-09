@@ -12,12 +12,12 @@ function EngravingForm() {
   const [selectedOption, setSelectedOption] = useState('Options');
   const [selectedNumber, setSelectedNumber] = useState(1);
   const [description, setDescription] = useState('description');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState('0');
 
   const handleSelectChange = useCallback((value) => setSelectedOption(value), []);;
   const handleSelectNumber = useCallback((value) => setSelectedNumber(value), []);;
   const handleDescriptionChange = useCallback((value) => setDescription(value), []);
-  const handlePriceChange = useCallback((value) => setEmail(value), []);
+  const handlePriceChange = useCallback((value) => setPrice(value), []);
 
   const handleSubmit = useCallback((_event) => {
     // to be implemented
@@ -83,7 +83,7 @@ function EngravingForm() {
                                     value={price}
                                     onChange={handlePriceChange}
                                     label="Price"
-                                    type="text"
+                                    type="number"
                                     helpText={
                                             "Please enter any additional cost associated with this option"
                                         }
