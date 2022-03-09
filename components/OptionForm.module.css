@@ -1,0 +1,22 @@
+.AddOptionCard {
+    width: 1000px;
+    padding: 20px;
+}
+
+.OptionSelect {
+    width: 200px;
+    float: right;
+    padding: 20px;
+}
+
+.priceDiv {
+    width: 200px;
+    float: right;
+    padding: 20px;
+}
+
+.EditOptionCard {
+    width: 1000px;
+    padding: 20px;
+    height: 800px;
+}
