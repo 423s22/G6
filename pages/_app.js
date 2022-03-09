@@ -7,6 +7,8 @@ import { authenticatedFetch } from "@shopify/app-bridge-utils";
 import { Redirect } from "@shopify/app-bridge/actions";
 import "@shopify/polaris/build/esm/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
+import { AppWrapper } from '../context/AppContext'; // import based on where you put it
+
 
 
 import Router from '../utils/RoutePropagator';
@@ -48,9 +50,11 @@ function MyProvider(props) {
   const Component = props.Component;
 
   return (
+    <AppWrapper>
     <ApolloProvider client={client}>
       <Component {...props} />
     </ApolloProvider>
+    </AppWrapper>
   );
 }
 
