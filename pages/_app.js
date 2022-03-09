@@ -7,11 +7,8 @@ import { authenticatedFetch } from "@shopify/app-bridge-utils";
 import { Redirect } from "@shopify/app-bridge/actions";
 import "@shopify/polaris/build/esm/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
-
-
+import { ProductWrapper } from '../context/ProductContext'; // import based on where you put it
 import Router from '../utils/RoutePropagator';
-
-
 
 function userLoggedInFetch(app) {
   const fetchFunction = authenticatedFetch(app);
@@ -48,9 +45,11 @@ function MyProvider(props) {
   const Component = props.Component;
 
   return (
+    <ProductWrapper>
     <ApolloProvider client={client}>
       <Component {...props} />
     </ApolloProvider>
+    </ProductWrapper>
   );
 }
 

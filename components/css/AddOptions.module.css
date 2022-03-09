@@ -1,0 +1,24 @@
+.optionCard{
+    width: 900px;
+   /* margin: auto; */
+   padding: 20px;
+}
+
+.selectionDiv {
+    width: 300px;
+    display: inline-block;
+  
+}
+
+.addOptionBtn {
+    display: inline-block;
+    padding-left: 20px;
+
+ 
+  
+}
+
+.parentDiv {
+    width: 800px;
+    height: 100px;
+}
