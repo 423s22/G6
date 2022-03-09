@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
 import {React, useState, useMemo} from "react";
 
-const AppContext = createContext();
+const ProductContext = createContext();
 
-export function AppWrapper({ children }) {
+export function ProductWrapper({ children }) {
 
     const initialInfo = {
       id: -1,
@@ -13,15 +13,13 @@ export function AppWrapper({ children }) {
     const [productInfo, setProductInfo] = useState(initialInfo);
     const product = useMemo(() => ({ productInfo, setProductInfo}), [productInfo]);
 
-  
-
   return (
-    <AppContext.Provider value={product}>
+    <ProductContext.Provider value={product}>
       {children}
-    </AppContext.Provider>
+    </ProductContext.Provider>
   );
 }
 
-export function useAppContext() {
-  return useContext(AppContext);
+export function useProductContext() {
+  return useContext(ProductContext);
 }

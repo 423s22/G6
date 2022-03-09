@@ -1,23 +1,16 @@
 import {React, useState} from "react";
-//import {Card} from "react-bootstrap";
 import {Card, ResourceList, Thumbnail, Stack, ResourceItem, TextStyle, CalloutCard}  from '@shopify/polaris';
-import styles from './ProductCard.module.css';
+import styles from './css/ProductCard.module.css';
 import { Router } from "next/router";
-import { useAppContext } from '../context/AppContext';
+import { useAppContext } from '../context/ProductContext';
 
 function ProductCard({product}) {
 
-  //  setProductID("1234");
-    console.log(product)
+  /*  console.log(product)
     console.log(product.selection[0].images[0])
+  */
     
-return (
-   
-   // <Card style="width: 400px">
-  // <div style="width: 400px">
- // <div className={styles.productCard}>
- //<Card>
-      
+  return (   
     <ResourceList
       resourceName={{singular: 'product', plural: 'products'}}
       items={[
@@ -54,10 +47,7 @@ return (
         );
       }}
      />
-//</Card>
-//</div>  
-);
-
-} 
+    );  
+  } 
 
 export default ProductCard;

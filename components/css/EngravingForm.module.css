@@ -1,0 +1,36 @@
+.OptionSelect {
+    width: 200px;
+    float: right;
+    padding: 20px;
+}
+
+.priceDiv {
+    width: 180px;
+    float: right;
+    padding-right: 20px;
+    margin-bottom: 200px;
+}
+
+.EditOptionCard {
+    width: 1000px;
+    padding: 20px;
+    height: 800px;
+}
+
+.numLinesDiv {
+    width: 200px;
+    float: left;
+    padding: 20px;
+}
+
+.descDiv {
+    float: left;
+    width: 600px;
+    padding: 20px;
+    
+}
+
+.submitButton {
+    padding-left: 20px;
+    clear: left;
+}
