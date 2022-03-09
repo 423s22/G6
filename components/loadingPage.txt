@@ -1,8 +1,8 @@
-import React from 'react';
+/* import React from 'react';
 import { ReactDOM } from 'react';
 import {Provider, Loading} from "@shopify/app-bridge-react";
 //import ProductList from '../components/ProductList';
-import Router from 'next/router';
+import Router from 'next/router'; */
 
 // link: https://shopify.dev/apps/tools/app-bridge/react-components/loading
 
