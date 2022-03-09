@@ -58,6 +58,7 @@ function EngravingForm() {
                                     onChange={handleSelectNumber}
                                     value={selectedNumber}
                                     type="number"
+                                    min={0}  // not functional, need to set min price value 
                                 />   
                             </div>
                         </Card.Section>   
