@@ -1,10 +1,9 @@
 import React from 'react';
-import { Heading, Page, TextStyle, Layout, EmptyState, Form, FormLayout, TextField, Button, Card, CalloutCard, Banner, VisuallyHidden} from "@shopify/polaris";
+import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
-import ProductList from '../components/ProductList';
 import Router from 'next/router';
 import ProductCard from '../components/ProductCard';
-import OptionSelect from '../components/OptionSelect';
+import AddOptions from '../components/AddOptions';
 import styles from '../css/add-options.module.css';
 
 class CustomOptions extends React.Component {
@@ -15,19 +14,17 @@ class CustomOptions extends React.Component {
 
   handleSelection = (resources) => {
     this.setState({ open: false });
-    console.log(resources);
+   /* console.log(resources);
     console.log(resources.selection[0].title)
-    console.log(resources.selection[0].images[0])
+    console.log(resources.selection[0].images[0]) */
     this.setState({product: resources})
-}
+  }
 
   render() {
 
     if (!this.state.productSelect) {
     return (
-
       <Page>
-            
           {/* redirect user to home page */}
        {/* <Button onClick = {() => Router.push('/')}>Homepage</Button> */}
         <ResourcePicker // Resource picker component to select products
@@ -48,33 +45,28 @@ class CustomOptions extends React.Component {
           >
             <p>Select products to add options.</p>
           </EmptyState>
-         {/* <ProductList /> */}
         </Layout> 
       </Page>
     );
- 
   }
+
   else {
     return (
       <Layout>
          <Layout.Section>
            <div className={styles.Banner}>
-           <Banner
-              title="Selected Product"
-              onDismiss={() => this.setState({productSelect: false})}
-            >
-             <ProductCard product = {this.state.product} />
-             </Banner>
-
-   
-    </div>
-  </Layout.Section>
-  <Layout.Section>
-    <OptionSelect />
-    </Layout.Section>
+              <Banner
+                title="Selected Product"
+                onDismiss={() => this.setState({productSelect: false})}
+              >
+                <ProductCard product = {this.state.product} />
+              </Banner>
+            </div>
+          </Layout.Section>
+          <Layout.Section>
+            <AddOptions />
+          </Layout.Section>
     </Layout>
-  
-    
     )
   }
   }
