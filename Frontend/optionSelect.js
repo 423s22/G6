@@ -1,10 +1,10 @@
-This class will use polaris to design the interface
+/*This class will use polaris to design the interface
 this will have the prices show at the bottom and it 
 will get the price  from products sum and when a box
 is clicked it will call the admin process to get an 
-updated price
+updated price*/
 
-$(document).ready(()=> {
+/*$(document).ready(()=> {
     const $productDiv = $('#products');
     $.get('/products/').then(response => {
         let template = <ul class="Polaris-ResourceList">`;
@@ -14,3 +14,4 @@ $(document).ready(()=> {
         template += `</ul>`; $productDiv.append(template);
     });
 });
+*/

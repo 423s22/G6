@@ -7,6 +7,8 @@ import {
   } from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
 
+
+
 function EngravingForm() {
 
   // get product info from context
@@ -17,14 +19,12 @@ function EngravingForm() {
   const [description, setDescription] = useState('description');
   const [price, setPrice] = useState('0');
   const [exitForm, setExitForm] = useState(false);
-
   const handleDescriptionChange = useCallback((value) => setDescription(value), []);
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
   const handleSubmit = useCallback((_event) => {
     // to be implemented
   }, []);
-
 
    const numbers = [
     {label: '1', value: '1'},
@@ -54,7 +54,6 @@ function EngravingForm() {
                             onClick = {() => setExitForm(true)} />
                     </div> 
                     <FormLayout>
-                     
                          <Card.Section>  
                             <div className={styles.numLinesDiv}>
                                 <Select
