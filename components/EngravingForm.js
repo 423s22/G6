@@ -1,7 +1,11 @@
 import {React, useState, useCallback} from 'react';
 import {Select, Form, FormLayout, Checkbox, TextField, Button, Card} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
-import styles from './css/EngravingForm.module.css'
+import styles from './css/EngravingForm.module.css';
+import {
+    MobileCancelMajor
+  } from '@shopify/polaris-icons';
+import AddOptions from './AddOptions';
 
 function EngravingForm() {
 
@@ -9,13 +13,11 @@ function EngravingForm() {
   const {productInfo, setProductInfo} = useProductContext();
   console.log(productInfo)
 
-  const [selectedOption, setSelectedOption] = useState('Options');
-  const [selectedNumber, setSelectedNumber] = useState(1);
+  const [selectedNumber, setSelectedNumber] = useState('1');
   const [description, setDescription] = useState('description');
   const [price, setPrice] = useState('0');
+  const [exitForm, setExitForm] = useState(false);
 
-  const handleSelectChange = useCallback((value) => setSelectedOption(value), []);;
-  const handleSelectNumber = useCallback((value) => setSelectedNumber(value), []);;
   const handleDescriptionChange = useCallback((value) => setDescription(value), []);
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
@@ -23,42 +25,43 @@ function EngravingForm() {
     // to be implemented
   }, []);
 
-  const options = [
-    {label: 'Engraving', value: 'engraving'},
-    {label: 'Radio Button', value: 'radiobutton'},
-    ];
 
    const numbers = [
-    {label: '1', value: 1},
-    {label: '2', value: 2},
-    {label: '3', value: 3},
-    {label: '4', value: 4},
-    {label: '5', value: 5},
+    {label: '1', value: '1'},
+    {label: '2', value: '2'},
+    {label: '3', value: '3'},
+    {label: '4', value: '4'},
+    {label: '5', value: '5'},
     ];
     
+    if (exitForm) {
+        return (
+            <AddOptions />
+        )
+    }
+
+    else {
+        console.log(selectedNumber)
     return (
         <div className={styles.EditOptionCard}>
             <Card
-                sectioned={true}>
+                sectioned={true}
+            >
                 <Form onSubmit={handleSubmit}>
+                    <h2><b>Engraving</b></h2>
+                <div className={styles.ExitButton}>
+                            <Button icon={MobileCancelMajor}
+                            onClick = {() => setExitForm(true)} />
+                    </div> 
                     <FormLayout>
-                         <Card.Section>
-                            <div className={styles.OptionSelect}>
-                                <Select
-                                    label="Options"
-                                    options={options}
-                                    onChange={handleSelectChange}
-                                    value={selectedOption}
-                                />
-                            </div>    
+                     
+                         <Card.Section>  
                             <div className={styles.numLinesDiv}>
                                 <Select
                                     label="Number of Lines"
                                     options={numbers}
-                                    onChange={handleSelectNumber}
+                                    onChange= {(value) => setSelectedNumber(value)}
                                     value={selectedNumber}
-                                    type="number"
-                                    min={0}  // not functional, need to set min price value 
                                 />   
                             </div>
                         </Card.Section>   
@@ -88,6 +91,7 @@ function EngravingForm() {
                                     helpText={
                                             "Please enter any additional cost associated with this option"
                                         }
+                                    min={0}   
                                 />
                             </div>
                             <div className={styles.submitButton}>
@@ -100,5 +104,5 @@ function EngravingForm() {
         </div>
         )
         }
-
+    }
 export default EngravingForm;
