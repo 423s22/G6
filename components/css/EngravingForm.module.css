@@ -1,20 +1,22 @@
-.OptionSelect {
-    width: 200px;
+.ExitButton {
+    width: 100px;
     float: right;
-    padding: 20px;
+    padding-right: 10px;
 }
 
 .priceDiv {
-    width: 180px;
+    width: 160px;
     float: right;
+    padding-top: 7px;
     padding-right: 20px;
-    margin-bottom: 200px;
+    margin-bottom: 10px;
 }
 
 .EditOptionCard {
-    width: 1000px;
+    width: 900px;
     padding: 20px;
-    height: 800px;
+    height: 400px;
+    overflow: hidden;
 }
 
 .numLinesDiv {
