@@ -32,7 +32,7 @@ class CustomOptions extends React.Component {
           showVariants={false}
           open={this.state.open}
           onSelection={(resources) => this.handleSelection(resources)}
-          onCancel={() => {this.setState({ open: false }), this.setState({productSelect: false})}}
+          onCancel={() => {this.setState({ open: false }), this.setState({productSelect: true})}}
           selectMultiple={false}
         />
         <Layout>
