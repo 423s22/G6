@@ -1,0 +1,5 @@
+The file crud.js has all of the database crud methods 
+Create, Read, Update, Delete
+
+These modify and access the database for all of the products options attatched to this app extention in shopify.
+
