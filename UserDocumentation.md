@@ -20,17 +20,19 @@ moves it to cart. </ul>
    
 ## Using the App
 
-Once you have successfully installed the **Options** app, you can find it within your Apps page in your Shopify Store Admin. 
+Once you have successfully installed the *Options* app, you can find it within your Apps page in your Shopify Store Admin. 
 
 ![Screenshot showing Apps tab within Shopify Store Admin navigation](https://github.com/423s22/G6/blob/main/screenshots/navigate-to-Apps-from-admin.png)        
 *Location of Apps tab within Shopify Admin Navigation*
 
-After you have clicked on **Apps** you will be directed towards your **Apps** page for your store, which will display all the Apps you have currently installed on your store. 
+After you have clicked on *Apps* you will be directed towards your **Apps** page for your store, which will display all the Apps you have currently installed on your store. 
+    
 ![Options App displayed on sample store's Apps page](https://github.com/423s22/G6/blob/main/screenshots/open-app-from-Apps-page.png)
 *Sample store's App page with Options app installed*
-* You can open the **Options** app by clicking on the app's name as shown in the screenshot above. 
+    
+You can open the *Options* app by clicking on the app's name as shown in the screenshot above. 
 
-On the **Options** app homepage you will find buttons that navigate to the various pages of the app such as the **Add Options** and **FAQ** pages. You can can also click on a page's name within the top navigation bar to navigate directly to it. The current page is indicated on the navigation tabs by a green line underneath it, as shown in the screenshot below.
+On the *Options* app homepage you will find buttons that navigate to the various pages of the app such as the *Add Options* and *FAQ* pages. You can can also click on a page's name within the top navigation bar to navigate directly to it. The current page is indicated on the navigation tabs by a green line underneath it, as shown in the screenshot below.
 
 ![Homepage of Options app](https://github.com/423s22/G6/blob/main/screenshots/homepage.png)
 *Options Homepage*
