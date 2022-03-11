@@ -20,12 +20,12 @@ moves it to cart. </ul>
    
 ## Using the App
 
-Once you have successfully installed the *Options* app, you can find it within your Apps page in your Shopify Store Admin. 
+Once you have successfully installed the *Options* app, you can find it within your *Apps* page in your Shopify Admin. 
 
-![Screenshot showing Apps tab within Shopify Store Admin navigation](https://github.com/423s22/G6/blob/main/screenshots/navigate-to-Apps-from-admin.png)        
+![Screenshot showing Apps tab within Shopify Admin navigation](https://github.com/423s22/G6/blob/main/screenshots/navigate-to-Apps-from-admin.png)        
 *Location of Apps tab within Shopify Admin Navigation*
 
-After you have clicked on *Apps* you will be directed towards your **Apps** page for your store, which will display all the Apps you have currently installed on your store. 
+After you have clicked on *Apps* you will be directed towards your *Apps* page for your store, which will display all the Apps you have currently installed on your store. 
     
 ![Options App displayed on sample store's Apps page](https://github.com/423s22/G6/blob/main/screenshots/open-app-from-Apps-page.png)
 *Sample store's App page with Options app installed*
@@ -45,7 +45,7 @@ The following is meant to be a tutorial of how to add a custom engraving option 
 
 **Note**: The user is only able to follow this tutorial until the *Submit* option on the *Engraving* form. Currently, the user interface for this capability has not been connected to the backend. Also note that while there is also a *Radio Button* option displayed on the *Option Types* dropdown menu, this option has yet to be implemented. 
 
-1. First navigate to the *Add Options* page using the navigation tabs. 
+1. First navigate to the *Add Options* page using the navigation tab. 
 2. Once you have successfully directed to the *Add Options* page, click on the *Select options* button to open the product selector. 
 
 ![Add Options page](https://github.com/423s22/G6/blob/main/screenshots/add-options-page.png)
