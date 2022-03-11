@@ -6,12 +6,7 @@ import Router from 'next/router';
 /* adding note here */
 class Index extends React.Component {
 
-  state = {open:false}
-  state = {faq:false}
-  
-
-  render() {
-    
+  render() { 
     return (
       <Page>
             {/* redirect user to custom options page */}  
@@ -21,8 +16,7 @@ class Index extends React.Component {
             heading="Welcome to your custom options builder"
             action={{
               content: "Products Options",
-              onAction: () => this.setState({open:true}),
-
+              onAction: () => (Router.push('/add-options')),
             }}
             >
             <h2>To start creating your options</h2>
@@ -32,7 +26,7 @@ class Index extends React.Component {
           <EmptyState
           action={{
             content: "FAQ Page",
-            onAction: () => this.setState({faq:true}),
+            onAction: () => (Router.push('/FAQ')),
           }}
         ></EmptyState>
           </Layout>
@@ -40,6 +34,5 @@ class Index extends React.Component {
     )
   }
 }
-
 
 export default Index;
