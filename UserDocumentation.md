@@ -37,7 +37,6 @@ On the *Options* app homepage you will find buttons that navigate to the various
 ![Homepage of Options app](https://github.com/423s22/G6/blob/main/screenshots/homepage.png)
 *Options Homepage*
 
-**Note**: the **Product Options** and **FAQ page** buttons are currently non-function so you will have to use the naviagtion tabs as shown in the screenshot below. 
 
 ## Add Engraving Option Tutorial (partially functional)
 
