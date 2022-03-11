@@ -22,17 +22,17 @@ moves it to cart. </ul>
 
 Once you have successfully installed the **Options** app, you can find it within your Apps page in your Shopify Store Admin. 
 
-![Screenshot showing Apps tab within Shopify Store Admin navigation](https://github.com/alyssanewhart/ESOF423/blob/main/navigate-to-Apps-from-admin.png)        
+![Screenshot showing Apps tab within Shopify Store Admin navigation](https://github.com/423s22/G6/blob/main/screenshots/navigate-to-Apps-from-admin.png)        
 *Location of Apps tab within Shopify Admin Navigation*
 
 After you have clicked on **Apps** you will be directed towards your **Apps** page for your store, which will display all the Apps you have currently installed on your store. 
-![Options App displayed on sample store's Apps page](https://github.com/alyssanewhart/ESOF423/blob/main/open-app-from-Apps-page.png)
+![Options App displayed on sample store's Apps page](https://github.com/423s22/G6/blob/main/screenshots/open-app-from-Apps-page.png)
 *Sample store's App page with Options app installed*
 * You can open the **Options** app by clicking on the app's name as shown in the screenshot above. 
 
 On the **Options** app homepage you will find buttons that navigate to the various pages of the app such as the **Add Options** and **FAQ** pages. You can can also click on a page's name within the top navigation bar to navigate directly to it. The current page is indicated on the navigation tabs by a green line underneath it, as shown in the screenshot below.
 
-![Homepage of Options app](https://github.com/alyssanewhart/ESOF423/blob/main/homepage.png)
+![Homepage of Options app](https://github.com/423s22/G6/blob/main/screenshots/homepage.png)
 *Options Homepage*
 
 **Note**: the **Product Options** and **FAQ page** buttons are currently non-function so you will have to use the naviagtion tabs as shown in the screenshot below. 
@@ -46,23 +46,23 @@ The following is meant to be a tutorial of how to add a custom engraving option 
 1. First navigate to the *Add Options* page using the navigation tabs. 
 2. Once you have successfully directed to the *Add Options* page, click on the *Select options* button to open the product selector. 
 
-![Add Options page](https://github.com/alyssanewhart/ESOF423/blob/main/add-options-page.png)
+![Add Options page](https://github.com/423s22/G6/blob/main/screenshots/add-options-page.png)
 *Add Options page* 
 
 3. In the product selector, select the product you would like to add options to. For this tutorial, we will be selecting the *Winter Frost* product. Once you are ready to proceed, click *Add*.
 
-![Product selector](https://github.com/alyssanewhart/ESOF423/blob/main/product-selection.png)
+![Product selector](https://github.com/423s22/G6/blob/main/screenshots/product-selection.png)
 *Select the Winter Frost product from within the product selector*
 
 4. After clicking *Add* from within the product selector, you will be directed to option type selection. On this page, you are able to see the product you have selected. If you would like to cancel and return to product selection, you click the *X* on the product card. 
 6. Now we will click on the `Option Types` dropdown menu to selecting `Engraving` as our option.
 
-![Option type selection](https://github.com/alyssanewhart/ESOF423/blob/main/option-type-selection.png)
+![Option type selection](https://github.com/423s22/G6/blob/main/screenshots/option-type-selection.png)
 *Option type selection. Select Engraving from the dropdown menu*
 
 6. Now click the *Add Option* button to be directed to the Engraving option form.
 
-![Engraving option form](https://github.com/alyssanewhart/ESOF423/blob/main/engraving-option-form.png)
+![Engraving option form](https://github.com/423s22/G6/blob/main/screenshots/engraving-option-form.png)
 *Engraving option form. Here is where we select line number, add a description of the option, and add any additional price associated with the option.*
 
 7. On the *Engraving* form, we can select the number of lines we would like. We can also add a custom description of the option, as well as any additional cost/price associated with the option. For the purpose of this tutorial, we will use the default options of 1 line of engraving and a price of 0. We will also refrain from adding a custom description.
