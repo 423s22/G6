@@ -5,11 +5,9 @@ const ProductContext = createContext();
 
 export function ProductWrapper({ children }) {
 
-    const initialInfo = {
-      id: -1,
-      options: [],
+    const initialInfo = null;
 
-    }
+    
     const [productInfo, setProductInfo] = useState(initialInfo);
     const product = useMemo(() => ({ productInfo, setProductInfo}), [productInfo]);
 

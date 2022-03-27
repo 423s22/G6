@@ -1,22 +1,19 @@
-import {React, useState} from "react";
-import {Card, ResourceList, Thumbnail, Stack, ResourceItem, TextStyle, CalloutCard}  from '@shopify/polaris';
-import styles from './css/ProductCard.module.css';
-import { Router } from "next/router";
-import { useAppContext } from '../context/ProductContext';
+import {React} from "react";
+import {ResourceList, Thumbnail, ResourceItem, TextStyle}  from '@shopify/polaris';
+import { useProductContext } from '../context/ProductContext';
 
-function ProductCard({product}) {
+function ProductCard() {
 
-  /*  console.log(product)
-    console.log(product.selection[0].images[0])
-  */
+    const {productInfo, setProductInfo} = useProductContext();
+    console.log(productInfo)
     
   return (   
     <ResourceList
       resourceName={{singular: 'product', plural: 'products'}}
       items={[
         {
-          id: product.id,
-          name: product.selection[0].title,
+          id: productInfo.id,
+          name: productInfo.handle,
         }
       ]}
       renderItem={(item) => {
@@ -24,12 +21,12 @@ function ProductCard({product}) {
         const media = (
             <Thumbnail
                 source={
-                    product.selection[0].images[0]
-                    ? product.selection[0].images[0].originalSrc
+                    productInfo.images[0]
+                    ? productInfo.images[0].originalSrc
                     : ''
                     }
                 alt={
-                    product.selection[0].images[0].altText
+                  productInfo.images[0].altText
                       }
                    /> 
         );
