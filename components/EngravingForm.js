@@ -1,13 +1,11 @@
 import {React, useState, useCallback} from 'react';
-import {Select, Form, FormLayout, Checkbox, TextField, Button, Card} from '@shopify/polaris';
+import {Select, Form, FormLayout, TextField, Button, Card} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 import styles from './css/EngravingForm.module.css';
 import {
     MobileCancelMajor
   } from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
-
-
 
 function EngravingForm() {
 
@@ -23,7 +21,7 @@ function EngravingForm() {
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
   const handleSubmit = useCallback((_event) => {
-    // to be implemented
+    console.log(_event);
   }, []);
 
    const numbers = [
