@@ -37,7 +37,6 @@ On the *Options* app homepage you will find buttons that navigate to the various
 ![Homepage of Options app](https://github.com/423s22/G6/blob/main/screenshots/homepage.png)
 *Options Homepage*
 
-**Note**: the **Product Options** and **FAQ page** buttons are currently non-function so you will have to use the naviagtion tabs as shown in the screenshot below. 
 
 ## Add Engraving Option Tutorial (partially functional)
 
@@ -88,4 +87,5 @@ The following is meant to be a tutorial of how to add a custom engraving option 
       <li> Expected and actual result </li>
       <li> A screenshot of your error </li> </ul>
       <li> Submit the form to us! </li> 
+  #### [Click here to see known bugs](https://github.com/423s22/G6/issues) 
 <h3> For more information on how to interact with our app regarding Shopify interaction follow this <a href="https://help.shopify.com/en/manual/apps/working-with-apps">link</a>. </h3>

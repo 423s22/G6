@@ -13,7 +13,6 @@ class CustomOptions extends React.Component {
   render() {
     return (
       <SelectOptions />
-
     );
   }
 }
