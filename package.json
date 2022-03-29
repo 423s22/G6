@@ -32,14 +32,12 @@
     "express": "^4.17.3",
     "isomorphic-fetch": "^3.0.0",
     "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
     "koa-router": "^10.1.1",
     "koa-session": "^6.2.0",
     "next": "^12.0.10",
     "path": "^0.12.7",
     "react": "^17.0.2",
     "split": "^1.0.1"
-  },
-  "devDependencies": {
-    "koa-body": "^4.2.0"
   }
 }
