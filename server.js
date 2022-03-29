@@ -6,6 +6,7 @@ const {default: createShopifyAuth} = require('@shopify/koa-shopify-auth');
 const {verifyRequest} = require('@shopify/koa-shopify-auth');
 const {default: Shopify, ApiVersion} = require('@shopify/shopify-api');
 const Router = require('koa-router');
+const koaBody = require('koa-body');
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -14,6 +15,7 @@ const app = next({
   dev,
 });
 const handle = app.getRequestHandler();
+
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -32,6 +34,7 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
   const server = new Koa();
+  server.use(koaBody());
   const router = new Router();
   server.keys = [Shopify.Context.API_SECRET_KEY];
   server.use(
@@ -97,6 +100,12 @@ app.prepare().then(async () => {
     } else {
       await handleRequest(ctx);
     }
+  });
+
+  // route to recieve submit data from option forms
+  router.post("/api/add-options", async (ctx) => {    
+    console.log(ctx.request.body);
+    ctx.status = 200;
   });
 
   server.use(router.allowedMethods());

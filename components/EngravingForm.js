@@ -6,23 +6,49 @@ import {
     MobileCancelMajor
   } from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
+import app from '@shopify/app-bridge-react';
+import { getSessionToken } from '@shopify/app-bridge-utils';
+import authFetch from '../utils/AuthFetch';
+import SuccessToast from './SuccessToast';
+
 
 function EngravingForm() {
 
   // get product info from context
   const {productInfo, setProductInfo} = useProductContext();
-  console.log(productInfo)
+  
 
   const [selectedNumber, setSelectedNumber] = useState('1');
   const [description, setDescription] = useState('description');
   const [price, setPrice] = useState('0');
   const [exitForm, setExitForm] = useState(false);
-  const handleDescriptionChange = useCallback((value) => setDescription(value), []);
+  const [submitted, setSubmitted] = useState(false);
+  const handleDescriptionChange = useCallback((value) => {setDescription(value)}, []);
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
+  // post form data to the backend
+  async function updateDB(engravingInfo) {
+    const response = await authFetch("/api/add-options", {
+        method: "POST",
+       headers: {
+          Accept: "application/json"
+        },  
+        body: JSON.stringify(engravingInfo),
+      }).then((res) => {console.log(res.status)
+        if (res.status == 200) {
+            setSubmitted(true);          
+        }});
+  }
+
   const handleSubmit = useCallback((_event) => {
-    console.log(_event);
-  }, []);
+     const engravingInfo = {
+         optionType: 'engraving',
+         lines: selectedNumber,
+         description: description,
+         price: price,
+     }
+     updateDB(engravingInfo)
+     }, []); 
 
    const numbers = [
     {label: '1', value: '1'},
@@ -32,6 +58,16 @@ function EngravingForm() {
     {label: '5', value: '5'},
     ];
     
+    if (submitted) {
+        // navigate back to add options form and display success toast
+        return (
+            <div>
+            <AddOptions />   
+            <SuccessToast />
+            </div>
+        )
+    }
+
     if (exitForm) {
         return (
             <AddOptions />
@@ -39,7 +75,6 @@ function EngravingForm() {
     }
 
     else {
-        console.log(selectedNumber)
     return (
         <div className={styles.EditOptionCard}>
             <Card

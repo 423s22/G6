@@ -35,6 +35,10 @@ function userLoggedInFetch(app) {
 function MyProvider(props) {
   const app = useAppBridge();
 
+    if (typeof window !== "undefined") {
+      window.app = app; // save instance of app in window variable for use with auth fetch
+    }
+
   const client = new ApolloClient({
     fetch: userLoggedInFetch(app),
     fetchOptions: {
