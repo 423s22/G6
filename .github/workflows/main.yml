@@ -45,6 +45,8 @@ jobs:
         run: npm install --save @shopify/polaris
       - name: Install dependencies 16
         run: npm install --save @koa/router
+      - name: Install dependencies 17
+        run: npm install --save koa-body
       - name: Patch Heroku
         run: heroku build:cancel
       - name: install Heroku
