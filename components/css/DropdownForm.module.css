@@ -16,3 +16,17 @@
 .ApplyOptionsBtn {
     padding-top: 10px;
 }
+
+
+.selectDiv {
+    width: 260px;
+    height: 200px;
+    
+    
+}
+
+.EditPriceCard {
+    width: 900px;
+    padding: 20px;
+    height: 400px;
+}

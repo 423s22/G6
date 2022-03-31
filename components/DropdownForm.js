@@ -1,4 +1,4 @@
-import {Select, Form, FormLayout, TextField, Button, Card} from '@shopify/polaris';
+import {Select, Form, FormLayout, TextField, Button, Card, Title} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 import styles from './css/DropdownForm.module.css';
 import {
@@ -14,6 +14,7 @@ function DropdownForm() {
   const [optionInputValue, setOptionInputValue] = useState('')
   const [optionValue, setOptionValue] = useState('')
   const [optionsApplied, setOptionsApplied] = useState(false);
+  const [selectValue, setSelectValue] = useState('');
 
   const options = [{label: "S", value: "S" },
   {label: "M", value: "M" },
@@ -58,10 +59,14 @@ function DropdownForm() {
   const [menuTitle, setMenuTitle] = useState('');
   const handleTitleChange = useCallback((value) => setMenuTitle(value), []);
   
+  const handleSelectChange = useCallback((value) => setSelectValue(value), []);
+
   const handleSubmit = () =>
   {
     console.log(optionValue);
     setOptionsApplied(true);
+    setSelectValue(optionValue[0])
+    
    
   }
  
@@ -119,16 +124,28 @@ function DropdownForm() {
   }
 
   if (optionsApplied) {
+
     console.log(typeof optionInputValue)
     return (
+
+      <div className={styles.EditPriceCard}>
+      <Card
+          sectioned={true}
+      >
       <Card.Section>
+      
+        <div className={styles.selectDiv}>
 <Select
-      label="Date range"
-      options={optionInputValue}
-      value={optionValue}
+      label="Applied Options"
+      options={optionValue}
+      value={selectValue}
+      onChange={handleSelectChange}
     />
+    </div>
 
 </Card.Section>
+</Card>
+</div>
     )
   }
 }
