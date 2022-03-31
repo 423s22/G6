@@ -3,7 +3,7 @@ import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import ProductCard from '../components/ProductCard';
 import AddOptions from '../components/AddOptions';
-import styles from '../css/add-options.module.css';
+import styles from './css/SelectOptions.module.css';
 import { useProductContext } from '../context/ProductContext';
 
 function SelectOptions() {

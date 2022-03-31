@@ -1,0 +1,18 @@
+.input {
+    width: 300px;
+}
+
+.EditOptionCard {
+    width: 900px;
+    padding: 20px;
+    height: 400px;
+   /* overflow: scroll; */
+}
+
+.MenuTitle {
+    width: 180px;
+}
+
+.ApplyOptionsBtn {
+    padding-top: 10px;
+}
