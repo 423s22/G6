@@ -1,29 +1,33 @@
-import {Select, Form, FormLayout, TextField, Button, Card, Title} from '@shopify/polaris';
+import {Select, TextField, Button, Card, Icon} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 import styles from './css/DropdownForm.module.css';
-import {
-    MobileCancelMajor
-  } from '@shopify/polaris-icons';
+import { MobileCancelMajor, MobileBackArrowMajor} from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
-//const filter = createFilterOptions();
 import React, { useState, useCallback } from 'react';
 import Creatable from 'react-select/creatable';
+import authFetch from '../utils/AuthFetch';
+import SuccessToast from './SuccessToast';
 
 function DropdownForm() {
 
   const [optionInputValue, setOptionInputValue] = useState('')
-  const [optionValue, setOptionValue] = useState('')
-  const [optionsApplied, setOptionsApplied] = useState(false);
-  const [selectValue, setSelectValue] = useState('');
+  const [optionValues, setOptionValues] = useState('')              // user entered option values 
+  const [optionsApplied, setOptionsApplied] = useState(false);    
+  const [selectValue, setSelectValue] = useState('');             
+  const [exitForm, setExitForm] = useState(false);
+  const [price, setPrice] = useState('0');
+  const [menuTitle, setMenuTitle] = useState('');                 // dropdown menu title
+  const [submitted, setSubmitted] = useState(false);
 
-  const options = [{label: "S", value: "S" },
-  {label: "M", value: "M" },
-  {label: "XL", value: "XL" }]
+  // get product info from context
+  const {productInfo, setProductInfo} = useProductContext();
 
-  const handleChange = (field, value) => {
+  const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price dynamically 
+
+  const handleChange = (field, value) => {      // used to clear user inputed options
     switch (field) {
       case 'options':
-        setOptionValue(value)
+        setOptionValues(value)
         break
 
       default:
@@ -31,12 +35,12 @@ function DropdownForm() {
     }
   }
 
-  const handleKeyDown = event => {
+  const handleKeyDown = event => {        
   if (!optionInputValue) return
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        setOptionValue([...optionValue, createOption(optionInputValue)])
+        setOptionValues([...optionValues, createOption(optionInputValue)])
         setOptionInputValue('')
         event.preventDefault()
         break
@@ -56,264 +60,190 @@ function DropdownForm() {
     setOptionInputValue(value)
   }
 
-  const [menuTitle, setMenuTitle] = useState('');
-  const handleTitleChange = useCallback((value) => setMenuTitle(value), []);
   
-  const handleSelectChange = useCallback((value) => setSelectValue(value), []);
+  const handleTitleChange = useCallback((value) => setMenuTitle(value), []);
+  const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);
 
-  const handleSubmit = () =>
+  // applies options
+  const handleApplyOptions = () =>
   {
-    console.log(optionValue);
+    if (menuTitle == '' || optionValues == '') {     // if user hasn't entered a title or any option values, return
+      return;
+    }
     setOptionsApplied(true);
-    setSelectValue(optionValue[0])
-    
-   
+    setSelectValue(optionValues[0])
+  }
+
+  const handleBackBtn = () => {
+    setOptionsApplied(false);
+    console.log(optionsApplied)
+  }
+  const handleApplyPrice = () => {
+    for (const option in optionValues) {
+      if (optionValues[option].label == selectValue) {
+        optionValues[option].value = price;
+      }
+    }
+      
+    }
+
+  // post form data to the backend
+  async function updateDB(dropdownInfo) {
+    const response = await authFetch("/api/add-options", {
+        method: "POST",
+       headers: {
+          Accept: "application/json"
+        },  
+        body: JSON.stringify(dropdownInfo),
+      }).then((res) => {console.log(res.status)
+        if (res.status == 200) {
+            setSubmitted(true);          
+        }});
+  }
+
+  const handleSubmit = () => {
+     const dropdownInfo = {
+         productID: productInfo.id,
+         optionType: 'dropdown',
+         menuTitle: menuTitle,
+         options: optionValues,
+     }
+     updateDB(dropdownInfo)
+    }; 
+
+  // is user clicked exit button
+  if (exitForm) {
+    return (
+        <AddOptions />
+    )
   }
  
+  // if user hasn't applied options
   if (!optionsApplied) {
   return (
     <div className={styles.EditOptionCard}>
-            <Card
-                sectioned={true}
-            >
-<Form onSubmit={handleSubmit}>
-<h2><b>Dropdown Menu</b></h2>
-<Card.Section>
-  <div className={styles.MenuTitle}>
-  <TextField 
-  value={menuTitle}
-  onChange={handleTitleChange}
-  label="Title"
-  type="text"
-  requiredIndicator
-  readOnly={false}
-  helpText={
-      <span>
-          Please enter a menu title.
-      </span>
-  }
-  />
-  </div>
-</Card.Section>
-<Card.Section>
-<div className={styles.input}>
-<label>Options(s)</label>
-<Creatable
-  isClearable
-  isMulti
-  components={
-    { DropdownIndicator: null }
-  }
-  inputValue={optionInputValue}
-  menuIsOpen={false}
-  onChange={(value) => handleChange('options', value)}
-  placeholder='Type option and press enter...'
-  onKeyDown={handleKeyDown}
-  onInputChange={handleInputChange}
-  value={optionValue}
-/>
-</div>
-<div className={styles.ApplyOptionsBtn}>
-<Button submit>Apply Options</Button>
-</div>
-</Card.Section>
-</Form>
-</Card>
-</div>
-);
-  }
+        <Card
+          sectioned={true}
+        >
+          <h2><b>Dropdown Menu</b></h2>
+
+            <Card.Section>
+              <div className={styles.MenuTitle}>
+                <TextField 
+                value={menuTitle}
+                onChange={handleTitleChange}
+                label="Title"
+                type="text"
+                requiredIndicator
+                readOnly={false}
+                helpText={
+                 <span>
+                    Please enter a menu title.
+                </span>
+                }
+                />
+              </div>
+            </Card.Section>
+                
+            <Card.Section>
+              <div className={styles.input}>
+                <label>Options(s)</label>
+                  <Creatable
+                    isClearable
+                    isMulti
+                    components={
+                      { DropdownIndicator: null }
+                    }
+                    inputValue={optionInputValue}
+                    menuIsOpen={false}
+                    onChange={(value) => handleChange('options', value)}
+                    placeholder='Type option and press enter...'
+                    onKeyDown={handleKeyDown}
+                    onInputChange={handleInputChange}
+                    value={optionValues}
+                  />
+              </div>
+              <div className={styles.ApplyOptionsBtn}>
+                <Button onClick={handleApplyOptions}>Apply Options</Button>
+              </div>
+            </Card.Section>
+          </Card>
+      </div>
+      );
+   }
 
   if (optionsApplied) {
+    if (submitted) {
+      // navigate back to add options form and display success toast
+      return (
+        <div>
+          <AddOptions />   
+          <SuccessToast />
+        </div>
+      )
+  }
 
-    console.log(typeof optionInputValue)
+  else {
     return (
-
       <div className={styles.EditPriceCard}>
-      <Card
+        <Card
           sectioned={true}
-      >
-      <Card.Section>
-      
-        <div className={styles.selectDiv}>
-<Select
-      label="Applied Options"
-      options={optionValue}
-      value={selectValue}
-      onChange={handleSelectChange}
-    />
-    </div>
+        >
+        <h2><b>Dropdown Menu</b></h2>
 
-</Card.Section>
-</Card>
-</div>
-    )
+          <div className={styles.ExitButton}>
+                            <Button icon={MobileCancelMajor}
+                            onClick = {() => setExitForm(true)} />
+          </div> 
+          <Card.Section>
+            <div className={styles.parentDiv}>
+              <div className={styles.selectDiv}>
+                <Select
+                  label={menuTitle}
+                  options={optionValues}
+                  value={selectValue}
+                  onChange={handleSelectChange}
+                  helpText={
+                    "Select an option"
+                  }
+                />
+               </div>
+               <div className={styles.priceDiv}>
+                <TextField               
+                  value={price}
+                  label="Price"
+                  type="number"
+                  helpText={
+                           "Please enter any additional cost associated with this option"
+                           }
+                  min={0}   
+                  onChange={handlePriceChange}
+                />
+              </div>
+                <div className={styles.ApplyPriceBtn}>
+                  <Button
+                    onClick={handleApplyPrice}>Apply Price</Button>
+              </div>
+            </div>
+              <div className={styles.backBtn}>
+                <Button onClick={handleBackBtn}>
+                <Icon
+                  source={MobileBackArrowMajor}
+                  color="base"
+                  onCl 
+                  />
+                </Button>
+              </div>
+              <div className={styles.submitButton}>
+                <Button onClick={handleSubmit}>Submit</Button>
+              </div>
+          </Card.Section>
+        </Card>
+      </div>
+      )
+    }
   }
 }
 
 export default DropdownForm;
-
-
-
-
-   ////  const options = ['One', 'Two', 'Three', 'Four'];
-
-  // get product info from context
- /* const {productInfo, setProductInfo} = useProductContext();
-  console.log(productInfo)
-
-  const [selectedNumber, setSelectedNumber] = useState('1');
-  const [description, setDescription] = useState('description');
-  const [price, setPrice] = useState('0');
-  const [exitForm, setExitForm] = useState(false); */
- 
- // const handleDescriptionChange = useCallback((value) => setDescription(value), []);
-//  const handlePriceChange = useCallback((value) => setPrice(value), []);
-
-  // const [item, setItem] = useState('menu item');
-
-
-   // const [selected, setSelected] = useState('today');
-  
-   /* const handleSelectChange = useCallback((value) => setSelected(value), []);
-    const addItem = () => {
-        items.push({label: item, value: item})
-        console.log(items)
-    }
-      /*  function selectedItems() {
-        <Select
-    label="Items"
-    options={items}
-    onChange={handleSelectChange}
-    value={selected}
-  />} */
-
-    
-   /* const items = [
-      
-    ]; */
-  
-    
-  
- 
-  
-
-
- /* const handleItemChange = useCallback((value) => setItem(value), []);
-  const handleSubmit = useCallback((_event) => {
-    console.log(_event);
-  }, []); */
-
-  
-    
-   /* if (exitForm) {
-        return (
-            <AddOptions />
-        )
-    } */
-
-  /*  else {
-        console.log(selectedNumber) */
-
- /*   <div style={{ marginLeft: '40%', marginTop: '60px' }}>
-      <h3>Greetings from GeeksforGeeks!</h3>
-      <Autocomplete
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
-          // Suggest the creation of a new value
-          if (params.inputValue !== '') {
-            filtered.push(`Add "${params.inputValue}"`);
-          }
-          return filtered;
-        }}
-        selectOnFocus
-        clearOnBlur
-        handleHomeEndKeys
-        options={options}
-        renderOption={(option) => option}
-        style={{ width: 300 }}
-        freeSolo
-        renderInput={(params) => (
-          <TextField {...params} label="Enter Something"
-            variant="outlined" />
-        )}
-      />
-    </div> */
- 
-  
-
-      //  </div>
-        /* <div >
-           <Card
-                sectioned={true}
-            >
-                <Form onSubmit={handleSubmit}>
-                    <h2><b>Dropdown Menu</b></h2>
-                <div className={styles.ExitButton}>
-                            <Button icon={MobileCancelMajor}
-                            onClick = {() => setExitForm(true)} />
-                    </div> 
-                    <FormLayout>
-                         <Card.Section>  
-                            <div className={styles.numLinesDiv}>
-                                    <TextField
-                                    value = {item}
-                                    onChange={handleItemChange}
-                                    label="menuItem"
-                                    type="text"
-                                    readOnly={false}
-                                    helpText={
-                                        <span>
-                                            Please enter a menu item
-                                        </span>
-                                    }
-                                    >
-
-                                    </TextField>
-                          
-                                    <Button onClick={addItem}>Add Item</Button>
-
-                                    <selectedItems />
-                            </div> */
-                            
-                   /*       </Card.Section>   
-                  <Card.Section>
-                            <div className={styles.descDiv}>
-                                <TextField
-                                    value={description}
-                                    onChange={handleDescriptionChange}
-                                    label="Engraving"
-                                    type="text"
-                                    readOnly={false}
-                                    helpText={
-                                        <span>
-                                            Please enter a description of your engraving option. 
-                                        </span>
-                                    }
-                                />
-                            </div>
-                        </Card.Section>
-                        <Card.Section>
-                            <div className={styles.priceDiv}>
-                                 <TextField
-                                    value={price}
-                                    onChange={handlePriceChange}
-                                    label="Price"
-                                    type="number"
-                                    helpText={
-                                            "Please enter any additional cost associated with this option"
-                                        }
-                                    min={0}   
-                                />
-                            </div>
-                            <div className={styles.submitButton}>
-                                <Button submit>Submit</Button>
-                            </div>
-                                    </Card.Section> */
-                ///    </FormLayout>
-             //   </Form>
-           // </Card>
-       // </div>
-      //  )
-        
-  //  )}
-                                    
+   
