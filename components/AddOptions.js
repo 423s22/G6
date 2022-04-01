@@ -84,11 +84,6 @@ function AddOptions() {
     // temporary usage of a toast component to alert the user that the radio button option is not available
     if (selected == "dropdown" && addOption) {
           return (
-          /*  <Frame>
-              <div style={{height: '250px'}}>
-                  {toastMarkup}
-              </div>
-            </Frame> */
             <DropdownForm />
           );
 
