@@ -2,6 +2,7 @@ import {React, useState, useCallback} from 'react';
 import {Select, Form, FormLayout, Checkbox, TextField, Button, Card, Toast, Frame} from '@shopify/polaris';
 import styles from './css/AddOptions.module.css'
 import EngravingForm from './EngravingForm';
+import DropdownForm from './DropdownForm';
 
 function AddOptions() {
         const [selected, setSelected] = useState('engraving');
@@ -18,7 +19,7 @@ function AddOptions() {
         // option types
         const options = [
           {label: 'Engraving', value: 'engraving'},
-          {label: 'Radio Button', value: 'radiobutton'},
+          {label: 'Dropdown Menu', value: 'dropdown'},
         ];
 
         // temporary usage of a toast component to alert the user that the radio button option is not available
@@ -81,13 +82,14 @@ function AddOptions() {
     }
 
     // temporary usage of a toast component to alert the user that the radio button option is not available
-    if (selected == "radiobutton" && addOption) {
+    if (selected == "dropdown" && addOption) {
           return (
-            <Frame>
+          /*  <Frame>
               <div style={{height: '250px'}}>
                   {toastMarkup}
               </div>
-            </Frame>
+            </Frame> */
+            <DropdownForm />
           );
 
         }
