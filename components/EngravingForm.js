@@ -42,6 +42,7 @@ function EngravingForm() {
 
   const handleSubmit = useCallback((_event) => {
      const engravingInfo = {
+         productID: productInfo.id,
          optionType: 'engraving',
          lines: selectedNumber,
          description: description,
