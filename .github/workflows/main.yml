@@ -53,6 +53,8 @@ jobs:
         run: npm install --save mysql
       - name: Install MySql await
         run: npm install --save mysql-await
+      - name: Install Apollo
+        run: npm install @apollo/client
       - name: Patch Heroku
         run: heroku build:cancel
       - name: install Heroku
