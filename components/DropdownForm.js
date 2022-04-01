@@ -126,7 +126,12 @@ function DropdownForm() {
           sectioned={true}
         >
           <h2><b>Dropdown Menu</b></h2>
-
+            <div className={styles.ExitButton}>
+               <Button 
+                  icon={MobileCancelMajor}
+                  onClick = {() => setExitForm(true)} 
+               />
+            </div> 
             <Card.Section>
               <div className={styles.MenuTitle}>
                 <TextField 
