@@ -47,6 +47,8 @@ jobs:
         run: npm install --save @koa/router
       - name: Install dependencies 17
         run: npm install --save koa-body
+      - name: Install dependencies 18
+        run: npm install --save react-select
       - name: Install MySql
         run: npm install --save mysql
       - name: Install MySql await
