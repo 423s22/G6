@@ -7,180 +7,175 @@ const json = '{"productId": '+1+
 ' "columnNames": ["productId", "productName", "baseCost", "apples", "bananas", "lemons"], "values": ['+
 1+', "Dog Collar", 1, ' + Math.random().toFixed(4) + ' ,'+ Math.random().toFixed(4)+', '+Math.random().toFixed(4)+']}';
 
+var isConnected = false;
+var con = null;
 
-class DBConnection{
-    constructor(host, username, password, database) {
-        this._connection = mysql.createConnection({
-            host: host,
-            user: username,
-            password: password,
-            database: database,
-        });
+
+async function _checkConnect(host, username, password, database) {
+    con = mysql.createPool({
+        host: host,
+        user: username,
+        password: password,
+    });
+    await con.awaitQuery("CREATE DATABASE IF NOT EXISTS " + database + ";");
+    
+}
+async function connect(host, username, password, database) {
+    if (isConnected) return true;
+    else {
+        isConnected = true;
+        await _checkConnect(host, username, password, database);
+        return isConnected;
     }
+}
 
-    async connect() {
-        if (this._isConnected) return true;
-        let err = await this._connection.awaitConnect();
+async function disconnect(host, username, password, database) {
+    await _checkConnect(host, username, password, database).awaitEnd();
+    isConnected = false;
+}
 
-        if (err) {
-            this._lastError = err;
-            this._isConnected = false;
-        } else {
-            this._lastError = null;
-            this._isConnected = true;
-        }
-        return this._isConnected;
+
+async function handleGetRequest(ctx) {
+    ctx.respond = false;
+    const requestedData = ctx.query.request;
+    let results;
+    switch (requestedData) {
+        case "product":
+            results = await getUserProducts(parseInt(ctx.query.userID));
+            break;
     }
+    ctx.res.write(`${results}`);
+    ctx.res.end();
+    ctx.res.statusCode = 200;
+}
 
-    async disconnect() {
-        await this._connection.awaitEnd();
-        this._isConnected = false;
-    }
-    async handleGetRequest(ctx) {
-        ctx.respond = false;
-        const requestedData = ctx.query.request;
-        let results;
-        switch (requestedData) {
-            case "product":
-                results = await this.getUserProducts(parseInt(ctx.query.userID));
+async function getUserProducts(data) {
+    let results = await con.awaitQuery(
+        `SELECT * FROM  ` + data.tableName + ` WHERE userId = ` + data.userId + `;`
+    );
+    return JSON.stringify(results);
+}
+
+async function handlePostRequest(ctx) {
+    const post = ctx.request.body;
+    const data = JSON.parse(ctx.request.body);
+    await _createTable(JSON.parse(ctx.request.body));
+
+    const requestedOperation = post["operation"];
+    let results;
+    switch (requestedOperation) {
+        case "product":
+            {
+                results = await _createProduct(data);
                 break;
-        }
-        ctx.res.write(`${results}`);
-        ctx.res.end();
-        ctx.res.statusCode = 200;
-    }
-
-    async getUserProducts(data) {
-        let results = await this._connection.awaitQuery(
-            `SELECT * FROM  ` + data.tableName + ` WHERE userId = ` + data.userId + `;`
-        );
-        return JSON.stringify(results);
-    }
-
-    async handlePostRequest(ctx) {
-        const post = ctx.request.body;
-        const data = JSON.parse(ctx.request.body);
-        await this._createTable(JSON.parse(ctx.request.body));
-
-        const requestedOperation = post["operation"];
-        let results;
-        switch (requestedOperation) {
-            case "product":
-                {
-                    results = await this._postProduct(data);
-                    break;
-                }
-        }
-        ctx.respond = false;
-        ctx.res.statusCode = 200;
-        ctx.status = 200;
-        ctx.res.write(`${results}`);
-        ctx.res.end();
-    }
-
-
-    async _createProduct(data) {
-        if(isNaN(data.productId)) {
-            let a = await this._createHelp(data);
-            if(a) {
-                queryArr = _createBuilder(data.columnNames, data.values);
-                let result = await this._connection.awaitQuery(
-                    'INSERT INTO ' + data.tableName + '( '+ queryArr[0] + ' ) VALUES ( ' + queryArr[1] + ' );'
-                );
-                return JSON.stringify({ "insertId": result.insertId });
             }
-            else {
-                const data = JSON.parse(json);
-                var q = _updateBuilder(data.columnNames, data.values, data.id);
-                var queryStatement ="UPDATE " + data.tableName + " SET ";
-                queryStatement += _updateBuilder(data.columnsTitles, data.values);
-                queryStatement += " WHERE ProductId = "+ data.id +";";
-                let result = await this._connection.awaitQuery(queryStatement) 
-                return JSON.stringify({ "message": "Updated" });
-            }
-        } else {
-            console.log("this is not being inserted" + data.productId);
-        }
     }
-    async _createHelp(data) {
-        if(isNaN(data.productId)) {
+    ctx.respond = false;
+    ctx.res.statusCode = 200;
+    ctx.status = 200;
+    ctx.res.write(`${results}`);
+    ctx.res.end();
+}
+
+async function _createProduct(data) {
+    if(isNaN(data.productId)) {
+        let a = await _createHelp(data);
+        if(a) {
             queryArr = _createBuilder(data.columnNames, data.values);
-            let result = await this._connection.awaitQuery(
-                'SElECT * FROM ' + data.tableName + ' WHERE productId = ' + data.productId + ';'
+            let result = await con.awaitQuery(
+                'INSERT INTO ' + data.tableName + '( '+ queryArr[0] + ' ) VALUES ( ' + queryArr[1] + ' );'
             );
-            return true; //JSON.stringify({ "message": 'There is a Product'});
-        } else {
-            console.log("this is not being inserted" + data.productId);
+            return JSON.stringify({ "insertId": result.insertId });
+        }
+        else {
+            const data = JSON.parse(json);
+            var q = _updateBuilder(data.columnNames, data.values, data.id);
+            var queryStatement ="UPDATE " + data.tableName + " SET ";
+            queryStatement += _updateBuilder(data.columnsTitles, data.values);
+            queryStatement += " WHERE ProductId = "+ data.id +";";
+            let result = await con.awaitQuery(queryStatement) 
+            return JSON.stringify({ "message": "Updated" });
+        }
+    } else {
+        console.log("this is not being inserted" + data.productId);
+    }
+}
+
+async function _createHelp(data) {
+    if(isNaN(data.productId)) {
+        queryArr = _createBuilder(data.columnNames, data.values);
+        let result = await con.awaitQuery(
+            'SElECT * FROM ' + data.tableName + ' WHERE productId = ' + data.productId + ';'
+        );
+        return true; //JSON.stringify({ "message": 'There is a Product'});
+    } else {
+        console.log("this is not being inserted" + data.productId);
+    }
+}
+
+
+async function _createTable(json) {
+    const data = JSON.parse(json);
+    var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.tableName + " (";
+    console.log("Create check");  
+    for(let i = 0; i < data.columnNames.length; i++) {
+        if( i == data.columnNames.length-1) {
+            queryStatement += data.columnNames[i] + " NUMERIC(10,4)";
+        }
+        else{
+            queryStatement += data.columnNames[i] + " NUMERIC(10,4), ";
         }
     }
+    queryStatement += ");";
+    ProductId = data.ProductId;
+    var query_var = [ProductId];
+    return con.awaitQuery(queryStatement);
     
-    async _createTable(json) {
-        const data = JSON.parse(json);
-        var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.tableName + " (";
-        console.log("Create check");  
-        for(let i = 0; i < data.columnNames.length; i++) {
-            if( i == data.columnNames.length-1) {
-                queryStatement += data.columnNames[i] + " NUMERIC(10,4)";
+}
+
+async function handleDeleteRequest(ctx) {
+    const requestedOperation = ctx.query.operation;
+    let results;
+    switch (requestedOperation) {
+        case "product":
+            {
+                const data = JSON.parse(ctx.request.body);
+                results = await _deleteProduct(data.productId);
+                break;
             }
-            else{
-                queryStatement += data.columnNames[i] + " NUMERIC(10,4), ";
+        case "table":
+            {
+                const data =  JSON.parse(ctx.request.body);
+                results = await _deleteTable(data.productId);
+                break;
             }
-        }
-        queryStatement += ");";
-        ProductId = data.ProductId;
-        var query_var = [ProductId];
-        return this._connection.awaitQuery(queryStatement);
-        
     }
+    ctx.respond = false;
+    ctx.res.statusCode = 200;
+    ctx.status = 200;
+    ctx.res.write(`${results}`);
+    ctx.res.end();
+}
 
-    async handleDeleteRequest(ctx) {
-        const requestedOperation = ctx.query.operation;
-        let results;
-        switch (requestedOperation) {
-            case "product":
-                {
-                    const data = JSON.parse(ctx.request.body);
-                    results = await this._deleteProduct(data.productId);
-                    break;
-                }
-            case "table":
-                {
-                    const data = JSON.parse(ctx.request.body);
-                    results = await this._deleteTable(data.productId);
-                    break;
-                }
-        }
-        ctx.respond = false;
-        ctx.res.statusCode = 200;
-        ctx.status = 200;
-        ctx.res.write(`${results}`);
-        ctx.res.end();
+async function _deleteProduct(data) {
+    if (isNaN(data.productId)) {
+        return JSON.stringify({ "message": "Invalid ID" });
+    } else {
+        let result = await con.awaitQuery(
+            "DELETE FROM  " + data.tableName + " WHERE ProductId = "+ data.productId +";"
+        );
+        return JSON.stringify({ "message": "Successfully deleted" });
     }
-
-    async _deleteProduct(data) {
-        if (isNaN(data.productId)) {
-            return JSON.stringify({ "message": "Invalid ID" });
-        } else {
-            let result = await this._connection.awaitQuery(
-                "DELETE FROM  " + data.tableName + " WHERE ProductId = "+ data.productId +";"
-            );
-            return JSON.stringify({ "message": "Successfully deleted" });
-        }
+}
+async function _deleteTable(data) {
+    if (isNaN(data.tableName)) {
+        let result = await con.awaitQuery(
+            "DROP TABLE  " + data.tableName+";"
+        );
+        return JSON.stringify({ "message": "Successfully deleted" });
+    } else {
+        return JSON.stringify({ "message": "Table Not Deleted" });
     }
-    async _deleteTable(data) {
-        if (isNaN(data.tableName)) {
-            let result = await this._connection.awaitQuery(
-                "DROP TABLE  " + data.tableName+";"
-            );
-            return JSON.stringify({ "message": "Successfully deleted" });
-        } else {
-            return JSON.stringify({ "message": "Table Not Deleted" });
-        }
-    }
-
-    
-
-
 }
 
 function _createBuilder(columnsTitles,values) {
@@ -224,5 +219,7 @@ function _updateBuilder(columnsTitles,values) {
     else {
         console.log("Columns and tableOptions are not equal");
     }
-    
 }
+
+module.exports = {connect, disconnect, handleGetRequest, handleDeleteRequest, handlePostRequest, _checkConnect, _updateBuilder, _createBuilder, _createHelp,
+_deleteProduct, _deleteTable, lastError, isConnected, con};
