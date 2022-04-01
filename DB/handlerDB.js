@@ -107,7 +107,7 @@ async function _createHelp(data) {
         let result = await con.awaitQuery(
             'SElECT * FROM ' + data.tableName + ' WHERE productId = ' + data.productId + ';'
         );
-        return true; //JSON.stringify({ "message": 'There is a Product'});
+        return true; 
     } else {
         console.log("this is not being inserted" + data.productId);
     }
@@ -222,4 +222,4 @@ function _updateBuilder(columnsTitles,values) {
 }
 
 module.exports = {connect, disconnect, handleGetRequest, handleDeleteRequest, handlePostRequest, _checkConnect, _updateBuilder, _createBuilder, _createHelp,
-_deleteProduct, _deleteTable, lastError, isConnected, con};
+_deleteProduct, _deleteTable, isConnected, con};
