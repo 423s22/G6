@@ -56,7 +56,7 @@ jobs:
       - name: Install Apollo
         run: npm install @apollo/client
       - name: Install graphql
-       run: npm install graphql
+        run: npm install graphql
       - name: Patch Heroku
         run: heroku build:cancel
       - name: install Heroku
