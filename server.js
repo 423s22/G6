@@ -94,7 +94,7 @@ app.prepare().then(async () => {
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
   
-  db.connect(process.env.CLEARDB_DATABASE_URL,process.env.MYSQL_USER, process.env.MYSQL_KEY,"user");
+  db.connect(process.env.MYSQL_HOST,process.env.MYSQL_USER, process.env.MYSQL_KEY,"user");
   
   
   router.get("(.*)", async (ctx) => {
