@@ -15,7 +15,7 @@ async function _checkConnect(host, username, password, database) {
     con = mysql.createPool({
         host: host,
         user: username,
-        password: password,
+        password: password
     });
     await con.awaitQuery("CREATE DATABASE IF NOT EXISTS " + database + ";");
     
