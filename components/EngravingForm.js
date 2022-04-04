@@ -40,7 +40,7 @@ function EngravingForm() {
         }});
   }
 
-  const handleSubmit = useCallback((_event) => {
+  const handleSubmit = () => {
      const engravingInfo = {
          productID: productInfo.id,
          optionType: 'engraving',
@@ -49,7 +49,7 @@ function EngravingForm() {
          price: price,
      }
      updateDB(engravingInfo)
-     }, []); 
+     }; 
 
    const numbers = [
     {label: '1', value: '1'},
