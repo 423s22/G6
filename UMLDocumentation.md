@@ -1,4 +1,4 @@
-<h1> UML Documentation of Shopify App </h1>
+<h1> UML Documentation of Shopify App and Design Decisions made </h1>
 
 <h2> Class Diagram </h2>
 
