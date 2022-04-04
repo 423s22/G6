@@ -52,6 +52,6 @@ Shopify app that will allow merchants to add additional options and customizatio
 #### UML documentation 
 * Link to UML documentation https://github.com/423s22/G6/blob/main/UMLDocumentation.md
 
-### Software Architecture and Design
-* Link to Software Architecture https://docs.google.com/document/d/1ijhEmUPNIz0jUhGBtdAFtvbeTfbJwBbrt3WQhEURxMo/edit?usp=sharing
+### Portfolio 
+* Link to GitHub version of Portfolio https://github.com/423s22/G6/blob/main/Portfolio.md
 
