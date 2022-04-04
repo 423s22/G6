@@ -259,5 +259,5 @@ async function _deleteTable(data) {
 }
 
 
-module.exports = {connect, disconnect, handleGetRequest, handleDeleteRequest, handlePostRequest, _checkConnect, _updateBuilder, _createBuilder, _createHelp,
-_deleteProduct, _deleteTable, isConnected, con};
+module.exports = {connect, disconnect, _checkConnect, getUserProducts, handleGetRequest, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
+_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _createTableHelp,_updateBuilderDrop, _updateBuilderEngrave, _deleteProduct, _deleteTable, isConnected, con};
