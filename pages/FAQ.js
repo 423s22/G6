@@ -13,14 +13,14 @@ class FAQ extends React.Component{
             <div className='main'>
                 <h1>React Search</h1>
                 <div classname="search">
-                    
+                    <TextField
                         id="outlined-basic"
                         variant="outlined"
                         fullWidth
                         label="Search"
-                     
+                     />
                 </div>
-                <List />
+
             </div>
         );
     }
