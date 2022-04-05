@@ -71,7 +71,7 @@ function DropdownForm() {
       return;
     }
     setOptionsApplied(true);
-    setSelectValue(optionValues[0])
+    setSelectValue(optionValues[0].value)
   }
 
   const handleBackBtn = () => {

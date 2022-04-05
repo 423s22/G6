@@ -7,6 +7,8 @@ const {verifyRequest} = require('@shopify/koa-shopify-auth');
 const {default: Shopify, ApiVersion} = require('@shopify/shopify-api');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
+const db = require('./DB/handlerDB');
+const mysql = require('mysql-await');
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -91,6 +93,10 @@ app.prepare().then(async () => {
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
+  
+  db.connect(process.env.MYSQL_HOST,process.env.MYSQL_USER, process.env.MYSQL_KEY,process.env.MYSQL_DB);
+  
+  
   router.get("(.*)", async (ctx) => {
     const shop = ctx.query.shop;
 
