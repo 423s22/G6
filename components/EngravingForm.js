@@ -23,7 +23,7 @@ function EngravingForm() {
   const [price, setPrice] = useState('0');
   const [exitForm, setExitForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const handleDescriptionChange = useCallback((value) => {setDescription(value)}, []);
+  const handleDescriptionChange = useCallback((value) => {setDescription(validateInput(value))}, []);
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
   // post form data to the backend
@@ -38,6 +38,10 @@ function EngravingForm() {
         if (res.status == 200) {
             setSubmitted(true);          
         }});
+  }
+
+  const validateInput = (value) => {
+    return value.replaceAll(/[&/\\#,+()$~%;^'":*?<>{}]/g, "");
   }
 
   const handleSubmit = () => {

@@ -40,7 +40,7 @@ function DropdownForm() {
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        setOptionValues([...optionValues, createOption(optionInputValue)])
+        setOptionValues([...optionValues, createOption(sanitizeInput(optionInputValue))])
         setOptionInputValue('')
         event.preventDefault()
         break
@@ -57,11 +57,14 @@ function DropdownForm() {
 
   const handleInputChange = (value) => 
   {
-    setOptionInputValue(value)
+    setOptionInputValue(sanitizeInput(value))
   }
 
+  const sanitizeInput = (value) => {
+    return value.replaceAll(/[&/\\#,+()$~%.^'":*?<>{}]/g, "");
+  }
   
-  const handleTitleChange = useCallback((value) => setMenuTitle(value), []);
+  const handleTitleChange = useCallback((value) => setMenuTitle(sanitizeInput(value)), []);
   const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);
 
   // applies options
@@ -78,6 +81,7 @@ function DropdownForm() {
     setOptionsApplied(false);
     console.log(optionsApplied)
   }
+
   const handleApplyPrice = () => {
     for (const option in optionValues) {
       if (optionValues[option].label == selectValue) {
