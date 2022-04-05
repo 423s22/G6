@@ -40,7 +40,7 @@ function DropdownForm() {
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        setOptionValues([...optionValues, createOption(sanitizeInput(optionInputValue))])
+        setOptionValues([...optionValues, createOption(optionInputValue)])
         setOptionInputValue('')
         event.preventDefault()
         break
@@ -57,14 +57,14 @@ function DropdownForm() {
 
   const handleInputChange = (value) => 
   {
-    setOptionInputValue(sanitizeInput(value))
+    setOptionInputValue(validateInput(value))
   }
 
-  const sanitizeInput = (value) => {
-    return value.replaceAll(/[&/\\#,+()$~%.^'":*?<>{}]/g, "");
+  const validateInput = (value) => {
+    return value.replaceAll(/[&/\\#,+()$~%.!;^'":*?<>{}]/g, "");
   }
   
-  const handleTitleChange = useCallback((value) => setMenuTitle(sanitizeInput(value)), []);
+  const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);
   const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);
 
   // applies options
