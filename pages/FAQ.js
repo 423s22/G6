@@ -1,26 +1,28 @@
-import React from 'react';
-import ReactDOM  from 'react-dom';
-import Data from "../components/json/ListData.json"
-import "../components/css/searchBar.module.css"; 
-import TextField from "@shopify/polaris";
-import List from "../pages/List"
-import { useState } from "react";
-
+import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
+import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
+import Router from 'next/router';
+import { TextField } from '@shopify/polaris';
+import { List } from '@shopify/polaris';
+import React, { useCallback, useState } from "react";
+import "react-dom";
+import Lists from "../pages/List";
+import "../components/css/searchBar.module.css";
 class FAQ extends React.Component{
-    
+
     render(){
+        
         return(
             <div className='main'>
-                <h1>React Search</h1>
-                <div classname="search">
-                   
+                <div className='search'>
+                    <TextField
+                        label='Search FAQ'
                         id="outlined-basic"
-                        variant="outlined"
+                        variant='outlined'
                         fullWidth
-                        label="Search"
-                     
+                        autoComplete="off"
+                        />
                 </div>
-
+                <Lists />
             </div>
         );
     }
