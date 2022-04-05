@@ -1,28 +1,57 @@
 import React from 'react';
-import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
-import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
-import Router from 'next/router';
-import { TextField } from '@shopify/polaris';
-import { List } from '@shopify/polaris';
-/*import style from "../css/searchBar.module.css"; isues with import */
-/*import SplitPane, {Divider, SplitPaneBottom, SplitPaneLeft, SplitPaneRight, SplitPaneTop,} from "./SplitPane"; */
-class FAQ extends React.Component{
+import ReactDOM  from 'react-dom';
+import Data from "../components/json/ListData.json"
+import "../components/css/searchBar.module.css"; 
+import TextField from "@shopify/polaris";
+import List from "../pages/List"
+import { useState } from "react";
 
+class FAQ extends React.Component{
+    
     render(){
         return(
-           <div className={"main"}>
-               <h1>Search FAQ</h1>
-               <div className='search'>
-                    <TextField
+            <div className='main'>
+                <h1>React Search</h1>
+                <div classname="search">
+                    
                         id="outlined-basic"
                         variant="outlined"
                         fullWidth
-                        />
-               </div> 
-               <List />   
-               </div>
+                        label="Search"
+                     
+                </div>
+                <List />
+            </div>
         );
     }
+    /*render(){
+    const [query, setQuery] = useState("")
+        return(
+            
+           <><div className="main">
+                <h1>Search FAQ</h1>
+                <div>
+                    <input placeholder='Enter Question' onChange={event => setQuery(event.target.value)}/>
+                    {
+                       Data.map((post, index) => {
+                            <div key={index}>
+                                <p>{post.question}</p>
+                                <p>{post.answer}</p>
+                            </div>
+                        })
+                    }
+                </div>
+            </div>
+            <div className='list'>
+                {Data.map((post) => (
+                    <div className='list' key={post.id}>
+                    <p>{post.question}</p>
+                    <p>{post.answer}</p>
+                </div>
+                ))}  
+                </div > </> 
+        );
+    }*/
 }
 
 export default FAQ;
