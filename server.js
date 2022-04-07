@@ -110,7 +110,7 @@ app.prepare().then(async () => {
   router.post("/api/add-options", async (ctx) => {    
     db.connect();
     await db.handlePostRequest(ctx);
-    db.disconnect();
+    db.disconnect(); 
     console.log(ctx.request.body);
     ctx.status = 200;
   });

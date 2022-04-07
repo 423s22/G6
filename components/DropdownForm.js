@@ -107,7 +107,7 @@ function DropdownForm() {
 
   const handleSubmit = () => {
      const dropdownInfo = {
-         productID: productInfo.id,
+         productId: productInfo.id,
          optionType: 'dropdown',
          menuTitle: menuTitle,
          options: optionValues,
