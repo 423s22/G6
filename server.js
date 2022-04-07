@@ -90,6 +90,16 @@ app.prepare().then(async () => {
       await Shopify.Utils.graphqlProxy(ctx.req, ctx.res);
     }
   );
+  
+  // route to retrieve options
+  router.get(`/api/show-options/:id`, async (ctx) => {  
+    console.log(ctx.params.id)
+    db.connect();
+    await db.handleGetRequest(ctx);
+    db.disconnect(); 
+    //console.log(ctx.response.body); */
+    ctx.status = 200;
+  });
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
