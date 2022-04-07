@@ -188,37 +188,33 @@ function _createTableHelp(data) {
 //Upate Requests
 function _updateHelp(data) {
     let queryTemp ="UPDATE " + data.optionType + " SET ";
-
     if( data.optionType == "dropdown") {
         queryTemp += _updateBuilderDrop(data);
     }
     else {
         queryTemp += _updateBuilderEngrave(data);
     }
-    
-    queryTemp += " WHERE ProductId = "+ data.productId +";";
+    queryTemp += " WHERE productId = "+ data.productId +";";
     return queryTemp;
 }
 
-function _updateBuilderDrop(options) {
-
+function _updateBuilderDrop(data) {
+    options = data.options
     let optionsLength = options.length;
     var queryTemp = "";
     for (let i = 0; i < optionsLength; i++) {
-        if( i == colLength-1) {
+        if( i == optionsLength-1) {
             queryTemp += options[i]["label"] + " = " + options[i]["value"];
         }
         else{
             queryTemp += options[i]["label"] + " = " + options[i]["value"] + ", ";
-        }
-            
+        }  
     }
     return queryTemp
     
 }
 
 function _updateBuilderEngrave(data) {
-    
     var queryTemp = "productId = " + data.productId + ", description = " + "'" + data.description + "'," + "lineNum = " + data.lines + ", price = " +  data.price;
     return queryTemp
 }
