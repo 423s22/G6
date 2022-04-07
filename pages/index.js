@@ -26,7 +26,7 @@ class Index extends React.Component {
           <EmptyState
           action={{
             content: "FAQ Page",
-            onAction: () => (Router.push('/FAQ')),
+            onAction: () => (Router.push('/FAQindex')),
           }}
         ></EmptyState>
           </Layout>

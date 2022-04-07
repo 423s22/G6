@@ -2,31 +2,63 @@ import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import Router from 'next/router';
 import { TextField } from '@shopify/polaris';
-import { List } from '@shopify/polaris';
 import React, { useCallback, useState } from "react";
-import "react-dom";
 import Lists from "../pages/List";
 import "../components/css/searchBar.module.css";
-class FAQ extends React.Component{
 
-    render(){
-        
+export default function FAQ(){
+    const [value, setValue] = useState('');
+
+    const handleChange = useCallback((newValue) => setValue(newValue), []);
+
+    return (
+       <TextField
+            label="Store name here"
+            value={value}
+            onChange={handleChange}
+            autoComplete="off"
+       />
+    );
+}
+
+/*function FAQBuild(){
+        const [inputText, setInputText] = useState("");
+        let inputHandler = (e) => {
+            //converting text to lowercase- eassier to filter
+            var lowerCase = e.target.value.toLowerCase();
+            setInputText(lowerCase);
+        }; 
         return(
-            <div className='main'>
-                <div className='search'>
+            <div className="main">
+                <h1>Search FAQ</h1>
+                <div className="search">
                     <TextField
-                        label='Search FAQ'
                         id="outlined-basic"
-                        variant='outlined'
+                        variant="outlined"
                         fullWidth
-                        autoComplete="off"
+                        onChange={inputHandler}
                         />
-                </div>
-                <Lists />
+                </div>            
+                <Lists input={inputText}/> 
             </div>
         );
     }
+
+class FAQ extends React.Component{
+    render() {
+        return (
+            <div>
+                <FAQBuild />
+            </div>
+        );
+    }
+}
+
+export default FAQ; */
     /*render(){
+
+       <List input={inputText} />
+
     const [query, setQuery] = useState("")
         return(
             
@@ -54,6 +86,3 @@ class FAQ extends React.Component{
                 </div > </> 
         );
     }*/
-}
-
-export default FAQ;

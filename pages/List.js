@@ -2,25 +2,26 @@ import { React, useState} from 'react'
 import Data from "../components/json/ListData.json"
 
 function List(props) {
+    //creating  an array by filterinf the orignal array
+    const filterData = data.filter((el) => {
+        //if no input return oringal
+        if (props.input == '') {
+            return el;
+        }
+        //returning the item containing the user input
+        else{
+            return el.text.toLowerCase().includes(props.input)
+        }
+    })
     return(
         <ul>
             {Data.map((item) => (
-                <li key={item.id}>{item.question}{item.answer}</li>
+                <div key={item.id}>
+                    <p> {item.question}</p>
+                    <p>{item.answer}</p>
+                </div>
             ))}
         </ul>
     )
-    /*{ Data.map((post) => (
-        <div  key={post.id}>
-            <p>{post.question}</p>
-            <p>{post.answer}</p>
-        </div>
-    )); }*/
-    /*return(
-        <ul>
-            {data.map((item) => (
-                <li key={item.id}>{item.text}</li>
-            ))}
-        </ul>
-    )*/
 }
 export default List
