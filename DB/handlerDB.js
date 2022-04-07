@@ -60,13 +60,13 @@ async function getUserProducts(data) {
 async function handlePostRequest(ctx) {
     //const post = ctx.request.body;
     const data = JSON.parse(ctx.request.body);
-    console.log(data)
-    console.log(data.productId)
+   // console.log(data)
+  //  console.log(data.productId)
     data.productId = data.productId.replace("gid://shopify/Product/", '');
-    console.log(typeof data.productId);
-    console.log(isNaN(data.productId))
-    console.log(data.productId)
-    console.log(typeof data.productId, typeof data.lines, typeof data.price, typeof data.description)
+  //  console.log(typeof data.productId);
+ //   console.log(isNaN(data.productId))
+  //  console.log(data.productId)
+ //   console.log(typeof data.productId, typeof data.lines, typeof data.price, typeof data.description)
     //console.log(data.optionType);
     await _createTable(data);
 
