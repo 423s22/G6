@@ -5,21 +5,35 @@ import { TextField } from '@shopify/polaris';
 import React, { useCallback, useState } from "react";
 import Lists from "../pages/List";
 import "../components/css/searchBar.module.css";
+import "../components/ListData.json";
+
 
 export default function FAQ(){
     const [value, setValue] = useState('');
-
+    /*let inputHandler = (e) => {
+        //conveter to lowercase
+        var lowerCase = e.target.value.toLowerCase();
+        setValue(lowerCase);
+    }; */
     const handleChange = useCallback((newValue) => setValue(newValue), []);
-
-    return (
-       <TextField
-            label="Store name here"
-            value={value}
-            onChange={handleChange}
-            autoComplete="off"
-       />
+    return(
+        <div className="main">
+            <h1>Search </h1>
+            <div className="search">
+                <TextField
+                    id="outlined-basic"
+                    //onChange={inputHandler}
+                    onChange={handleChange}
+                    variant="outlined"
+                    fullWidth
+                    label="Search"
+                    />
+            </div>
+            <Lists input={value} />
+        </div>
     );
 }
+
 
 /*function FAQBuild(){
         const [inputText, setInputText] = useState("");

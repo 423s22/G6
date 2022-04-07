@@ -1,25 +1,25 @@
 import { React, useState} from 'react'
-import Data from "../components/ListData.json"
+import data from "../components/ListData.json"
 
 function List(props) {
     //creating  an array by filterinf the orignal array
-    const filterData = data.filter((el) => {
+    const filteredData = data.filter((el) => {
         //if no input return oringal
         if (props.input == '') {
             return el;
         }
         //returning the item containing the user input
-        else{
+        /*else{
             return el.text.toLowerCase().includes(props.input)
-        }
+        }*/
     })
     return(
         <ul>
-            {Data.map((item) => (
-                <div key={item.id}>
-                    <p> {item.question}</p>
-                    <p>{item.answer}</p>
-                </div>
+            {filteredData.map((item) => (
+                <li key={item.id}>
+                    {item.question }
+                    { item.answer}
+                    </li>
             ))}
         </ul>
     )
