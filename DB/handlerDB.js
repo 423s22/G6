@@ -58,16 +58,8 @@ async function getUserProducts(data) {
 
 //Create Requests
 async function handlePostRequest(ctx) {
-    //const post = ctx.request.body;
     const data = JSON.parse(ctx.request.body);
-   // console.log(data)
-  //  console.log(data.productId)
     data.productId = data.productId.replace("gid://shopify/Product/", '');
-  //  console.log(typeof data.productId);
- //   console.log(isNaN(data.productId))
-  //  console.log(data.productId)
- //   console.log(typeof data.productId, typeof data.lines, typeof data.price, typeof data.description)
-    //console.log(data.optionType);
     await _createTable(data);
 
     let results = await _createProduct(data);
@@ -92,14 +84,14 @@ async function _createProduct(data) {
         let a = await _createSearch(data);
         if (!a) {
             queryStr = _createHelp(data);
-            console.log("here1")
+            console.log("insert")
             console.log(queryStr)
             let result = await con.awaitQuery(queryStr);
             return JSON.stringify({ "insertId": result.insertId });
         }
         if (a) {
             var queryStatement = _updateHelp(data);
-            console.log("here2")
+            console.log("update")
             console.log(queryStatement)
             let result = await con.awaitQuery(queryStatement) 
             return JSON.stringify({ "message": "Updated" });
@@ -119,8 +111,6 @@ async function _createSearch(data) {
         return true; 
         }
      else {
-      //  console.log("_createSearch")
-       // console.log("this is not being inserted" + data.productId);
         return false;
     }
 }
@@ -143,10 +133,10 @@ function _createBuilderDrop(data) {
 
     let optionsLength = data.options.length;
     
-    var query1 = "ProductId, ProductName, ";
-    var query2 = "" + data.productId + ", " + data.menuTitle + ", ";
+    var query1 = "productId, productName, ";
+    var query2 = "" + data.productId + ", '" + data.menuTitle + "', ";
     for (let i = 0; i < optionsLength; i++) {
-        if( i == colLength-1) {
+        if( i == optionsLength-1) {
             query1 += data.options[i]["label"];
             query2 += data.options[i]["value"];
         }
@@ -158,6 +148,7 @@ function _createBuilderDrop(data) {
     }
     return [query1, query2]
 }
+
 
 function _createBuilderEngrave(data) {
     console.log("builder")
