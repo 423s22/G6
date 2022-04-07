@@ -57,11 +57,14 @@ function DropdownForm() {
 
   const handleInputChange = (value) => 
   {
-    setOptionInputValue(value)
+    setOptionInputValue(validateInput(value))
   }
 
+  const validateInput = (value) => {
+    return value.replaceAll(/[&/\\#,+()$~%.!;^'":*?<>{}]/g, "");
+  }
   
-  const handleTitleChange = useCallback((value) => setMenuTitle(value), []);
+  const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);
   const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);
 
   // applies options
@@ -78,6 +81,7 @@ function DropdownForm() {
     setOptionsApplied(false);
     console.log(optionsApplied)
   }
+
   const handleApplyPrice = () => {
     for (const option in optionValues) {
       if (optionValues[option].label == selectValue) {
@@ -103,7 +107,7 @@ function DropdownForm() {
 
   const handleSubmit = () => {
      const dropdownInfo = {
-         productID: productInfo.id,
+         productId: productInfo.id,
          optionType: 'dropdown',
          menuTitle: menuTitle,
          options: optionValues,

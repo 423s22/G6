@@ -5,26 +5,27 @@ var isConnected = false;
 var con = null;
 
 
-async function _checkConnect(host, username, password, database) {
+async function _checkConnect() {
+    //process.env.MYSQL_HOST,process.env.MYSQL_USER, process.env.MYSQL_KEY,process.env.MYSQL_DB
     con = mysql.createPool({
-        host: host,
-        user: username,
-        password: password,
-        database: database
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_KEY,
+        database: process.env.MYSQL_DB
     });
     
 }
-async function connect(host, username, password, database) {
+async function connect() {
     if (isConnected) return true;
     else {
         isConnected = true;
-        await _checkConnect(host, username, password, database);
+        await _checkConnect();
         return isConnected;
     }
 }
 
-async function disconnect(host, username, password, database) {
-    await _checkConnect(host, username, password, database).awaitEnd();
+async function disconnect() {
+    await _checkConnect().awaitEnd();
     isConnected = false;
 }
 
@@ -33,14 +34,15 @@ async function disconnect(host, username, password, database) {
 
 //Get Requests
 async function handleGetRequest(ctx) {
+    const data = JSON.parse(ctx.request.body);
     ctx.respond = false;
     const requestedData = ctx.query.request;
-    let results;
-    switch (requestedData) {
+    let results = await getUserProducts(data.productId);
+    /*switch (requestedData) {
         case "product":
             results = await getUserProducts(parseInt(ctx.query.userID));
             break;
-    }
+    }*/
     ctx.res.write(`${results}`);
     ctx.res.end();
     ctx.res.statusCode = 200;
@@ -56,19 +58,21 @@ async function getUserProducts(data) {
 
 //Create Requests
 async function handlePostRequest(ctx) {
-    const post = ctx.request.body;
     const data = JSON.parse(ctx.request.body);
+    data.productId = data.productId.replace("gid://shopify/Product/", '');
     await _createTable(data);
 
-    const requestedOperation = post["operation"];
-    let results;
-    switch (requestedOperation) {
+    let results = await _createProduct(data);
+
+    //const requestedOperation = post["operation"];
+    //let results;
+    /*switch (requestedOperation) {
         case "product":
             {
                 results = await _createProduct(data);
                 break;
             }
-    }
+    }*/
     ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
@@ -77,39 +81,41 @@ async function handlePostRequest(ctx) {
 }
 
 async function _createProduct(data) {
-    //console.log(tempProductId);
-    if(isNaN(data.productId)) {
         let a = await _createSearch(data);
-        if(!a) {
+        if (!a) {
             queryStr = _createHelp(data);
+            console.log("insert")
+            console.log(queryStr)
             let result = await con.awaitQuery(queryStr);
             return JSON.stringify({ "insertId": result.insertId });
         }
-        else {
+        if (a) {
             var queryStatement = _updateHelp(data);
-            
+            console.log("update")
+            console.log(queryStatement)
             let result = await con.awaitQuery(queryStatement) 
             return JSON.stringify({ "message": "Updated" });
         }
-    } else {
+    else {
         console.log("this is not being inserted" + data.productId);
-    }
+}
 }
 
 async function _createSearch(data) {
-    if(isNaN(data.productId)) {
+    
         let result = await con.awaitQuery(
             'SElECT * FROM ' + data.optionType + ' WHERE productId = ' + data.productId + ';'
         );
+        console.log(result.length);
+        if (result.length > 0) {
         return true; 
-    } else {
-        console.log("this is not being inserted" + data.productId);
+        }
+     else {
         return false;
     }
 }
 
 function _createHelp(data) {
-    //'INSERT INTO ' + data.optionType + '( '+ queryArr[0] + ' ) VALUES ( ' + queryArr[1] + ' );'
     let queryTemp = 'INSERT INTO ' + data.optionType + '( ';
     let queryStr = '';
     if( data.optionType == "dropdown") {
@@ -118,7 +124,7 @@ function _createHelp(data) {
     else {
         queryStr = _createBuilderEngrave(data);
     }
-    queryTemp += queryStr[0] + ' ) VALUES ( ' + queryStr[0] + ' );';
+    queryTemp += queryStr[0] + ' ) VALUES ( ' + queryStr[1] + ' );';
     return queryTemp;
     
 }
@@ -127,10 +133,10 @@ function _createBuilderDrop(data) {
 
     let optionsLength = data.options.length;
     
-    var query1 = "ProductId, ProductName, ";
-    var query2 = "" + data.productId + ", " + data.menuTitle + ", ";
+    var query1 = "productId, productName, ";
+    var query2 = "" + data.productId + ", '" + data.menuTitle + "', ";
     for (let i = 0; i < optionsLength; i++) {
-        if( i == colLength-1) {
+        if( i == optionsLength-1) {
             query1 += data.options[i]["label"];
             query2 += data.options[i]["value"];
         }
@@ -143,33 +149,38 @@ function _createBuilderDrop(data) {
     return [query1, query2]
 }
 
+
 function _createBuilderEngrave(data) {
-    var query1 = "ProductId, ProductName, Lines, Price";
-    var query2 = "" + data.productId + ", " + data.description + ", " + data.lines + ", " + data.price;
+    console.log("builder")
+    console.log(data)
+    var query1 = "productId, description, lineNum, price";
+    var query2 = "" + data.productId + ", '" + data.description + "', " + data.lines + ", " + data.price;
     return [query1, query2]
 }
 
 async function _createTable(data) {
-    var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " (";
+    console.log(data.optionType);
+    var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " ( ";
     if(data.optionType == "dropdown") { 
         queryStatement += _createTableHelp(data);
     } else {
-        queryStatement += "productId NUMERIC(18,2), ProductName VARCHAR(100), Lines NUMERIC(10,0), Price NUMERIC(15,2);";
+        queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2) );";
     }
+    console.log(queryStatement);
     return con.awaitQuery(queryStatement);
 }
 
 function _createTableHelp(data) {
-    let queryStatement = "productId NUMERIC(18,2), productName VARCHAR(100), ";
+    let queryStatement = 'productId NUMERIC(18,2), productName VARCHAR(100), ';
     for(let i = 0; i < data.options.length; i++) {
         if( i == data.options.length-1) {
-            queryStatement += data.options[i]["label"] + " NUMERIC(10,4)";
+            queryStatement += data.options[i]["label"] + ' NUMERIC(10,4)';
         }
         else{
-            queryStatement += data.options[i]["label"] + " NUMERIC(10,4), ";
+            queryStatement += data.options[i]["label"] + ' NUMERIC(10,4), ';
         }
     }
-    queryStatement += ");";
+    queryStatement += ');';
     return queryStatement;
 }
 
@@ -177,39 +188,35 @@ function _createTableHelp(data) {
 //Upate Requests
 function _updateHelp(data) {
     let queryTemp ="UPDATE " + data.optionType + " SET ";
-
     if( data.optionType == "dropdown") {
         queryTemp += _updateBuilderDrop(data);
     }
     else {
         queryTemp += _updateBuilderEngrave(data);
     }
-    
-    queryTemp += " WHERE ProductId = "+ data.productId +";";
+    queryTemp += " WHERE productId = "+ data.productId +";";
     return queryTemp;
 }
 
-function _updateBuilderDrop(options) {
-
+function _updateBuilderDrop(data) {
+    options = data.options
     let optionsLength = options.length;
     var queryTemp = "";
     for (let i = 0; i < optionsLength; i++) {
-        if( i == colLength-1) {
+        if( i == optionsLength-1) {
             queryTemp += options[i]["label"] + " = " + options[i]["value"];
         }
         else{
             queryTemp += options[i]["label"] + " = " + options[i]["value"] + ", ";
-        }
-            
+        }  
     }
     return queryTemp
     
 }
 
 function _updateBuilderEngrave(data) {
-    var queryTemp = "ProductId = " + data.productId + ", ProductName = " + data.description + ", Lines = " + data.lines + ", Price = " +  data.price;
+    var queryTemp = "productId = " + data.productId + ", description = " + "'" + data.description + "'," + "lineNum = " + data.lines + ", price = " +  data.price;
     return queryTemp
-    
 }
 
 
@@ -217,8 +224,10 @@ function _updateBuilderEngrave(data) {
 //Delete Requests
 async function handleDeleteRequest(ctx) {
     const requestedOperation = ctx.query.operation;
-    let results;
-    switch (requestedOperation) {
+    //data.productId = data.productId.replace("gid://shopify/Product/", '');
+    const data = JSON.parse(ctx.request.body);
+    let results = await _deleteProduct(data.productId);
+    /*switch (requestedOperation) {
         case "product":
             {
                 const data = JSON.parse(ctx.request.body);
@@ -231,7 +240,7 @@ async function handleDeleteRequest(ctx) {
                 results = await _deleteTable(data.productId);
                 break;
             }
-    }
+    }*/
     ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
@@ -240,8 +249,8 @@ async function handleDeleteRequest(ctx) {
 }
 
 async function _deleteProduct(data) {
-    let tempNum = data.productId.replace("gid://shopify/Product/", '');
-    if (isNaN(tempNum)) {
+    data.productId = data.productId.replace("gid://shopify/Product/", '');
+    if (isNaN(data.productId)) {
         return JSON.stringify({ "message": "Invalid ID" });
     } else {
         let result = await con.awaitQuery(
