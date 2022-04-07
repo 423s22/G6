@@ -94,8 +94,6 @@ app.prepare().then(async () => {
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
   
-  //db.connect(process.env.MYSQL_HOST,process.env.MYSQL_USER, process.env.MYSQL_KEY,process.env.MYSQL_DB);
-  
   
   router.get("(.*)", async (ctx) => {
     const shop = ctx.query.shop;
@@ -110,6 +108,8 @@ app.prepare().then(async () => {
 
   // route to recieve submit data from option forms
   router.post("/api/add-options", async (ctx) => {    
+    db.connect();
+    await db.handlePostRequest(ctx);
     console.log(ctx.request.body);
     ctx.status = 200;
   });
