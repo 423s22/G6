@@ -116,7 +116,7 @@ app.prepare().then(async () => {
     }
   });
 
-  // route to recieve submit data from option forms
+  // route to receive submit data from option forms
   router.post("/api/add-options", async (ctx) => {    
     db.connect();
     await db.handlePostRequest(ctx);
