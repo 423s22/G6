@@ -124,6 +124,23 @@ app.prepare().then(async () => {
     console.log(ctx.request.body);
     ctx.status = 200;
   });
+  
+  router.get("/api/show-options", async (ctx) => {    
+    db.connect();
+    await db.handleGetRequest(ctx);
+    db.disconnect(); 
+    console.log(ctx.request.body);
+    ctx.status = 200;
+  });
+  
+  router.get("/api/delete-options", async (ctx) => {    
+    db.connect();
+    await db.handleGetRequest(ctx);
+    db.disconnect(); 
+    console.log(ctx.request.body);
+    ctx.status = 200;
+  });
+
 
   server.use(router.allowedMethods());
   server.use(router.routes());
