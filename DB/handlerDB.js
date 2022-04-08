@@ -25,7 +25,7 @@ async function connect() {
 }
 
 async function disconnect() {
-    await _checkConnect().awaitEnd();
+    await con.end;
     isConnected = false;
 }
 
@@ -35,9 +35,11 @@ async function disconnect() {
 //Get Requests
 async function handleGetRequest(ctx) {
     const data = JSON.parse(ctx.request.body);
+    data.productId = data.productId.replace("gid://shopify/Product/", '');
     ctx.respond = false;
     const requestedData = ctx.query.request;
-    let results = await getUserProducts(data.productId);
+    let results = await getProducts(data);
+    //let results = await getUserProducts(data.productId);
     /*switch (requestedData) {
         case "product":
             results = await getUserProducts(parseInt(ctx.query.userID));
@@ -46,6 +48,20 @@ async function handleGetRequest(ctx) {
     ctx.res.write(`${results}`);
     ctx.res.end();
     ctx.res.statusCode = 200;
+}
+
+async function getProducts(data) {
+    let arr = await con.awaitQuery(`SHOW TABLES;`);
+    let temp = [];
+    arr.forEach(element => {
+        temp.push(element)
+    });
+    let tempArr = [];
+    for(var i in temp) {
+        tempArr.push(await con.awaitQuery(`SELECT * FROM ` + i + ` WHERE productId = ` + data.productId + `;`));
+    }
+    //console.log(arr);
+    return JSON.stringify(tempArr);
 }
 
 async function getUserProducts(data) {
@@ -253,17 +269,33 @@ async function _deleteProduct(data) {
     if (isNaN(data.productId)) {
         return JSON.stringify({ "message": "Invalid ID" });
     } else {
-        let result = await con.awaitQuery(
-            "DELETE FROM  " + data.optionType + " WHERE ProductId = "+ data.productId +";"
-        );
+        if( data.optionType == "dropdown") {
+            let result = await con.awaitQuery(
+                "DELETE FROM  " + data.optionType + data.menuTitle + " WHERE ProductId = "+ data.productId +";"
+            );
+        }
+        else {
+            let result = await con.awaitQuery(
+                "DELETE FROM  " + data.optionType + " WHERE ProductId = "+ data.productId +";"
+            );
+        }
+        
         return JSON.stringify({ "message": "Successfully deleted" });
     }
 }
 
 async function _deleteTable(data) {
-    let result = await con.awaitQuery(
-        "DROP TABLE  " + data.optionType+";"
-    );
+    if( data.optionType == "dropdown") {
+        let result = await con.awaitQuery(
+            "DROP TABLE  " + data.optionType + data.menuTitle +";"
+        );
+    }
+    else {
+        let result = await con.awaitQuery(
+            "DROP TABLE  " + data.optionType +";"
+        );
+    }
+    
     return JSON.stringify({ "message": "Successfully deleted" });
 }
 
