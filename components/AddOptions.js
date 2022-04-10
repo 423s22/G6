@@ -1,4 +1,4 @@
-import {React, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {Select, Form, FormLayout, Checkbox, TextField, Button, Card, Toast, Frame} from '@shopify/polaris';
 import styles from './css/AddOptions.module.css'
 import EngravingForm from './EngravingForm';

@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {Card, Button, Title } from  '@shopify/polaris';
 import styles from './css/ShowOptions.module.css';
 
+
 function ShowOptions() {
 
    // get product info from context
