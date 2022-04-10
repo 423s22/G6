@@ -23,7 +23,7 @@ jobs:
         env:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: heroku container:login
-      - name: Run test
+      - name: Test with Jest
         run: npm test
 
   deploy:
