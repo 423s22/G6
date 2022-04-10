@@ -1,6 +1,6 @@
 import authFetch from "../utils/AuthFetch";
 import { useProductContext } from '../context/ProductContext';
-import {React, useState} from 'react';
+import React, {useState} from 'react';
 import {Card, Button, Title } from  '@shopify/polaris';
 import styles from './css/ShowOptions.module.css';
 
