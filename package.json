@@ -33,6 +33,7 @@
     "express": "^4.17.3",
     "graphql": "^15.8.0",
     "isomorphic-fetch": "^3.0.0",
+    "jest": "^27.5.1",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-router": "^10.1.1",
