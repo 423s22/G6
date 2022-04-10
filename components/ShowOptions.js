@@ -1,7 +1,6 @@
 import React from "react";
 import authFetch from "../../utils/AuthFetch";
 import { useProductContext } from '../context/ProductContext';
-import {React} from 'react';
 
 function ShowOptions() {
 
