@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React, { useState } from 'react';
 import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import ProductCard from '../components/ProductCard';

@@ -1,7 +1,7 @@
 name: Main
 on:
   push:
-    branches: [ main ]
+    branches: [ main, component-testing ]
   workflow_dispatch:
 jobs:
   build:
@@ -13,50 +13,8 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: "14.x"
-      - name: Install dependencies
-        run: npm install --save mocha chai
-      - name: Install dependencies 2 
-        run: npm install --save request
-      - name: Install dependencies 3 
-        run: npm install --save express
-      - name: Install dependencies 4
-        run: npm install --save isomorphic-fetch
-      - name: Install dependencies 5
-        run: npm install --save dotenv
-      - name: Install dependencies 6
-        run: npm install --save koa
-      - name: Install dependencies 7
-        run: npm install --save koa-router
-      - name: Install dependencies 8
-        run: npm install --save koa-session
-      - name: Install dependencies 9
-        run: npm install --save next
-      - name: Install dependencies 10
-        run: npm install --save path
-      - name: Install dependencies 11
-        run: npm install --save react
-      - name: Install dependencies 12
-        run: npm install --save split
-      - name: Install dependencies 13
-        run: npm install --save @shopify/koa-shopify-auth
-      - name: Install dependencies 14
-        run: npm install --save @shopify/polaris
-      - name: Install dependencies 15
-        run: npm install --save @koa/router
-      - name: Install dependencies 16
-        run: npm install --save koa-body
-      - name: Install dependencies 17
-        run: npm install --save react-select
-      - name: Install dependencies 18
-        run: npm install --save react-dom
-      - name: Install MySql
-        run: npm install --save mysql
-      - name: Install MySql await
-        run: npm install --save mysql-await
-      - name: Install Apollo
-        run: npm install @apollo/client
-      - name: Install graphql
-        run: npm install graphql
+      - name: Test dependencies
+        run: npm ci
       - name: Patch Heroku
         run: heroku build:cancel
       - name: install Heroku
