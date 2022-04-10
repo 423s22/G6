@@ -16,7 +16,7 @@ jobs:
       - name: Test npm ci
         run: npm ci
       - name: Patch Heroku
-        run: heroku build:cancel
+        run: heroku builds:cancel
       - name: install Heroku
         run: heroku git:remote -a pricing-options-app
       - name: Heroku login
