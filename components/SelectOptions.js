@@ -19,15 +19,15 @@ function SelectOptions() {
    // console.log(productInfo);
   }
 
-    if (!productSelect || !productInfo) {
+    if (!productSelect) {
     return (
       <Page>
-        <ResourcePicker // Resource picker component to select products
+        <ResourcePicker 
           resourceType="Product"
           showVariants={false}
           open={open}
           onSelection={(resources) => handleSelection(resources)}
-          onCancel={() => {setOpen(false), setProductSelect(true)}}
+          onCancel={() => {setOpen(false), setProductSelect(false)}}
           selectMultiple={false}
         />
         <Layout>
@@ -48,23 +48,23 @@ function SelectOptions() {
   if (productSelect) {
   return (
       <Layout>
-         <Layout.Section>
-           <div className={styles.Banner}>
-              <Banner
-                title="Selected Product"
-                onDismiss={() => {setProductSelect(false), setProductInfo(null)}}
-              >
-                <ProductCard />
-              </Banner>
-            </div>
-          </Layout.Section>
-          <Layout.Section>
-            <AddOptions />
-          </Layout.Section>
-    </Layout>
-    ) 
+        <Layout.Section>
+          <div className={styles.Banner}>
+            <Banner
+              title="Selected Product"
+              onDismiss={() => {setProductSelect(false), setProductInfo(null)}}
+            >
+              <ProductCard />
+            </Banner>
+          </div>
+        </Layout.Section>
+        <Layout.Section>
+          <AddOptions />
+        </Layout.Section>
+      </Layout>
+    ); 
   } 
-  }
+}
 
 
 export default SelectOptions;

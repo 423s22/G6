@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'tests/**/*.js' --recursive --reporter spec --timeout 60000 --exit",
+    "test": "jest",
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
@@ -43,6 +43,13 @@
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-select": "^5.2.2",
+    "regenerator-runtime": "^0.13.9",
     "split": "^1.0.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7"
   }
 }
