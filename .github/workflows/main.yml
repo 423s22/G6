@@ -14,6 +14,8 @@ jobs:
         with: 
           node-version: "14.x"
       - name: Test dependencies
+        run: npm install
+      - name: Test dependencies with ci
         run: npm ci
       - name: Patch Heroku
         run: heroku build:cancel
