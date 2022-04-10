@@ -93,11 +93,11 @@ app.prepare().then(async () => {
   
   // route to retrieve options
   router.get(`/api/show-options/:id`, async (ctx) => {  
-    console.log(ctx.params.id)
     db.connect();
     await db.handleGetRequest(ctx);
     db.disconnect(); 
-    //console.log(ctx.response.body); */
+    console.log("GET response");
+    console.log(ctx.body);
     ctx.status = 200;
   });
 

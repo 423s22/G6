@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import AddOptions from '../components/AddOptions';
 import styles from './css/SelectOptions.module.css';
 import { useProductContext } from '../context/ProductContext';
+import ShowOptions from './ShowOptions';
 
 function SelectOptions() {
 
@@ -48,21 +49,24 @@ function SelectOptions() {
   if (productSelect) {
   return (
       <Layout>
-        <Layout.Section>
-          <div className={styles.Banner}>
-            <Banner
-              title="Selected Product"
-              onDismiss={() => {setProductSelect(false), setProductInfo(null)}}
-            >
-              <ProductCard />
-            </Banner>
-          </div>
-        </Layout.Section>
-        <Layout.Section>
-          <AddOptions />
-        </Layout.Section>
-      </Layout>
-    ); 
+         <Layout.Section>
+           <div className={styles.Banner}>
+              <Banner
+                title="Selected Product"
+                onDismiss={() => {setProductSelect(false), setProductInfo(null)}}
+              >
+                <ProductCard />
+              </Banner>
+            </div>
+          </Layout.Section>
+          <Layout.Section>
+            <AddOptions />
+          </Layout.Section>
+          <Layout.Section>
+            <ShowOptions />
+          </Layout.Section>
+    </Layout>
+    ) 
   } 
 }
 
