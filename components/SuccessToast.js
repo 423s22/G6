@@ -1,4 +1,4 @@
-import {React, useState, useCallback} from "react";
+import React, {useState, useCallback} from "react";
 import {Toast, Frame} from '@shopify/polaris';
 
 function SuccessToast() {
