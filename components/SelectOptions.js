@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import AddOptions from '../components/AddOptions';
 import styles from './css/SelectOptions.module.css';
 import { useProductContext } from '../context/ProductContext';
+import ShowOptions from './ShowOptions';
 
 function SelectOptions() {
 
@@ -60,6 +61,9 @@ function SelectOptions() {
           </Layout.Section>
           <Layout.Section>
             <AddOptions />
+          </Layout.Section>
+          <Layout.Section>
+            <ShowOptions />
           </Layout.Section>
     </Layout>
     ) 
