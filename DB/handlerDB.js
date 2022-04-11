@@ -32,6 +32,7 @@ async function disconnect() {
 // Get Requests
 async function handleGetRequest(ctx) {
     const productId = ctx.params.id;
+    console.log(productId);
     let results = await getProducts(productId);
     ctx.body = results;
 }
