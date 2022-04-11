@@ -1,10 +1,11 @@
-import {React, useState} from 'react';
+import React, { useState } from 'react';
 import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import ProductCard from '../components/ProductCard';
 import AddOptions from '../components/AddOptions';
 import styles from './css/SelectOptions.module.css';
 import { useProductContext } from '../context/ProductContext';
+import ShowOptions from './ShowOptions';
 
 function SelectOptions() {
 
@@ -19,15 +20,15 @@ function SelectOptions() {
    // console.log(productInfo);
   }
 
-    if (!productSelect || !productInfo) {
+    if (!productSelect) {
     return (
       <Page>
-        <ResourcePicker // Resource picker component to select products
+        <ResourcePicker 
           resourceType="Product"
           showVariants={false}
           open={open}
           onSelection={(resources) => handleSelection(resources)}
-          onCancel={() => {setOpen(false), setProductSelect(true)}}
+          onCancel={() => {setOpen(false), setProductSelect(false)}}
           selectMultiple={false}
         />
         <Layout>
@@ -61,10 +62,13 @@ function SelectOptions() {
           <Layout.Section>
             <AddOptions />
           </Layout.Section>
+          <Layout.Section>
+            <ShowOptions />
+          </Layout.Section>
     </Layout>
     ) 
   } 
-  }
+}
 
 
 export default SelectOptions;

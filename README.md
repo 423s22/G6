@@ -14,12 +14,11 @@ Shopify app that will allow merchants to add additional options and customizatio
 
 ### Frontend Technologies
 * React
+* Next.js
 * Polaris
 
 ### Backend Technologies
 * Node.js
-* Next.js
-
 
 #### Instructions
 

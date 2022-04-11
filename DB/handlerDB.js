@@ -12,9 +12,9 @@ async function _checkConnect() {
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_KEY,
         database: process.env.MYSQL_DB
-    });
-    
+    }); 
 }
+
 async function connect() {
     if (isConnected) return true;
     else {
@@ -25,27 +25,62 @@ async function connect() {
 }
 
 async function disconnect() {
-    await _checkConnect().awaitEnd();
+    await con.end;
     isConnected = false;
 }
 
-
-
-
-//Get Requests
+// Get Requests
 async function handleGetRequest(ctx) {
-    const data = JSON.parse(ctx.request.body);
-    ctx.respond = false;
-    const requestedData = ctx.query.request;
-    let results = await getUserProducts(data.productId);
-    /*switch (requestedData) {
-        case "product":
-            results = await getUserProducts(parseInt(ctx.query.userID));
-            break;
-    }*/
-    ctx.res.write(`${results}`);
-    ctx.res.end();
-    ctx.res.statusCode = 200;
+    const productId = ctx.params.id;
+    console.log(productId);
+    let results = await getProducts(productId);
+    ctx.body = results;
+}
+
+async function getProducts(productId) {
+    let arr = JSON.parse(JSON.stringify(await con.awaitQuery(`SHOW TABLES;`)));
+    console.log(arr);
+    let temp = [];
+    var i = 0;
+    arr.forEach(element => {
+        var tableKey = `table${i}`;     // unique key
+        var tableVal = Object.values(element);  // table name
+        var item = {};
+        item[tableKey] = tableVal;
+        temp.push(item)
+        i++;
+    });
+    
+    let resultsArr = [];
+    for (var i = 0; i < temp.length; i++) {
+        var obj = temp[i];              
+        var value = obj[`table${i}`];   // name of table to query
+  
+        
+        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + productId + `;`)));
+        // console.log(results)
+        if (value == 'dropdown' && results[0] != undefined) {      // rebuild dropdown object
+        var tempResults = {};
+        tempResults.productId = results[0].productId;
+        tempResults.menuTitle = results[0].productName;
+       
+        delete results[0].productId;        // remove so that the only thing left are the options
+        delete results[0].productName;
+
+       // tempResults.options.push(results[0]);  
+        tempResults.options  = Object.keys(results[0]); // add options array
+        results[0] = tempResults;
+        }
+        if (results[0] != undefined) {
+            results[0].optionType = value;  // add option type to results
+            resultsArr.push(results[0]);
+        }
+    }
+
+    var resultsObj = {                    // add results array to JSON object
+        "productOptions" : resultsArr
+    }
+    return (resultsObj);
 }
 
 async function getUserProducts(data) {
@@ -73,11 +108,11 @@ async function handlePostRequest(ctx) {
                 break;
             }
     }*/
-    ctx.respond = false;
+  /*  ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
     ctx.res.write(`${results}`);
-    ctx.res.end();
+    ctx.res.end(); */
 }
 
 async function _createProduct(data) {
@@ -241,11 +276,11 @@ async function handleDeleteRequest(ctx) {
                 break;
             }
     }*/
-    ctx.respond = false;
+  /*  ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
     ctx.res.write(`${results}`);
-    ctx.res.end();
+    ctx.res.end(); */
 }
 
 async function _deleteProduct(data) {
@@ -253,17 +288,33 @@ async function _deleteProduct(data) {
     if (isNaN(data.productId)) {
         return JSON.stringify({ "message": "Invalid ID" });
     } else {
-        let result = await con.awaitQuery(
-            "DELETE FROM  " + data.optionType + " WHERE ProductId = "+ data.productId +";"
-        );
+        if( data.optionType == "dropdown") {
+            let result = await con.awaitQuery(
+                "DELETE FROM  " + data.optionType + data.menuTitle + " WHERE ProductId = "+ data.productId +";"
+            );
+        }
+        else {
+            let result = await con.awaitQuery(
+                "DELETE FROM  " + data.optionType + " WHERE ProductId = "+ data.productId +";"
+            );
+        }
+        
         return JSON.stringify({ "message": "Successfully deleted" });
     }
 }
 
 async function _deleteTable(data) {
-    let result = await con.awaitQuery(
-        "DROP TABLE  " + data.optionType+";"
-    );
+    if( data.optionType == "dropdown") {
+        let result = await con.awaitQuery(
+            "DROP TABLE  " + data.optionType + data.menuTitle +";"
+        );
+    }
+    else {
+        let result = await con.awaitQuery(
+            "DROP TABLE  " + data.optionType +";"
+        );
+    }
+    
     return JSON.stringify({ "message": "Successfully deleted" });
 }
 

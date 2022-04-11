@@ -1,0 +1,12 @@
+<div class="options-block">
+Product Id: {{product.id}} 
+</div>
+
+<script src="{{ 'productOptions.js' | asset_url }}" defer></script>
+
+{% schema %}
+  {
+    "name": "Product Options",
+    "target": "section"
+  }
+{% endschema %}

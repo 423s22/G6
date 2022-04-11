@@ -90,6 +90,21 @@ app.prepare().then(async () => {
       await Shopify.Utils.graphqlProxy(ctx.req, ctx.res);
     }
   );
+  
+  // route to retrieve options
+  router.get(`/api/show-options/:id`, async (ctx) => {  
+    try {
+    db.connect();
+    await db.handleGetRequest(ctx);
+    db.disconnect(); 
+    console.log("GET response");
+    console.log(ctx.body);
+    ctx.status = 200;
+    } catch (e) {
+      console.log(`GET Error\n ${e}`);
+      ctx.status = 500;
+    }
+  });
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
@@ -106,14 +121,19 @@ app.prepare().then(async () => {
     }
   });
 
-  // route to recieve submit data from option forms
-  router.post("/api/add-options", async (ctx) => {    
+  // route to receive submit data from option forms
+  router.post("/api/add-options", async (ctx) => {   
+    try { 
     db.connect();
     await db.handlePostRequest(ctx);
     db.disconnect(); 
-    console.log(ctx.request.body);
     ctx.status = 200;
+    } catch (e) {
+      ctx.status = 500;
+    }
   });
+  
+
 
   server.use(router.allowedMethods());
   server.use(router.routes());

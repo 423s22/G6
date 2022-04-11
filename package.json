@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "test": "mocha 'tests/**/*.js' --recursive --reporter spec --timeout 60000 --exit",
+    "test": "jest",
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
@@ -33,6 +36,7 @@
     "express": "^4.17.3",
     "graphql": "^15.8.0",
     "isomorphic-fetch": "^3.0.0",
+    "jest": "^27.5.1",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-router": "^10.1.1",
@@ -42,7 +46,13 @@
     "next": "^12.0.10",
     "path": "^0.12.7",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-select": "^5.2.2",
+    "regenerator-runtime": "^0.13.9",
     "split": "^1.0.1"
+  },
+  "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
+    "enzyme": "^3.11.0"
   }
 }

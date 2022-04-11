@@ -1,0 +1,3 @@
+Handles all CRUD (Create, Read, Update, Delete) functions. Post functions are operation, 
+Get functions are operational for some products (we need to correct for all products), 
+Delete function is implemented but not tested.
