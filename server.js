@@ -101,6 +101,7 @@ app.prepare().then(async () => {
     console.log(ctx.body);
     ctx.status = 200;
     } catch (e) {
+      console.log(`GET Error\n ${e}`);
       ctx.status = 500;
     }
   });
