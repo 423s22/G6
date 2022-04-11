@@ -52,9 +52,6 @@
     "split": "^1.0.1"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-jsx": "^7.16.7",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "enzyme": "^3.11.0"
   }
