@@ -1,15 +1,20 @@
 .ShowOptionsCard {
-    width: 800px;
+    width: 880px;
     padding-left: 20px;
-    height: 400px;
-   /* overflow: scroll; */
+    height: inherit;
+    padding-bottom: 40px;
+    overflow: auto;
 }
 
 .optionDiv {
     height: 100px;
-    width: 400px;
+    width: 300px;
     padding: 20px;
+    padding-left: 40px;
     border-radius: 20px;
     border-color: grey;
+}
 
+.h2 {
+    padding: 20px;
 }
