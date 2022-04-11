@@ -4,7 +4,8 @@ Shopify App
 ### Description 
 Shopify app that will allow merchants to add additional options and customization variations to their products, bypassing Shopify’s default option/variant limit. The additional cost of these options will be added dynamically to the product total on the product page. The app will embed directly into the merchant’s Shopify admin for a seamless experience.  
 
-**Members:** William, Lenin, Alyssa
+**Members:** William, Lenin, Alyssa, Riley, James, and Daniel
+
 
 [Burndown Chart](https://docs.google.com/spreadsheets/d/1qWjqU1w1oxYyYeYFQ7EqP9aI5dt4SIy14x6kxzEHuD4/edit#gid=0)<br/> 
 [Scrum Board](https://leninlewis.atlassian.net/jira/software/projects/SHOP/boards/1)<br/> 
