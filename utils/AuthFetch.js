@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 
 // function to authenticate fetch to backend
