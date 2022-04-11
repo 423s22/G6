@@ -57,7 +57,20 @@ async function getProducts(productId) {
         var obj = temp[i];              
         var value = obj[`table${i}`];   // name of table to query
         var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + productId + `;`)));
-        results[0].optionType = value; // add option type to results
+    
+        if (value == 'dropdown') {      // rebuild dropdown object
+        var tempResults = {};
+        tempResults.productId = results[0].productId;
+        tempResults.menuTitle = results[0].productName;
+       
+        delete results[0].productId;        // remove so that the only thing left are the options
+        delete results[0].productName;
+
+       // tempResults.options.push(results[0]);  
+        tempResults.options  = Object.keys(results[0]); // add options array
+        results[0] = tempResults;
+        }
+        results[0].optionType = value;  // add option type to results
         resultsArr.push(results[0]);
     }
 
