@@ -54,13 +54,11 @@ async function getProducts(productId) {
         i++;
     });
     
-    console.log(temp.length)
-    console.log(temp)
     let resultsArr = [];
     for (var i = 0; i < temp.length; i++) {
         var obj = temp[i];              
         var value = obj[`table${i}`];   // name of table to query
-        console.log(value)
+  
         
         var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + productId + `;`)));
         // console.log(results)
