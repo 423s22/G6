@@ -36,7 +36,12 @@ function EngravingForm() {
         body: JSON.stringify(engravingInfo),
       }).then((res) => {console.log(res.status)
         if (res.status == 200) {
-            setSubmitted(true);          
+            setSubmitted(true);    
+            return (
+                <div>
+                    <SuccessToast />
+                </div>
+            );      
         }});
   }
 
@@ -68,7 +73,6 @@ function EngravingForm() {
         return (
             <div>
             <AddOptions />   
-            <SuccessToast />
             </div>
         )
     }
