@@ -46,8 +46,7 @@ async function getProducts(productId) {
     var i = 0;
     arr.forEach(element => {
         var tableKey = `table${i}`;     // unique key
-        var tableVal = element["Tables_in_heroku_6ef3b0f7a1e66e9"]; // name of table
-      //  var tableVal = element["Tables_in_shopify"];    // name of table
+        var tableVal = Object.values(element);  // table name
         var item = {};
         item[tableKey] = tableVal;
         temp.push(item)
