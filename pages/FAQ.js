@@ -1,6 +1,6 @@
 import { TextField } from '@shopify/polaris';
 import React from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Lists from "../pages/List";
 import "../components/css/searchBar.module.css";
 //import "../components/ListData.json";
@@ -8,11 +8,8 @@ import "../components/css/searchBar.module.css";
 
 function FAQ(){
     const [inputValue, setInputValue] = useState("");
-   let inputHandler = (e) => {
-        //conveter to lowercase
-        var lowerCase = e.target.value.toLowerCase();
-        setInputValue(lowerCase);
-    }; 
+
+    const inputHandler = useCallback((newValue) => setInputValue(newValue), []);
     
     return(
         <div className="main">
@@ -20,6 +17,8 @@ function FAQ(){
             <div className="search">
                 <TextField
                     id="outlined-basic"
+                    placeholder='Enter your question and press enter...'
+                    value={inputValue}
                     onChange={inputHandler}
                     variant="outlined"
                     fullWidth
