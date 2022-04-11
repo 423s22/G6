@@ -9,7 +9,7 @@ import AddOptions from './AddOptions';
 import app from '@shopify/app-bridge-react';
 import { getSessionToken } from '@shopify/app-bridge-utils';
 import authFetch from '../utils/AuthFetch';
-import SuccessToast from './SuccessToast';
+//import SuccessToast from './SuccessToast';
 
 
 function EngravingForm() {
@@ -36,7 +36,7 @@ function EngravingForm() {
         body: JSON.stringify(engravingInfo),
       }).then((res) => {console.log(res.status)
         if (res.status == 200) {
-            setSubmitted(true);          
+            setSubmitted(true);         
         }});
   }
 
@@ -66,10 +66,7 @@ function EngravingForm() {
     if (submitted) {
         // navigate back to add options form and display success toast
         return (
-            <div>
             <AddOptions />   
-            <SuccessToast />
-            </div>
         )
     }
 
