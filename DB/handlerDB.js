@@ -12,9 +12,9 @@ async function _checkConnect() {
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_KEY,
         database: process.env.MYSQL_DB
-    });
-    
+    }); 
 }
+
 async function connect() {
     if (isConnected) return true;
     else {
@@ -28,9 +28,6 @@ async function disconnect() {
     await con.end;
     isConnected = false;
 }
-
-
-
 
 // Get Requests
 async function handleGetRequest(ctx) {
