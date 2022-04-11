@@ -1,27 +1,26 @@
-import { React, useState} from 'react'
+import React from 'react'
+import { useState } from 'react'
 import data from "../components/ListData.json"
+import "../components/css/searchBar.module.css"
 
 function List(props) {
-    //creating  an array by filterinf the orignal array
+    //new array to filter og array
     const filteredData = data.filter((el) => {
-        //if no input return oringal
+        //no input == return og
         if (props.input == '') {
             return el;
         }
-        //returning the item containing the user input
-        /*else{
+        //return iten which contains user input
+        else{
             return el.text.toLowerCase().includes(props.input)
-        }*/
-    })
+        }
+    }) 
     return(
         <ul>
             {filteredData.map((item) => (
-                <li key={item.id}>
-                    {item.question }
-                    { item.answer}
-                    </li>
+                <li key={item.id}>{item.question}</li>
             ))}
-        </ul>
+        </ul>   
     )
 }
 export default List
