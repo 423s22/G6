@@ -32,36 +32,39 @@ async function disconnect() {
 
 
 
-//Get Requests
+// Get Requests
 async function handleGetRequest(ctx) {
-    const data = JSON.parse(ctx.request.body);
-    data.productId = data.productId.replace("gid://shopify/Product/", '');
-    ctx.respond = false;
-    const requestedData = ctx.query.request;
-    let results = await getProducts(data);
-    //let results = await getUserProducts(data.productId);
-    /*switch (requestedData) {
-        case "product":
-            results = await getUserProducts(parseInt(ctx.query.userID));
-            break;
-    }*/
-    ctx.res.write(`${results}`);
-    ctx.res.end();
-    ctx.res.statusCode = 200;
+    const productId = ctx.params.id;
+    let results = await getProducts(productId);
+    ctx.body = results;
 }
 
-async function getProducts(data) {
-    let arr = await con.awaitQuery(`SHOW TABLES;`);
+async function getProducts(productId) {
+    let arr = JSON.parse(JSON.stringify(await con.awaitQuery(`SHOW TABLES;`)));
     let temp = [];
+    var i = 0;
     arr.forEach(element => {
-        temp.push(element)
+        var tableKey = `table${i}`;     // unique key
+        var tableVal = element["Tables_in_shopify"];    // name of table
+        var item = {};
+        item[tableKey] = tableVal;
+        temp.push(item)
+        i++;
     });
-    let tempArr = [];
-    for(var i in temp) {
-        tempArr.push(await con.awaitQuery(`SELECT * FROM ` + i + ` WHERE productId = ` + data.productId + `;`));
+    
+    let resultsArr = [];
+    for (var i = 0; i < temp.length; i++) {
+        var obj = temp[i];              
+        var value = obj[`table${i}`];   // name of table to query
+        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + productId + `;`)));
+        results[0].optionType = value; // add option type to results
+        resultsArr.push(results[0]);
     }
-    //console.log(arr);
-    return JSON.stringify(tempArr);
+
+    var resultsObj = {                    // add results array to JSON object
+        "productOptions" : resultsArr
+    }
+    return (resultsObj);
 }
 
 async function getUserProducts(data) {

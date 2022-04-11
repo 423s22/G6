@@ -1,4 +1,4 @@
-import {React} from "react";
+import React from "react";
 import {ResourceList, Thumbnail, ResourceItem, TextStyle}  from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 

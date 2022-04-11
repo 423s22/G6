@@ -1,0 +1,15 @@
+.ShowOptionsCard {
+    width: 800px;
+    padding-left: 20px;
+    height: 400px;
+   /* overflow: scroll; */
+}
+
+.optionDiv {
+    height: 100px;
+    width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    border-color: grey;
+
+}
