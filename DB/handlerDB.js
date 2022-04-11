@@ -41,6 +41,7 @@ async function handleGetRequest(ctx) {
 
 async function getProducts(productId) {
     let arr = JSON.parse(JSON.stringify(await con.awaitQuery(`SHOW TABLES;`)));
+    console.log(arr);
     let temp = [];
     var i = 0;
     arr.forEach(element => {
