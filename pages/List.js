@@ -1,16 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
 import data from "../components/ListData.json"
-import "../components/css/searchBar.module.css"
+import style from "../components/css/searchBar.module.css"
 
 function List(props) {
 
     return(
-        <ul className='box'>
+        <div>
             {data.map((item) => (
-                <li key={item.id}>{item.question}</li>
+                <div className={style.box} key={item.id}>{item.question}</div>
             ))}
-        </ul>   
+        </div>   
     )
 }
 export default List
