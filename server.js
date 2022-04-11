@@ -102,7 +102,6 @@ app.prepare().then(async () => {
     ctx.status = 200;
     } catch (e) {
       ctx.status = 500;
-      ctx.body = e;
     }
   });
 
@@ -130,7 +129,6 @@ app.prepare().then(async () => {
     ctx.status = 200;
     } catch (e) {
       ctx.status = 500;
-      ctx.body = e;
     }
   });
   
