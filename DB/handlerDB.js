@@ -35,30 +35,36 @@ async function disconnect() {
 // Get Requests
 async function handleGetRequest(ctx) {
     const productId = ctx.params.id;
+    console.log(productId);
     let results = await getProducts(productId);
     ctx.body = results;
 }
 
 async function getProducts(productId) {
     let arr = JSON.parse(JSON.stringify(await con.awaitQuery(`SHOW TABLES;`)));
+    console.log(arr);
     let temp = [];
     var i = 0;
     arr.forEach(element => {
         var tableKey = `table${i}`;     // unique key
-        var tableVal = element["Tables_in_shopify"];    // name of table
+        var tableVal = Object.values(element);  // table name
         var item = {};
         item[tableKey] = tableVal;
         temp.push(item)
         i++;
     });
     
+    console.log(temp.length)
+    console.log(temp)
     let resultsArr = [];
     for (var i = 0; i < temp.length; i++) {
         var obj = temp[i];              
         var value = obj[`table${i}`];   // name of table to query
+        console.log(value)
+        
         var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + productId + `;`)));
-    
-        if (value == 'dropdown') {      // rebuild dropdown object
+        // console.log(results)
+        if (value == 'dropdown' && results[0] != undefined) {      // rebuild dropdown object
         var tempResults = {};
         tempResults.productId = results[0].productId;
         tempResults.menuTitle = results[0].productName;
@@ -70,8 +76,10 @@ async function getProducts(productId) {
         tempResults.options  = Object.keys(results[0]); // add options array
         results[0] = tempResults;
         }
-        results[0].optionType = value;  // add option type to results
-        resultsArr.push(results[0]);
+        if (results[0] != undefined) {
+            results[0].optionType = value;  // add option type to results
+            resultsArr.push(results[0]);
+        }
     }
 
     var resultsObj = {                    // add results array to JSON object
