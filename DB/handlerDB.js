@@ -89,11 +89,11 @@ async function handlePostRequest(ctx) {
                 break;
             }
     }*/
-    ctx.respond = false;
+  /*  ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
     ctx.res.write(`${results}`);
-    ctx.res.end();
+    ctx.res.end(); */
 }
 
 async function _createProduct(data) {
@@ -257,11 +257,11 @@ async function handleDeleteRequest(ctx) {
                 break;
             }
     }*/
-    ctx.respond = false;
+  /*  ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
     ctx.res.write(`${results}`);
-    ctx.res.end();
+    ctx.res.end(); */
 }
 
 async function _deleteProduct(data) {

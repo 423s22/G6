@@ -93,12 +93,20 @@ app.prepare().then(async () => {
   
   // route to retrieve options
   router.get(`/api/show-options/:id`, async (ctx) => {  
+<<<<<<< Updated upstream
     console.log(ctx.params.id)
+=======
+    try {
+>>>>>>> Stashed changes
     db.connect();
     await db.handleGetRequest(ctx);
     db.disconnect(); 
     //console.log(ctx.response.body); */
     ctx.status = 200;
+    } catch (e) {
+      ctx.status = 500;
+      ctx.body = e;
+    }
   });
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
@@ -117,12 +125,16 @@ app.prepare().then(async () => {
   });
 
   // route to receive submit data from option forms
-  router.post("/api/add-options", async (ctx) => {    
+  router.post("/api/add-options", async (ctx) => {   
+    try { 
     db.connect();
     await db.handlePostRequest(ctx);
     db.disconnect(); 
-    console.log(ctx.request.body);
     ctx.status = 200;
+    } catch (e) {
+      ctx.status = 500;
+      ctx.body = e;
+    }
   });
   
 
