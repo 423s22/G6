@@ -17,6 +17,7 @@ function SelectOptions() {
   const handleSelection = (resources) => {
     setOpen(false);
     setProductInfo(resources.selection[0]);
+    setProductSelect(true);
    // console.log(productInfo);
   }
 
