@@ -1,7 +1,7 @@
 name: Main
 on:
   push:
-    branches: [ main , component-testing ]
+    branches: [ main ]
   workflow_dispatch:
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: "14.x"
-      - name: Test npm ci
+      - name: Run npm ci
         run: npm ci
       - name: Patch Heroku
         run: heroku builds:cancel
