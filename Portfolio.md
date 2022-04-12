@@ -3,6 +3,7 @@
 	Over this past semester, our group worked with a client to develop an app for Shopify. Shopify is an eCommerce platform for online stores and creates a point of sales system for many businesses. Our client has their own site to sell their custom products, but they also aid other business owners to set up their own Shopify. However, our client ran into issues when setting up their store that ruined their user experience. The main issue is the client was unable to update the overall price of their products once the user made their modifications to the product. That being said, our client's customers are unable to see the price of the product until they are checking out, it is incredibly frustrating for both the client and the customer. 
 	To alleviate these issues we have created a custom app for the user. When the user first opens the app they are directed to the homepage. 
  </p>
+<h3> Frontend Code: </h3> 
 <p> Homepage code: https://github.com/423s22/G6/blob/main/pages/index.js </p>
 <p> Add Product code: https://github.com/423s22/G6/blob/main/pages/add-options.js </p>
 <p> .css files that are called in the add-options class </p>
@@ -14,6 +15,11 @@
 <p> FAQ List Generator: https://github.com/423s22/G6/blob/main/pages/List.js </p>
 <p> FAQ list of questions: https://github.com/423s22/G6/blob/main/components/json/ListData.json </p>
 <p> FAQ .css Design Elements: https://github.com/423s22/G6/blob/main/components/css/searchBar.module.css </p>
+
+<h3> Backend Code: </h3>
+<p> Database Handler: https://github.com/423s22/G6/blob/main/DB/handlerDB.js </p>
+
+<h3> Theme Code: </h3>
 
 <h2> II. Teamwork </h2>
 <p> Throughout this project, we have faced many challenges and we have worked together to redesign the project to get the best product for our client. At first, our group was three people and we found that the product would best meet the client's needs if we combined with another group.  Our decision to expand our team reflects our ability to work together and create the best solution for the client is reflected in the way we allocated the work. </p> 
