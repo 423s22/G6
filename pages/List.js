@@ -8,7 +8,8 @@ function List(props) {
     return(
         <div>
             {data.map((item) => (
-                <div className={style.box} key={item.id}>{item.question}</div>
+                <div className={style.box} key={item.id}>
+                    {item.question}</div>
             ))}
         </div>   
     )

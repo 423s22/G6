@@ -8,16 +8,28 @@
 }
 .box{
     text-align: center;
-    border: grey ridge 3px;
+    border: grey ridge 2px;
     border-radius: 50px;
     margin: auto;
     width: 95%;
+    background-color: lightgrey;
 
 }
-.search {
-    width: 100%;
+
+.body{
     background-color: aliceblue;
+}
+.search {
+    
+    background-color: blueviolet;
     border: gray 3px;
+    display: block;
+    align-items: center;
+}
+.h1{
+    color: gray;
+    font-style: oblique;
+
 }
 /*.
 main{
