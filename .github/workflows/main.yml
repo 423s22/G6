@@ -1,7 +1,7 @@
 name: Main
 on:
   push:
-    branches: [ main ]
+    branches: [ main, component-testing ]
   workflow_dispatch:
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: heroku container:login
       - name: Test with Jest
-        run: npm test
+        run: npm test -- -u
 
   deploy:
     runs-on: ubuntu-latest
