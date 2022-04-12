@@ -37,3 +37,4 @@ jobs:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
           branch: main
+          dontuseforce: true
