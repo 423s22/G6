@@ -37,6 +37,28 @@ function ShowOptions() {
       }
     })
   }
+  
+  async function deleteOptions() {
+  const targetURL = `/api/delete-options/${productInfo.id.replace("gid://shopify/Product/", '')}`;
+  console.log(targetURL);
+  const response = await authFetch(targetURL,  {
+    //mode: "no-cors",
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+    }
+}).then(res => {
+  if (res.ok) {
+    res.json().then(json => {
+      if (res.status == 200) {
+        console.log(json)
+        setOptionsLoaded(false);    
+        setProductOptions('');
+      }
+    });
+  }
+})
+}
 
 const hideOptions = () => {
   setOptionsLoaded(false);
@@ -118,6 +140,11 @@ else {
                        </Button>
                     </div>}
        >
+                          <div className={styles.ShowOptionsButton}>
+      <Button destructive onClick={deleteOptions}>
+        Delete Options
+      </Button>
+      </div>
       </Card>
   </div>
   );
