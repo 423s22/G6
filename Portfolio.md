@@ -17,6 +17,18 @@
 
 <h2> II. Teamwork </h2>
 <p> Throughout this project, we have faced many challenges and we have worked together to redesign the project to get the best product for our client. At first, our group was three people and we found that the product would best meet the client's needs if we combined with another group.  Our decision to expand our team reflects our ability to work together and create the best solution for the client is reflected in the way we allocated the work. </p> 
+<h3> Lenin Lewis </h3>
+<p> </p>
+<h3> Will Cook </h3>
+<p> </p>
+<h3> Riley Slater </h3>
+<p> </p>
+<h3> Alyssa Newhart </h3>
+<p> </p>
+<h3> James Marsh </h3>
+<p> </p>
+<h3> Daniel Vinogradov </h3>
+<p> </p>
 
 <h2> III. Design Pattern </h2>
 <p> In the deisgn pattern for the assignment we went with a decorator pattern for our overall desgin. Following our UML documentation 
