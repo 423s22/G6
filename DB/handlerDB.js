@@ -273,16 +273,17 @@ async function handleDeleteRequest(ctx) {
         var id = `table${i}`;     // unique key
         var optionType = Object.values(element);  // table name
 
+        /* there might be an error here on line 278 
         if( optionType.includes("dropdown")) {
             let result = await con.awaitQuery(
                 "DELETE FROM "+ data.optionType +" WHERE ProductId = "+ id +";"
             );
-        }
+        } 
         else {
             let result = await con.awaitQuery(
                 "DELETE FROM engraving WHERE ProductId = "+ id +";"
             );
-        }
+        }*/ 
     });
     ctx.respond = false;
     ctx.res.statusCode = 200;
@@ -371,4 +372,4 @@ async function _deleteTable(data) {
 }
 
 module.exports = {connect, disconnect, _checkConnect, getUserProducts, handleGetRequest, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
-_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _createTableHelp,_updateBuilderDrop, _updateBuilderEngrave, _deleteProduct, _deleteTable, isConnected, con};
+_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _createTableHelp,_updateBuilderDrop, _updateBuilderEngrave, _deleteProduct, _deleteTable, isConnected, con}; 
