@@ -3,9 +3,11 @@
 }
 
 .EditOptionCard {
-    width: 800px;
-    padding: 20px;
-    height: 400px;
+    width: 880px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    height: 370px;
    /* overflow: scroll; */
 }
 
@@ -36,9 +38,9 @@
 }
 
 .EditPriceCard {
-    width: 800px;
+    width: 900px;
     padding: 20px;
-    height: 250px;
+    height: 350px;
 }
 
 .backBtn {

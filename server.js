@@ -105,6 +105,22 @@ app.prepare().then(async () => {
       ctx.status = 500;
     }
   });
+  
+  router.delete("/api/delete-options/:id", async (ctx) => {
+    console.log("RAW CTX")
+    //console.log(ctx);
+       
+    try { 
+    db.connect();
+    await db.handleDeleteRequest(ctx);
+    db.disconnect();
+    ctx.status = 200;
+    } catch (e) {
+      ctx.status = 500;
+      console.log("error");
+      console.log(e);
+    }
+  });
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
@@ -129,6 +145,7 @@ app.prepare().then(async () => {
     db.disconnect(); 
     ctx.status = 200;
     } catch (e) {
+      console.log(`POST Error\n ${e}`);
       ctx.status = 500;
     }
   });

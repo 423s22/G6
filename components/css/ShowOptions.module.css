@@ -7,14 +7,36 @@
 }
 
 .optionDiv {
-    height: 100px;
+    height: 110px;
     width: 300px;
-    padding: 20px;
-    padding-left: 40px;
     border-radius: 20px;
-    border-color: grey;
+    padding: 20px;
+    box-shadow: 0 2px 4px 0 rgba(67, 67, 67, 0.2);
+    transition: 0.3s;
+    border-radius: 5px; 
+    background:rgb(251, 251, 253); 
 }
 
-.h2 {
-    padding: 20px;
+.parentOptionDiv  {
+    padding: 10px;
+    border-radius: 20px;   
+} 
+
+.deleteIcon {
+  float: right;
+}
+
+.viewBtn {
+    padding-bottom: 10px;
+}
+
+.hideBtn {
+   padding-bottom: 10px;
+   display: inline;
+
+}
+
+.refreshBtn{
+    display: inline;
+    float: right;
 }

@@ -108,11 +108,11 @@ async function handlePostRequest(ctx) {
                 break;
             }
     }*/
-  /*  ctx.respond = false;
+    ctx.respond = false;
     ctx.res.statusCode = 200;
     ctx.status = 200;
     ctx.res.write(`${results}`);
-    ctx.res.end(); */
+    ctx.res.end(); 
 }
 
 async function _createProduct(data) {
@@ -137,12 +137,18 @@ async function _createProduct(data) {
 }
 
 async function _createSearch(data) {
-    
+    if( data.optionType == "dropdown") {
+        let result = await con.awaitQuery(
+            'SElECT * FROM ' + data.optionType + data.menuTitle + ' WHERE productId = ' + data.productId + ';'
+        );
+    }
+    else {
         let result = await con.awaitQuery(
             'SElECT * FROM ' + data.optionType + ' WHERE productId = ' + data.productId + ';'
         );
-        console.log(result.length);
-        if (result.length > 0) {
+    }
+    console.log(result.length);
+    if (result.length > 0) {
         return true; 
         }
      else {
@@ -151,17 +157,18 @@ async function _createSearch(data) {
 }
 
 function _createHelp(data) {
-    let queryTemp = 'INSERT INTO ' + data.optionType + '( ';
+    let queryTemp = '';
     let queryStr = '';
     if( data.optionType == "dropdown") {
+        queryTemp += 'INSERT INTO ' + data.optionType + data.menuTitle + '( ';
         queryStr = _createBuilderDrop(data);
     }
     else {
+        queryTemp += 'INSERT INTO ' + data.optionType + '( ';
         queryStr = _createBuilderEngrave(data);
     }
     queryTemp += queryStr[0] + ' ) VALUES ( ' + queryStr[1] + ' );';
     return queryTemp;
-    
 }
 
 function _createBuilderDrop(data) {
@@ -195,10 +202,12 @@ function _createBuilderEngrave(data) {
 
 async function _createTable(data) {
     console.log(data.optionType);
-    var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " ( ";
+    var queryStatement = "";
     if(data.optionType == "dropdown") { 
+        queryStatement +=  "CREATE TABLE IF NOT EXISTS " + data.optionType + data.menuTitle + " ( ";
         queryStatement += _createTableHelp(data);
     } else {
+        queryStatement +=  "CREATE TABLE IF NOT EXISTS " + data.optionType +  " ( ";
         queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2) );";
     }
     console.log(queryStatement);
@@ -222,12 +231,12 @@ function _createTableHelp(data) {
 
 //Upate Requests
 function _updateHelp(data) {
-    let queryTemp ="UPDATE " + data.optionType + " SET ";
+    let queryTemp ='';
     if( data.optionType == "dropdown") {
-        queryTemp += _updateBuilderDrop(data);
+        queryTemp += "UPDATE " + data.optionType + data.menuTitle + " SET " +_updateBuilderDrop(data);
     }
     else {
-        queryTemp += _updateBuilderEngrave(data);
+        queryTemp += "UPDATE " + data.optionType + " SET " + _updateBuilderEngrave(data);
     }
     queryTemp += " WHERE productId = "+ data.productId +";";
     return queryTemp;
@@ -258,47 +267,90 @@ function _updateBuilderEngrave(data) {
 
 //Delete Requests
 async function handleDeleteRequest(ctx) {
-    const requestedOperation = ctx.query.operation;
     //data.productId = data.productId.replace("gid://shopify/Product/", '');
-    const data = JSON.parse(ctx.request.body);
-    let results = await _deleteProduct(data.productId);
-    /*switch (requestedOperation) {
-        case "product":
-            {
-                const data = JSON.parse(ctx.request.body);
-                results = await _deleteProduct(data.productId);
-                break;
-            }
-        case "table":
-            {
-                const data =  JSON.parse(ctx.request.body);
-                results = await _deleteTable(data.productId);
-                break;
-            }
-    }*/
-  /*  ctx.respond = false;
-    ctx.res.statusCode = 200;
-    ctx.status = 200;
-    ctx.res.write(`${results}`);
-    ctx.res.end(); */
-}
+    let arr = getDelete(ctx.request.url.replace("/api/delete-options/", ''));
+    arr.forEach(element => {
+        var id = `table${i}`;     // unique key
+        var optionType = Object.values(element);  // table name
 
-async function _deleteProduct(data) {
-    data.productId = data.productId.replace("gid://shopify/Product/", '');
-    if (isNaN(data.productId)) {
-        return JSON.stringify({ "message": "Invalid ID" });
-    } else {
-        if( data.optionType == "dropdown") {
+        if( optionType.includes("dropdown")) {
             let result = await con.awaitQuery(
-                "DELETE FROM  " + data.optionType + data.menuTitle + " WHERE ProductId = "+ data.productId +";"
+                "DELETE FROM "+ data.optionType +" WHERE ProductId = "+ id +";"
             );
         }
         else {
             let result = await con.awaitQuery(
-                "DELETE FROM  " + data.optionType + " WHERE ProductId = "+ data.productId +";"
+                "DELETE FROM engraving WHERE ProductId = "+ id +";"
             );
         }
+    });
+    ctx.respond = false;
+    ctx.res.statusCode = 200;
+    ctx.status = 200;
+    //ctx.res.write(`${results}`);
+    ctx.res.end();
+}
+
+async function getDelete(id) {
+    console.log(id);
+    let temp = [];
+    let arr = await con.awaitQuery('SHOW TABLES');
+    var i = 0;
+
+    arr.forEach(element => {
+        var tableKey = `table${i}`;     // unique key
+        var tableVal = Object.values(element);  // table name
+        var item = {};
+        item[tableKey] = tableVal;
+        temp.push(item);
+        i++;
+    });
+
+    //console.log(temp);
+
+    let resultsArr = [];
+    for (var i = 0; i < temp.length; i++) {
+        var obj = temp[i];              
+        var value = obj[`table${i}`];   // name of table to query
+  
         
+        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + id + `;`)));
+         console.log(results)
+        if (value == 'dropdown' && results[0] != undefined) {      // rebuild dropdown object
+        var tempResults = {};
+        tempResults.productId = results[0].productId;
+        tempResults.menuTitle = results[0].productName;
+       
+        delete results[0].productId;        // remove so that the only thing left are the options
+        delete results[0].productName;
+
+       // tempResults.options.push(results[0]);  
+        tempResults.options  = Object.keys(results[0]); // add options array
+        results[0] = tempResults;
+        }
+        if (results[0] != undefined) {
+            results[0].optionType = value;  // add option type to results
+            resultsArr.push(results[0]);
+        }
+    }
+    return (resultsArr);
+}
+
+async function _deleteProduct(data) {
+    if (isNaN(id)) {
+        return JSON.stringify({ "message": "Invalid ID" });
+    } else {
+
+        if( data.optionType == "dropdown") {
+            let result = await con.awaitQuery(
+                "DELETE FROM "+ data.optionType + data.menuTitle +" WHERE ProductId = "+ data.productId +";"
+            );
+        }
+        else {
+            let result = await con.awaitQuery(
+                "DELETE FROM engraving WHERE ProductId = "+ data.productId +";"
+            );
+        }
         return JSON.stringify({ "message": "Successfully deleted" });
     }
 }
@@ -317,7 +369,6 @@ async function _deleteTable(data) {
     
     return JSON.stringify({ "message": "Successfully deleted" });
 }
-
 
 module.exports = {connect, disconnect, _checkConnect, getUserProducts, handleGetRequest, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
 _createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _createTableHelp,_updateBuilderDrop, _updateBuilderEngrave, _deleteProduct, _deleteTable, isConnected, con};

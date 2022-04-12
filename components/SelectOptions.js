@@ -10,18 +10,14 @@ import ShowOptions from './ShowOptions';
 function SelectOptions() {
 
   const [open, setOpen] = useState(false);
-  const [productSelect, setProductSelect] = useState(false);
   const {productInfo, setProductInfo} = useProductContext();
- // console.log(productInfo)
 
   const handleSelection = (resources) => {
     setOpen(false);
     setProductInfo(resources.selection[0]);
-    setProductSelect(true);
-   // console.log(productInfo);
   }
 
-    if (!productSelect) {
+    if (!productInfo) {
     return (
       <Page>
         <ResourcePicker 
@@ -29,7 +25,7 @@ function SelectOptions() {
           showVariants={false}
           open={open}
           onSelection={(resources) => handleSelection(resources)}
-          onCancel={() => {setOpen(false), setProductSelect(false)}}
+          onCancel={() => {setOpen(false)}}
           selectMultiple={false}
         />
         <Layout>
@@ -47,14 +43,14 @@ function SelectOptions() {
     );
   }
 
-  if (productSelect) {
+  if (productInfo) {
   return (
       <Layout>
          <Layout.Section>
            <div className={styles.Banner}>
               <Banner
                 title="Selected Product"
-                onDismiss={() => {setProductSelect(false), setProductInfo(null)}}
+                onDismiss={() => {setProductInfo(null)}}
               >
                 <ProductCard />
               </Banner>
