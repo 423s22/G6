@@ -3,13 +3,16 @@ import { useState } from "react";
 import data from "../components/ListData.json"
 import style from "../components/css/searchBar.module.css";
 
-//in handlerDB uncomment 276-285
-//this code allows for the user 
+//this code allows for the user type thier question into a search bar if they run into problems 
+//the data is stored in a json file and the search bar looks through the json file usign keywords
+//the users input is changed to all lowercase letters before being compared to json file. The data
+// is compared using .map 
 function FAQ(){
     const [inputValue, setInputValue] = useState("");
     
     return(
-        <div className={style.search}>
+        <div >
+            <h2 className={style.h1}>Look up keywords for questions</h2>
             <div >
             <input className={style.search2}  placeholder='Input your question...' onChange={event => setInputValue(event.target.value)} />
             </div>
