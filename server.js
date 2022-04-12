@@ -129,6 +129,7 @@ app.prepare().then(async () => {
     db.disconnect(); 
     ctx.status = 200;
     } catch (e) {
+      console.log(`POST Error\n ${e}`);
       ctx.status = 500;
     }
   });
