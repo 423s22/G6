@@ -9,9 +9,9 @@ import { AppProvider } from '@shopify/polaris';
 import './mocks/matchMedia.mock';
 
 
-describe('<SelectOptions />', () => {
+describe('<AddOptions />', () => {
     
-    it('Mount SelectOptions react component.', () => {
+    it('Create snapshot of the AddOptions react component.', () => {
         const tree = renderer
             .create(<AppProvider><AddOptions /></AppProvider>)
             .toJSON();
