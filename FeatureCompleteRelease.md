@@ -13,3 +13,6 @@
 <p> Frontend Code: https://github.com/423s22/G6/tree/main/pages </p>
 <p> Frontend Compoments: https://github.com/423s22/G6/tree/main/components </p>
 
+<h1> Portfolio </h1>
+<p> https://github.com/423s22/G6/blob/main/Portfolio.md#-i-program- </p>
+
