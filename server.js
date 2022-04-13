@@ -100,6 +100,10 @@ app.prepare().then(async () => {
     console.log("GET response");
     console.log(ctx.body);
     ctx.status = 200;
+      
+    if (ctx.body == undefined) {
+      ctx.status = 500;
+    }
     } catch (e) {
       console.log(`GET Error\n ${e}`);
       ctx.status = 500;
