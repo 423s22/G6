@@ -33,9 +33,6 @@ function ShowOptions() {
             if (res.status == 200) {    
               setProductOptions(responseData.productOptions);
               setOptionsLoaded(true);
-              return (
-                <SuccessToast />
-              );
             }
         });
       }
@@ -51,7 +48,8 @@ function ShowOptions() {
         }
      }).then(res => {
           if (res.status == 200) {
-            setOptionsLoaded(false);    
+            setOptionsLoaded(false);  
+            getOptions();
           }
         });
     }
