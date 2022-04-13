@@ -39,6 +39,7 @@ function ShowOptions() {
     })
   }
   
+<<<<<<< Updated upstream
   async function deleteOption(productId, optionType) {
     const targetURL = `/api/delete-options/${productId}/${optionType}`;
     const response = await authFetch(targetURL,  {
@@ -53,11 +54,33 @@ function ShowOptions() {
           }
         });
     }
+=======
+  async function deleteOptions() {
+  const targetURL = `/api/delete-options/${productInfo.id.replace("gid://shopify/Product/", '')}`;
+  const response = await authFetch(targetURL,  {
+    //mode: "no-cors",
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+    }
+}).then(res => {
+  if (res.ok) {
+    res.json().then(json => {
+      if (res.status == 200) {
+        setOptionsLoaded(false);    
+        setProductOptions('');
+      }
+    });
+  }
+})
+}
+>>>>>>> Stashed changes
 
 const hideOptions = () => {
   setOptionsLoaded(false);
 }
 
+<<<<<<< Updated upstream
 const handleDropdownDeletion = (productId, optionType) => {
   deleteOption(productId, optionType);
 }
@@ -69,6 +92,25 @@ const handleEngravingDeletion = (productId, optionType) => {
 if (optionsLoaded) {
   console.log(productOptions)
   productOptions.map((item) => (console.log(item.optionType)));
+=======
+const handleDropdownDeletion = (productId, optionType, menuTitle) => {
+  const data = {
+    productId: productId,
+    optionType: optionType[0],
+    menuTitle: menuTitle
+  }
+}
+
+const handleEngravingDeletion = (productId, optionType) => {
+  
+  const data = {
+    productId: productId,
+    optionType: optionType[0]
+  }
+}
+
+if (optionsLoaded) {
+>>>>>>> Stashed changes
     return(
       <div className={styles.ShowOptionsCard}>
         <Card title={<div>
