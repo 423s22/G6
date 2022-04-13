@@ -38,7 +38,7 @@ On the `Options` app homepage you will find buttons that navigate to the various
 6. On this page, you are able to see the product you have selected. 
 * If you would like to cancel and return to product selection, you click the *X* on the product card. 
 
-## Add Engraving Option
+### Add Engraving Option
 1. Open the `Option Types` dropdown menu to selecting option.
 2. Select `Engraving` from the dropdown menu and click `Add Option`
 3. On the *Engraving form*, select your desired number of lines, enter a description for your option, and enter any additional price associated with the engraving option (optional)
@@ -47,7 +47,7 @@ On the `Options` app homepage you will find buttons that navigate to the various
 * On succesfull submit, you will be redirected back to the *Add Options* page
 * If you would like to exit without submitting click the *X* at the top of the card to return back to to the *Add Options* page
 
-## Add Dropdown Option
+### Add Dropdown Option
 1. Open the `Option Types` dropdown menu to selecting option.
 2. Select `Dropdown menu` from the dropdown menu and click `Add Option`
 3. On the *Dropdown form*, enter a title for your dropdown menu (required) and then enter the options you would like to appear in your menu 
