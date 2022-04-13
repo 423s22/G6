@@ -67,8 +67,6 @@ const handleEngravingDeletion = (productId, optionType) => {
 }
 
 if (optionsLoaded) {
-  console.log(productOptions)
-  productOptions.map((item) => (console.log(item.optionType)));
     return(
       <div className={styles.ShowOptionsCard}>
         <Card title={<div>
