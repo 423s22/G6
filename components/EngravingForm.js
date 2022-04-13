@@ -34,7 +34,7 @@ function EngravingForm() {
           Accept: "application/json"
         },  
         body: JSON.stringify(engravingInfo),
-      }).then((res) => {
+      }).then((res) => {console.log(res.status)
         if (res.status == 200) {
             setSubmitted(true);         
         }});

@@ -79,6 +79,7 @@ function DropdownForm() {
 
   const handleBackBtn = () => {
     setOptionsApplied(false);
+    console.log(optionsApplied)
   }
 
   const handleApplyPrice = () => {
@@ -98,7 +99,7 @@ function DropdownForm() {
           Accept: "application/json"
         },  
         body: JSON.stringify(dropdownInfo),
-      }).then((res) => {
+      }).then((res) => {console.log(res.status)
         if (res.status == 200) {
             setSubmitted(true);          
         }});
