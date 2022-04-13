@@ -6,6 +6,7 @@ import styles from './css/ShowOptions.module.css';
 import {
   DeleteMinor, ViewMinor, HideMinor, RefreshMinor
 } from '@shopify/polaris-icons';
+import SuccessToast from "./SuccessToast";
 
 
 
@@ -32,57 +33,43 @@ function ShowOptions() {
             if (res.status == 200) {    
               setProductOptions(responseData.productOptions);
               setOptionsLoaded(true);
+              return (
+                <SuccessToast />
+              );
             }
         });
       }
     })
   }
   
-  async function deleteOptions() {
-  const targetURL = `/api/delete-options/${productInfo.id.replace("gid://shopify/Product/", '')}`;
-  console.log(targetURL);
-  const response = await authFetch(targetURL,  {
-    //mode: "no-cors",
-    method: "DELETE",
-    headers: {
-      Accept: "application/json",
+  async function deleteOption(productId, optionType) {
+    const targetURL = `/api/delete-options/${productId}/${optionType}`;
+    const response = await authFetch(targetURL,  {
+      method: "DELETE",
+        headers: {
+          Accept: "application/json",
+        }
+     }).then(res => {
+          if (res.status == 200) {
+            setOptionsLoaded(false);    
+          }
+        });
     }
-}).then(res => {
-  if (res.ok) {
-    res.json().then(json => {
-      if (res.status == 200) {
-        console.log(json)
-        setOptionsLoaded(false);    
-        setProductOptions('');
-      }
-    });
-  }
-})
-}
 
 const hideOptions = () => {
   setOptionsLoaded(false);
 }
 
-const handleDropdownDeletion = (productId, optionType, menuTitle) => {
-  const data = {
-    productId: productId,
-    optionType: optionType[0],
-    menuTitle: menuTitle
-  }
-  console.log(data)
+const handleDropdownDeletion = (productId, optionType) => {
+  deleteOption(productId, optionType);
 }
 
 const handleEngravingDeletion = (productId, optionType) => {
-  
-  const data = {
-    productId: productId,
-    optionType: optionType[0]
-  }
-  console.log(data)
+  deleteOption(productId, optionType);
 }
 
 if (optionsLoaded) {
+  console.log(productOptions)
   productOptions.map((item) => (console.log(item.optionType)));
     return(
       <div className={styles.ShowOptionsCard}>
@@ -106,9 +93,9 @@ if (optionsLoaded) {
         > 
          {productOptions.map((item, index) => (
             <div className={styles.parentOptionDiv}>
-                {item.optionType == 'dropdown' ? (
+                {item.optionType.includes('dropdown') ? (
                 <div className={styles.optionDiv} key={index}>
-                    <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={handleDropdownDeletion(item.productId, item.optionType, item.menuTitle)}></Button></div>
+                    <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleDropdownDeletion(item.productId, item.optionType)}></Button></div>
                     <p>Menu title: {item.menuTitle} </p>
                     <p>Options: {item.options.map((option) => 
                     <span>{option}&nbsp;</span>
@@ -116,10 +103,10 @@ if (optionsLoaded) {
                 </div>
               ) : (
                 <div className={styles.optionDiv} key={index}>
-                  <span><b>Option type:</b> Engraving</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={handleEngravingDeletion(item.productId, item.optionType)}></Button></div>                
+                  <span><b>Option type:</b> Engraving</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleEngravingDeletion(item.productId, item.optionType)}></Button></div>                
                   <p>Description: {item.description} </p>
                   <p>Number of lines: {item.lineNum} </p>
-                  <p>Price: {item.price} </p>
+                  <p>Price: ${item.price} </p>
                 </div>
               )}
          </div>
@@ -140,13 +127,9 @@ else {
                        </Button>
                     </div>}
        >
-                          <div className={styles.ShowOptionsButton}>
-      <Button destructive onClick={deleteOptions}>
-        Delete Options
-      </Button>
-      </div>
-      </Card>
-  </div>
+         </Card>
+    </div>
+     
   );
   }
 }
