@@ -106,9 +106,7 @@ app.prepare().then(async () => {
     }
   });
   
-  router.delete("/api/delete-options/:id", async (ctx) => {
-    console.log("RAW CTX")
-    //console.log(ctx);
+  router.delete("/api/delete-options/:id/:optionType", async (ctx) => {
        
     try { 
     db.connect();
