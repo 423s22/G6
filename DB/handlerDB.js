@@ -38,29 +38,20 @@ async function handleGetRequest(ctx) {
 }
 
 async function getProducts(productId) {
-    console.log(productId)
     let arr = JSON.parse(JSON.stringify(await con.awaitQuery(`SHOW TABLES;`)));
-    let temp = [];
-    var i = 0;
+    let tablesArr = [];
+
     arr.forEach(element => {
-        var tableKey = `table${i}`;     // unique key
-        var tableVal = Object.values(element);  // table name
-        var item = {};
-        item[tableKey] = tableVal;
-        temp.push(item)
-        i++;
+        var tableVal = String(Object.values(element));  // get table name
+        tablesArr.push(tableVal);   
     });
-    console.log(temp)
     
     let resultsArr = [];
-    for (var i = 0; i < temp.length; i++) {
-        var obj = temp[i];              
-        var value = obj[`table${i}`];   // name of table to query
-  
+    for (const i in tablesArr) {
+        var tableName = tablesArr[i];
+        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + tableName + ` WHERE productId = ` + productId + `;`)));
         
-        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + value + ` WHERE productId = ` + productId + `;`)));
-        //console.log(value)
-        if (value.includes('dropdown') && results[0] != undefined) {      // rebuild dropdown object
+        if (tableName.includes('dropdown') && results[0] != undefined) {      // rebuild dropdown object
         var tempResults = {};
         tempResults.productId = results[0].productId;
         tempResults.menuTitle = results[0].productName;
@@ -73,14 +64,13 @@ async function getProducts(productId) {
         results[0] = tempResults;
         }
         if (results[0] != undefined) {
-            results[0].optionType = value[0];  // add option type to results
+            results[0].optionType = tableName;  // add option type to results
             resultsArr.push(results[0]);
         }
     }
-    var resultsObj = {                    // add results array to JSON object
+    var resultsObj = {                          // add results array to JSON object
         "productOptions" : resultsArr
     }
-    console.log(resultsObj)
     return (resultsObj);
 }
 
@@ -257,47 +247,10 @@ function _updateBuilderEngrave(data) {
 
 //Delete Requests
 async function handleDeleteRequest(ctx) {
-    let productId = ctx.request.url.replace("/api/delete-options/", '');
-
-    let arr = await con.awaitQuery(`SHOW TABLES;`);
-    let temp = [];
-    var i = 0;
-    arr.forEach(element => {
-        var tableKey = `table${i}`;     // unique key
-        var tableVal = Object.values(element);  // table name
-        var item = {};
-        item[tableKey] = tableVal;
-        temp.push(item)
-        i++;
-    });
-    var results;
-    var results2;
-    for (var i = 0; i < temp.length; i++) {
-        var queryStatement = `SELECT * FROM ` + process.env.MYSQL_DB + `.` + temp[i][`table${i}`][0] + ` WHERE productId = ` + productId + `;`;
-        optionType = temp[i][`table${i}`][0];
-
-        results = await con.awaitQuery(queryStatement);
-        if(results[0] != undefined) {
-            if(optionType.includes("dropdown")) {
-                //console.log(optionType)
-                results2 = con.awaitQuery(
-                    "DELETE FROM "+ optionType +" WHERE ProductId = "+ productId +";"
-                );
-            } else {
-                //console.log(optionType)
-                results2 = con.awaitQuery(
-                    "DELETE FROM engraving WHERE ProductId = "+ productId +";"
-                );
-            }
-        }
-        
-    }
-    ctx.respond = false;
-    ctx.res.statusCode = 200;
-    ctx.status = 200;
-    ctx.res.write(`${results}`);
-    ctx.body = results;
-    ctx.res.end();
+    let productId = ctx.params.id;
+    let optionType = ctx.params.optionType;
+    
+    await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID=" + productId + ";");
     
 }
 
