@@ -53,9 +53,8 @@ On the `Options` app homepage you will find buttons that navigate to the various
 3. On the *Dropdown form*, enter a title for your dropdown menu (required) and then enter the options you would like to appear in your menu 
 4. Once you are finished entering in your options and menu title, click on `Apply Options` to continue on to price selection
 5. In price selection, you can select and option from the menu and add a price to it using the price box
-6. Click `add` to apply the price to the option
-*Option type selection. Select Engraving from the dropdown menu*
-4. When you are finished, click *Submit* to apply your dropdown menu to your product.
+6. Click `Add` to apply the price to the option
+7. When you are finished, click `Submit` to apply your dropdown menu to your product.
 * On succesfull submit, you will be redirected back to the *Add Options* page
 * If you would like to exit without submitting click the *X* at the top of the card to return back to to the *Add Options* page
 
