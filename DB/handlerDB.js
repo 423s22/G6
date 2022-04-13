@@ -60,9 +60,18 @@ async function getProducts(productId) {
         delete results[0].productName;
 
        // tempResults.options.push(results[0]);  
-        tempResults.options  = Object.keys(results[0]); // add options array
+        const labels = Object.keys(results[0]);
+        const values = Object.values(results[0]);
+        for (let i = 0; i < labels.length; i++) {
+            let obj = {};
+            let label = labels[i];
+            let value = values[i];
+            obj ={label: label, value: value};
+            tempResults.options.push(obj);
+        }
         results[0] = tempResults;
         }
+        
         if (results[0] != undefined) {
             results[0].optionType = tableName;  // add option type to results
             resultsArr.push(results[0]);
