@@ -33,6 +33,7 @@ Shopify app that will allow merchants to add additional options and customizatio
 * Click `Create App`
 * Select `Custom App`
 * Enter in your application name, and ngrok URL as follows 
+
 ![App setup Example](https://github.com/423s22/G6/blob/main/screenshots/example_app_setup.png)
 * Retrieve the applications **API key** and **secret API key** from your application's setting page
 * Create a `.env` file in the project directory with the following information:<br/>
