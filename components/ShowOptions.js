@@ -48,7 +48,7 @@ function ShowOptions() {
         }
      }).then(res => {
           if (res.status == 200) {
-            setOptionsLoaded(false);  
+           // setOptionsLoaded(false);  
             getOptions();
           }
         });
