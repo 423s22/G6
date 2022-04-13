@@ -187,7 +187,6 @@ function DropdownForm() {
       return (
         <div>
           <AddOptions />   
-          <SuccessToast />
         </div>
       )
   }
