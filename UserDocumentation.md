@@ -1,4 +1,4 @@
-<h1> Documentation for users </h1>
+<h1> Documentation for Users </h1>
 <h2> Project’s goal </h2>
 
 <ul> The goal is to create an embedded app for Shopify. 
