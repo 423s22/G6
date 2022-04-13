@@ -44,7 +44,8 @@ Shopify app that will allow merchants to add additional options and customizatio
 * Navigate back to your application's page in Shopify and `Select` a `Development Store` to install your application on
 * Once you have installed the application your development store, navigate to the `Apps` section of your Shopify Admin and click on the application
 * You should now see the application embedded in your Shopify Admin
-![embedded app](https://github.com/423s22/G6/blob/main/screenshots/embedded_app.png)
+
+![embedded app](https://github.com/423s22/G6/blob/main/screenshots/options_homepage.png)
 
 #### User Documentation 
 * Link to User Documentation https://github.com/423s22/G6/blob/main/UserDocumentation.md
