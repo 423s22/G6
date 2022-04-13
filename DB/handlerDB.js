@@ -55,6 +55,7 @@ async function getProducts(productId) {
         var tempResults = {};
         tempResults.productId = results[0].productId;
         tempResults.menuTitle = results[0].productName;
+        tempResults.options = [];
        
         delete results[0].productId;        // remove so that the only thing left are the options
         delete results[0].productName;
