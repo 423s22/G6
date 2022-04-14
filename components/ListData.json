@@ -1,19 +1,83 @@
 [
     {
         "id": 1,
-        "question": "Question 1 "
+        "question": "Using Options App: Where to find the app? ",
+        "answer": "Click on Apps in Shopify and you will be directed towards your Apps page for your store. This page will display all the Apps you have currently installed on your store"
     },
 
     {
         "id": 2,
-        "question": "Question 2 "
+        "question": "Using Options App: How to open the Options App? ",
+        "answer": "To open the Options app, click on the app's name"
     },
     {
         "id": 3,
-        "question": "Question 3 "
+        "question": "Homepage: How to navigate the options app? ",
+        "answer": "You can navigate through various pages of the app by selecting the built in buttons called 'Add Options' or 'FAQ pages'. It is also possible to navigate through the app by selecting the pages' names by using the top navigation bar, this allows you to directly navigate through the page "
     },
     {
         "id": 4,
-        "question": "Question 4 "
+        "question": "Add Options: How to add options in the app? ",
+        "answer": "Navigate to the Add Options page using the navigation tab. Once on the Add Options page click on the select options button to open the product selector. Select the product you would like to add options to. Click Add. You will be redirected to Option Selection Now you will be able to view the product you selected"
+    },
+    {
+        "id": 5,
+        "question": "Add Options: How to Cancel add options and return to product selection?",
+        "answer": "Click the X on the product card"
+    },
+    {
+        "id": 6,
+        "question": "Add Engraving Option: How to add an engraving option to a product?",
+        "answer": "Open the Options Types dropdown menu to select options. Select Engraving from the dropdown menu and click Add Option.  On the Engraving form, select the number of lines you want, enter a description for your option as well as the price for engraving. When finished click Submit to add evgraving to your product. "
+    },
+    {
+        "id": 7,
+        "question": "Add Engraving Options: How to Cancel add options and return to Add Options page?",
+        "answer": "Click on the X on the product card"
+    },
+    {
+        "id": 8,
+        "question": "Add Dropdown Option: How to add the Dropdown Option?",
+        "answer": "Open the Option Types dropdown menu to selecting option.  Select Dropdown menu from the dropdown menu and click Add Option. On the Dropdown form, enter a title for your dropdown menu (required) and then enter the options you would like to appear in your menu. Once you are finished entering in your options and menu title, click on Apply Options to continue on to price selection. In price selection, you can select and option from the menu and add a price to it using the price box. Click Add to apply the price to the option. When you are finished, click Submit to apply your dropdown menu to your product.  "
+    },
+    {
+        "id": 9,
+        "question": "Add Dropdown Option: How to Cancel add options and return to Add Options page?",
+        "answer": "Click on the X on the product card"
+    },
+    {
+        "id": 10,
+        "question": "Viewing Applied Options: How to view the options that you have already submitted?",
+        "answer": " Navigate to the Add Options page. Click the Applied Options button to open up the applied options card "
+    },
+    {
+        "id": 11,
+        "question": "Viewing Applied Options: Why is my Applied Options page empty?",
+        "answer": "This menu will be empty if you have not applied your options yet"
+    },
+    {
+        "id": 12,
+        "question": "Viewing Applied Options: How do I refresh the applied optons card?",
+        "answer": "Click the Refresh button"
+    },
+    {
+        "id": 13,
+        "question": "Viewing Applied Options: How do I hide/open the applied options card?",
+        "answer": "Press the Applied Options button"
+    },
+    {
+        "id": 14,
+        "question": "Removing Applied Options: How do I remove the applied options in place?",
+        "answer": "Open up the applied options card. Find the option you would like to remove. Click the trashcan icon on the option card to remove it "
+    },
+    {
+        "id": 15,
+        "question": "Removing Applied Options: Will my card be removed instatly?",
+        "answer": "The card should remove instatly, if it does not try refreshing your page"
+    },
+    {
+        "id": 16,
+        "question": "Bug: I found a bug in the app, what should I do?",
+        "answer": "Reporting a bug: fill out a form that follows these steps: When a problem is found a unique number will be assign to the incident. Give the bug a descriptive title after the number is assigned. Set the priority to the bug issue so it can be fixed in an appropriate amount of time. Inform us what operating system you are working on. Give us a description that focuses around these points: Try to recall the exact steps that were taken to find the bug in the system, Specify the exact issues that occurred on your machine, Try to create a verbal visualization for the issue at hand, Expected and actual result, A screenshot of your error. Submit the form to us!  "
     }
 ]
