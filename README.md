@@ -48,6 +48,8 @@ Shopify app that will allow merchants to add additional options and customizatio
 
 ![embedded app](https://github.com/423s22/G6/blob/main/screenshots/options_homepage.png)
 
+
+
 #### User Documentation 
 * Link to User Documentation https://github.com/423s22/G6/blob/main/UserDocumentation.md
 
@@ -56,4 +58,11 @@ Shopify app that will allow merchants to add additional options and customizatio
 
 ### Portfolio 
 * Link to GitHub version of Portfolio https://github.com/423s22/G6/blob/main/Portfolio.md
+
+#### Testing Documentation
+Our app uses Jest for testing. We use snapshot tests which are not as good as integration tests but for our problem they work well.
+There is an authentification issue with Shopify that flags remote logins to the admin page of our development store as malicious bots.
+This made end to end testing through cypress very difficult to implement and inspired the pivot to Jest. 
+Snapshot tests do testing based on the JSON of the rendered react component. Jest will create a text file and save the rendered component 
+in the text file. Then, the next time the test is run it will compare and contrast the new rendered react component with the previous snapshot.
 
