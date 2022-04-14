@@ -1,8 +1,35 @@
-<div class="options-block">
-Product Id: {{product.id}} 
+<style src="{{ 'theme-app-extension.css' | asset_url}}" defer></style>
+
+<script>
+async function getOptions(productID) {
+    console.log("RUNNING GETOPTIONS");
+    const targetURL = `/api/show-options/${productID}`;
+    const response = await fetch(targetURL,  {
+      method: "GET",
+      headers: {
+        Accept: "application/json"
+      }
+    }).then(res => {
+    if (res.ok) {
+      console.log(response)
+      res.json().then(json => {
+        console.log(json)
+        const responseData = json;
+          if (res.status == 200) {    
+            setProductOptions(responseData.productOptions);
+            setOptionsLoaded(true);
+          }
+      });
+    }
+  })
+}
+</script>
+
+<div onpageshow="getOptions({{ product.id }})">
+<button type="button" onclick="getOptions({{product.id}})">More Options</button>
+Hello {{product.id}}
 </div>
 
-<script src="{{ 'productOptions.js' | asset_url }}" defer></script>
 
 {% schema %}
   {
