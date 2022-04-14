@@ -55,3 +55,6 @@ Shopify app that will allow merchants to add additional options and customizatio
 ### Portfolio 
 * Link to GitHub version of Portfolio https://github.com/423s22/G6/blob/main/Portfolio.md
 
+### Feature Complete Release
+* Link to Github document for the FCR https://github.com/423s22/G6/blob/main/FeatureCompleteRelease.md#-product-release-
+
