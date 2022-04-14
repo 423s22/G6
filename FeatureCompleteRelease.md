@@ -5,13 +5,13 @@
 <p> UML Documentation: https://github.com/423s22/G6/blob/main/UMLDocumentation.md </p>
 
 <h1> Tests </h1>
-<p> Tests are in the process of being made </p>
+<p> Frontend Components Testing Code: https://github.com/423s22/G6/tree/main/components/tests</p>
 
 <h1> Code </h1>
 <p> Overall Code: https://github.com/423s22/G6 </p>
 <p> Backend Code: https://github.com/423s22/G6/tree/main/DB </p>
 <p> Frontend Code: https://github.com/423s22/G6/tree/main/pages </p>
-<p> Frontend Compoments: https://github.com/423s22/G6/tree/main/components </p>
+<p> Frontend Components: https://github.com/423s22/G6/tree/main/components </p>
 
 <h1> Portfolio </h1>
 <p> https://github.com/423s22/G6/blob/main/Portfolio.md#-i-program- </p>
