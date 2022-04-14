@@ -15,7 +15,7 @@ import authFetch from '../utils/AuthFetch';
 function EngravingForm() {
 
   // get product info from context
-  const {productInfo, setProductInfo} = useProductContext();
+  const {productInfo, setProductInfo} = useProductContext() || {};
   
 
   const [selectedNumber, setSelectedNumber] = useState('1');

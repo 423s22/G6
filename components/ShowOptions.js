@@ -13,7 +13,7 @@ import SuccessToast from "./SuccessToast";
 function ShowOptions() {
 
    // get product info from context
-  const {productInfo, setProductInfo} = useProductContext();
+  const {productInfo, setProductInfo} = useProductContext() || {};
   const [productOptions, setProductOptions] = useState('');
   const [optionsLoaded, setOptionsLoaded] = useState(false);  
 
