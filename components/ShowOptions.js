@@ -13,7 +13,7 @@ import SuccessToast from "./SuccessToast";
 function ShowOptions() {
 
    // get product info from context
-  const {productInfo, setProductInfo} = useProductContext();
+  const {productInfo, setProductInfo} = useProductContext() || {};
   const [productOptions, setProductOptions] = useState('');
   const [optionsLoaded, setOptionsLoaded] = useState(false);  
 
@@ -48,7 +48,7 @@ function ShowOptions() {
         }
      }).then(res => {
           if (res.status == 200) {
-            setOptionsLoaded(false);  
+           // setOptionsLoaded(false);  
             getOptions();
           }
         });
@@ -67,8 +67,6 @@ const handleEngravingDeletion = (productId, optionType) => {
 }
 
 if (optionsLoaded) {
-  console.log(productOptions)
-  productOptions.map((item) => (console.log(item.optionType)));
     return(
       <div className={styles.ShowOptionsCard}>
         <Card title={<div>

@@ -10,7 +10,7 @@ import ShowOptions from './ShowOptions';
 function SelectOptions() {
 
   const [open, setOpen] = useState(false);
-  const {productInfo, setProductInfo} = useProductContext();
+  const {productInfo, setProductInfo} = useProductContext() || {};
 
   const handleSelection = (resources) => {
     setOpen(false);

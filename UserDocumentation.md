@@ -23,7 +23,7 @@ Once you have successfully installed the `Options` app, you can find it within y
 
 After you have clicked on *Apps* you will be directed towards your *Apps* page for your store, which will display all the Apps you have currently installed on your store. 
         
-You can open the `Options` app by clicking on the app's name as shown in the screenshot above. 
+You can open the `Options` app by clicking on the app's name. 
 
 ## Homepage 
 On the `Options` app homepage you will find buttons that navigate to the various pages of the app such as the *Add Options* and *FAQ* pages. You can can also click on a page's name within the top navigation bar to navigate directly to it. The current page is indicated on the navigation tabs by a green line underneath it.

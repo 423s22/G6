@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v2
         with: 
           node-version: "14.x"
-      - name: Test npm ci
+      - name: Run npm ci
         run: npm ci
       - name: Patch Heroku
         run: heroku builds:cancel
@@ -24,7 +24,7 @@ jobs:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: heroku container:login
       - name: Test with Jest
-        run: npm test
+        run: npm test -- -u
 
   deploy:
     runs-on: ubuntu-latest
@@ -33,6 +33,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@master
         with:
-          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
           HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}

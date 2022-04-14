@@ -1,5 +1,5 @@
 module.exports = {
     moduleNameMapper: {
-      '\\.(css|less)$': '<rootDir>/tests/utils/styleMock.js',
+      '\\.(css|less)$': '<rootDir>/components/tests/mocks/styleMock.js',
     }
   };

@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/client": "^3.5.9",
+    "@babel/runtime": "^7.17.9",
     "@koa/router": "^8.0.8",
     "@material/textfield": "^13.0.0",
     "@shopify/app-bridge-react": "^2.0.10",
@@ -32,6 +33,7 @@
     "@shopify/polaris": "^8.2.2",
     "@shopify/polaris-icons": "^4.18.0",
     "apollo-boost": "^0.4.9",
+    "babel": "^6.23.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "graphql": "^15.8.0",
@@ -52,7 +54,34 @@
     "split": "^1.0.1"
   },
   "devDependencies": {
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
-    "enzyme": "^3.11.0"
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/runtime-corejs3": "^7.17.9",
+    "react-test-renderer": "^17.0.2"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-react"
+      ],
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "esmodules": true
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true,
+          "corejs": 3
+        }
+      ]
+    ]
   }
 }
