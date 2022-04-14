@@ -9,7 +9,7 @@
 .box{
     text-align: center;
     border: grey ridge 2px;
-    border-radius: 50px;
+    border-radius: 25px;
     margin: auto;
     width: 95%;
     background-color: lightgrey;
