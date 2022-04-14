@@ -22,10 +22,14 @@ function FAQ(){
                         return post;
                     } else if (post.question.toLowerCase().includes(inputValue.toLowerCase())) {
                         return post;
-                    }
+                    } 
+                    /* else if (post.answer.toLowerCase().includes(inputValue.toLowerCase())) {
+                        return post;
+                    } */
                 }).map((post, inputValue) => (
                     <div className={style.box} key={inputValue}>
                         <p>{post.question}</p>
+                        <p> {post.answer}</p>
                         </div>
                 ))
             }
