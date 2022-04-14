@@ -20,7 +20,7 @@ function DropdownForm() {
   const [submitted, setSubmitted] = useState(false);
 
   // get product info from context
-  const {productInfo, setProductInfo} = useProductContext();
+  const {productInfo, setProductInfo} = useProductContext() || {};
 
   const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price dynamically 
 

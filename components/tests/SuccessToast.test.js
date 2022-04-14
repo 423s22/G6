@@ -3,17 +3,17 @@
 */
 
 import renderer from 'react-test-renderer';
-import AddOptions from '../AddOptions';
+import SuccessToast from '../SuccessToast';
 import React from 'react';
 import { AppProvider } from '@shopify/polaris';
 import './mocks/matchMedia.mock';
 
 
-describe('<AddOptions />', () => {
+describe('<SuccessToast />', () => {
     
-    it('Create snapshot of the AddOptions react component.', () => {
+    it('Create snapshot of the SuccessToast react component.', () => {
         const tree = renderer
-            .create(<AppProvider><AddOptions /></AppProvider>)
+            .create(<AppProvider><SuccessToast /></AppProvider>)
             .toJSON();
         expect(tree).toMatchSnapshot();
     });
