@@ -33,7 +33,7 @@
 <p> </p>
 <h4> James Marsh: </h4>
 <p> </p>
-<h4> Daniel Vinogradov: </h4>
+<h4> Daniel Vinogradov: Our original group G7 merged with G6, which meant we needed to delegate each other new tasks. The work Daniel, I, was delegated to was strictly front end. I developed a mock store, filled it with images, descriptions, created products, collections and incorporated Lenin's menus to design the store. The theme of our store is an outdoors apparel and equipment store known as Eagle Apparel. I also was assigned to create a brand, logo and story for our theme. The store uses the theme Venture, the free version, available from the Shopify Theme store. This theme is great because the theme has constant updates, meaning if we want to change our store to a different theme, we are not restricted sticking to older versions of themes.  </h4>
 <p> </p>
 
 <h2> III. Design Pattern </h2>
