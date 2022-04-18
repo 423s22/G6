@@ -41,6 +41,6 @@ You no longer wish to view the applied options to your product and would like to
 **Scenario 5:**
 You are a photographer that is selling prints of your picture, Winter Frost. You would like the user to be able to select from a wide variety of picture sizes.
 
-**Task**: Navigate to the Add Options page on the Options app. Select the Winter Frost product, and add a dropdown option with a variety of common picture sizes.
+**Task**: Navigate to the Add Options page on the Options app. Select the Winter Frost product, and add a dropdown option with some common picture sizes such as 4″ x 6″ and 5″ x 7″. 
 
 
