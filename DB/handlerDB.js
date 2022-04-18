@@ -261,7 +261,17 @@ async function handleDeleteRequest(ctx) {
     let optionType = ctx.params.optionType;
     
     await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID=" + productId + ";");
-    
+    await _checkEmpty(optionType);
+}
+
+async function _checkEmpty(optionType) {
+    let results = await con.awaitQuery("SELECT * FROM " + optionType + ";");
+    console.log(results + " RESULTS: IN EMPTY");
+
+    if (result.length == 0) {
+        "DROP TABLE  " + optionType + ";";
+    }
+
 }
 
 async function _deleteTable(data) {
@@ -280,4 +290,5 @@ async function _deleteTable(data) {
 }
 
 module.exports = {connect, disconnect, _checkConnect, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
-_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _createTableHelp,_updateBuilderDrop, _updateBuilderEngrave, _deleteTable, isConnected, con};
+_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _createTableHelp,_updateBuilderDrop, _updateBuilderEngrave, _checkEmpty, _deleteTable, isConnected, con};
+
