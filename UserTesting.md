@@ -1,7 +1,7 @@
 # User Testing Outline
 
-**Research Goal:**
-The goal of this research is to gauge the intuitiveness and comprehension of our custom options Shopify application. Through the conduction of two separate one-hour user testing sessions, we hope to glean valuable insight into which features of our application meet user needs and which features need to be adjusted. We also aim to address any bugs that should be uncovered through user testing. 
+**Testing Goal:**
+The goal of these tests are to gauge the intuitiveness and comprehension of our custom options Shopify application. Through the conduction of two separate one-hour user testing sessions, we hope to glean valuable insight into which features of our application meet user needs and which features need to be adjusted. We also aim to address any bugs that should be uncovered through user testing. 
 
 **Background:**
 Each user testing session will last for roughly one hour. First, we will select two participants who have no previous knowledge of computer science or our system, in order to address the common user. 
