@@ -30,13 +30,15 @@ class Index extends React.Component {
             </EmptyState>
             
             </Card.Section>
-
+             <Card.Section>
+              <TextStyle varation="strong"> To create a product select Product Options, from there you may be able to create a list of products. </TextStyle>
+            </Card.Section>
            
           </Card>
         </Layout.Section>
 
         <Layout.Section oneHalf>
-          <Card title="Samurai Shirt">
+          <Card title="Frequently Asked Questions">
             <Card.Section>
               <Thumbnail
                 source="https://thumbs.dreamstime.com/b/faq-icon-vector-illustration-eps-146073139.jpg"
