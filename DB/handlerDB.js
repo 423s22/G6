@@ -90,6 +90,35 @@ async function getProducts(productId) {
     return (resultsObj);
 }
 
+async function handleGetAllRequest(ctx) {
+    let productId = ctx.params.id;
+    let popArr = [];
+
+    let arr = await con.awaitQuery(`SHOW TABLES;`);
+    let temp = [];
+    var i = 0;
+    arr.forEach(element => {
+        var tableKey = `table${i}`;     // unique key
+        var tableVal = Object.values(element);  // table name
+        var item = {};
+        item[tableKey] = tableVal;
+        temp.push(item)
+        i++;
+    });
+    var results;
+    for(var i in temp ) {
+        var queryStatement = `SELECT * FROM ` + process.env.MYSQL_DB + `.` + temp[i][`table${i}`][0] + ` WHERE productId = ` + productId + `;`;
+        optionType = temp[i][`table${i}`][0];
+        results = await con.awaitQuery(queryStatement);
+        for(var i in results) {
+            if(results[i] != undefined) {
+                popArr.push(results[i]);
+            }
+        }
+    }
+    return popArr;
+}
+
 //Create Requests
 async function handlePostRequest(ctx) {
     const data = JSON.parse(ctx.request.body);
@@ -320,7 +349,6 @@ async function _deleteTable(data) {
     return JSON.stringify({ "message": "Successfully deleted" });
 }
 
-module.exports = {connect, disconnect, _checkConnect, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
+module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, /*getProducts,*/ handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
 _createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _updateBuilderDrop, _updateBuilderEngrave, _checkEmpty, _deleteTable, handleDeleteAllRequest, isConnected, con};
-
 
