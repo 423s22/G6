@@ -39,8 +39,8 @@ function ShowOptions() {
     })
   }
   
-  async function deleteOption(productId, optionType) {
-    const targetURL = `/api/delete-options/${productId}/${optionType}`;
+  async function deleteOption(productId, optionType, description) {
+    const targetURL = `/api/delete-options/${productId}/${optionType}/${description}`;
     const response = await authFetch(targetURL,  {
       method: "DELETE",
         headers: {
@@ -58,12 +58,12 @@ const hideOptions = () => {
   setOptionsLoaded(false);
 }
 
-const handleDropdownDeletion = (productId, optionType) => {
-  deleteOption(productId, optionType);
+const handleDropdownDeletion = (productId, optionType, menuTitle) => {
+  deleteOption(productId, optionType, menuTitle);
 }
 
-const handleEngravingDeletion = (productId, optionType) => {
-  deleteOption(productId, optionType);
+const handleEngravingDeletion = (productId, optionType, description) => {
+  deleteOption(productId, optionType, description);
 }
 
 if (optionsLoaded) {
@@ -91,7 +91,7 @@ if (optionsLoaded) {
             <div className={styles.parentOptionDiv}>
                 {item.optionType.includes('dropdown') ? (
                 <div className={styles.optionDiv} key={index}>
-                    <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleDropdownDeletion(item.productId, item.optionType)}></Button></div>
+                    <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleDropdownDeletion(item.productId, item.optionType, item.menuTitle)}></Button></div>
                     <p>Menu title: {item.menuTitle} </p>
                     <p>Options: {item.options.map((element) => 
                           <p>&emsp;{element.label}: ${element.value}&nbsp;</p>)}
@@ -99,7 +99,7 @@ if (optionsLoaded) {
                 </div>
               ) : (
                 <div className={styles.optionDiv} key={index}>
-                  <span><b>Option type:</b> Engraving</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleEngravingDeletion(item.productId, item.optionType)}></Button></div>                
+                  <span><b>Option type:</b> Engraving</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleEngravingDeletion(item.productId, item.optionType, item.description)}></Button></div>                
                   <p>Description: {item.description} </p>
                   <p>Number of lines: {item.lineNum} </p>
                   <p>Price: ${item.price} </p>
