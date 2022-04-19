@@ -110,7 +110,7 @@ app.prepare().then(async () => {
     }
   });
   
-  router.delete("/api/delete-options/:id/:optionType", async (ctx) => {
+  router.delete("/api/delete-options/:id/:optionType/:description", async (ctx) => {
        
     try { 
     db.connect();
