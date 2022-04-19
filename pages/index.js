@@ -1,40 +1,68 @@
 import React from 'react';
-import {Page, Button, Layout, Banner, EmptyState, AppProvider} from "@shopify/polaris";
+import { Page , Layout , Card, TextStyle, Thumbnail, Button, ButtonGroup, AppProvider, EmptyState} from "@shopify/polaris";
 //import ProductList from '../components/ProductList';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import Router from 'next/router';
 /* adding note here */
 class Index extends React.Component {
 
-  render() { 
-    return (
-      <AppProvider>
-        <Page>
-              {/* redirect user to custom options page */}  
-            {/* <Button onClick = {() => Router.push('/add-options')}>Product Selection Page</Button> */}      
-          <Layout>
-            <EmptyState
-              heading="Welcome to your custom options builder"
-              action={{
+  render(){
+  return (
+    <Page title="Home Page">
+      <Layout>
+        <Layout.Section oneHalf>
+          <Card title="Create Products">
+            <Card.Section>
+              <Thumbnail
+                source="https://thumbs.dreamstime.com/b/web-186774980.jpg"
+                size="large"
+                alt="Click"
+              />
+              
+              <EmptyState
+                action={{
                 content: "Products Options",
                 onAction: () => (Router.push('/add-options')),
               }}
               >
-              <h2>To start creating your options</h2>
+             
             </EmptyState>
             
-              <h2>If you get lost along the way visit our FAQ page</h2>
-            <EmptyState
+            </Card.Section>
+             <Card.Section>
+              <TextStyle varation="strong"> To create a product select Product Options, from there you may be able to create a list of products. </TextStyle>
+            </Card.Section>
+           
+          </Card>
+        </Layout.Section>
+
+        <Layout.Section oneHalf>
+          <Card title="Frequently Asked Questions">
+            <Card.Section>
+              <Thumbnail
+                source="https://thumbs.dreamstime.com/b/faq-icon-vector-illustration-eps-146073139.jpg"
+                size="large"
+                alt="Samurai Shirt"
+              />
+
+<EmptyState
             action={{
               content: "FAQ Page",
               onAction: () => (Router.push('/FAQindex')),
             }}
           ></EmptyState>
-            </Layout>
-        </Page> 
-      </AppProvider>         
-    )
-  }
+            </Card.Section>
+            
+            <Card.Section>
+              <TextStyle varation="strong"> To view our most frequently asked questions press on the button above. </TextStyle>
+            </Card.Section>
+          </Card>
+        </Layout.Section>
+      </Layout>
+      ;
+    </Page>
+  );
+};
 }
 
 export default Index;
