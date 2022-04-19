@@ -1,5 +1,5 @@
 import React from 'react';
-import {Page, Button, Layout, Banner, EmptyState, AppProvider} from "@shopify/polaris";
+import { Page , Layout , Card, TextStyle, Thumbnail, Button, ButtonGroup, AppProvider, EmptyState} from "@shopify/polaris";
 //import ProductList from '../components/ProductList';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import Router from 'next/router';
