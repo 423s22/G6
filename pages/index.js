@@ -20,13 +20,12 @@ class Index extends React.Component {
               />
               
               <EmptyState
-              heading="Welcome to your custom options builder"
-              action={{
+                action={{
                 content: "Products Options",
                 onAction: () => (Router.push('/add-options')),
               }}
               >
-              <h2>To start creating your options</h2>
+             
             </EmptyState>
             
             </Card.Section>
