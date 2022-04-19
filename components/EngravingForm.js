@@ -10,6 +10,8 @@ import app from '@shopify/app-bridge-react';
 import { getSessionToken } from '@shopify/app-bridge-utils';
 import authFetch from '../utils/AuthFetch';
 //import SuccessToast from './SuccessToast';
+import CreateProduct from '../helpers/CreateProduct';
+
 
 
 function EngravingForm() {
@@ -19,11 +21,11 @@ function EngravingForm() {
   
 
   const [selectedNumber, setSelectedNumber] = useState('1');
-  const [description, setDescription] = useState('description');
+  const [description, setDescription] = useState(' ');
   const [price, setPrice] = useState('0');
   const [exitForm, setExitForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const handleDescriptionChange = useCallback((value) => {setDescription(validateInput(value))}, []);
+  const handleDescriptionChange = (value) => { setDescription(validateInput(value))};
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
   // post form data to the backend
@@ -44,15 +46,22 @@ function EngravingForm() {
     return value.replaceAll(/[&/\\#,+()$~%;^'":*?<>{}]/g, "");
   }
 
-  const handleSubmit = () => {
+  async function handleSubmit () {
      const engravingInfo = {
-         productId: productInfo.id,
+         productId: productInfo.id.replace("gid://shopify/Product/", ''),
          optionType: 'engraving',
          lines: selectedNumber,
          description: description,
          price: price,
+         title: productInfo.title
      }
-     updateDB(engravingInfo)
+     let productOptionId = await CreateProduct(engravingInfo);      // create product from option in Shopify and return back its productId
+
+     delete engravingInfo.title;        // remove title since it is no longer needed
+
+     engravingInfo.productOptionId = productOptionId;       // add ID of product option     
+
+     updateDB(engravingInfo)                                // call function to add option to DB
      }; 
 
    const numbers = [
@@ -103,7 +112,7 @@ function EngravingForm() {
                             <div className={styles.descDiv}>
                                 <TextField
                                     value={description}
-                                    onChange={handleDescriptionChange}
+                                    onChange={ (value) => handleDescriptionChange(value)}
                                     label="Engraving"
                                     type="text"
                                     readOnly={false}
