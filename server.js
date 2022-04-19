@@ -18,6 +18,7 @@ const app = next({
 });
 const handle = app.getRequestHandler();
 
+let store_access_token = null;
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -44,6 +45,9 @@ app.prepare().then(async () => {
       async afterAuth(ctx) {
         // Access token and shop available in ctx.state.shopify
         const { shop, accessToken, scope } = ctx.state.shopify;
+      
+        store_access_token = accessToken;    // assign store access token
+
         const host = ctx.query.host;
         ACTIVE_SHOPIFY_SHOPS[shop] = scope;
 
@@ -152,8 +156,32 @@ app.prepare().then(async () => {
     }
   });
   
+  // route to receive create a Shopify product for an option from engraving form
+  router.post("/api/add-engraving-product-option", async (ctx) => {   
+    // create product in Shopify 
+     try { 
+      const product = JSON.parse(ctx.request.body);
+      const targetURL = `https://${process.env.SHOPIFY_API_KEY}${process.env.SHOPIFY_API_SECRET}@${process.env.SHOP_NAME}.myshopify.com/admin/api/2021-10/products.json`;
+      var header = {
+        method: 'POST', 
+        headers: {
+            "Content-Type": "application/json",
+            "Accept-Charset": "UTF-8",
+            'X-Shopify-Access-Token': `${store_access_token}`,
+            'Authorization': `Bearer ${store_access_token}`
+        },
+        body: JSON.stringify(product)
+    }
+   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {console.log(data);ctx.response.body = data}).catch((error) => { console.log(error) })
+   ctx.status = 200;
+    } 
+  catch (e) {
+      console.log(`Shopify POST Error\n ${e}`);
+      ctx.status = 500;
+    }
+  });
 
-
+  
   server.use(router.allowedMethods());
   server.use(router.routes());
   server.listen(port, () => {
