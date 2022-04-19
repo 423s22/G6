@@ -1,4 +1,4 @@
-import authFetch from "./AuthFetch";
+import authFetch from "../utils/AuthFetch";
 
 // POST to backend route that create product in Shopify admin
 export default async function CreateProduct(data) {
@@ -14,7 +14,7 @@ export default async function CreateProduct(data) {
               "price": `${data.price}`,
           }
         ],
-        "status": "draft",    // make it a draft product so it won't be shown on the store front
+        "status": "archived",    // make it an archived product so it won't be shown on the store front
     }
   } 
 

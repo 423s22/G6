@@ -172,7 +172,7 @@ app.prepare().then(async () => {
         },
         body: JSON.stringify(product)
     }
-   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {console.log(data);ctx.response.body = data}).catch((error) => { console.log(error) })
+   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {ctx.response.body = data}).catch((error) => { console.log(error) })
    ctx.status = 200;
     } 
   catch (e) {
