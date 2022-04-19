@@ -12,9 +12,9 @@ function FAQ(){
     
     return(
         <div >
-            <h2 className={style.h1}>Look up keywords for questions</h2>
+            
             <div >
-            <input className={style.search2}  placeholder='Input your question...' onChange={event => setInputValue(event.target.value)} />
+            <input className={style.search2}  placeholder='Search keywords...' onChange={event => setInputValue(event.target.value)} />
             </div>
             {
                 data.filter(post => {
