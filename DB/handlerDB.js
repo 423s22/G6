@@ -51,26 +51,28 @@ async function getProducts(productId) {
         var tableName = tablesArr[i];
         var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + tableName + ` WHERE productId = '` + productId + `';`)));
         
+        //console.log("IMPORTANT : " + results[0])
         if (tableName == 'dropdown' && results[0] != undefined) {      // rebuild dropdown object
         var tempResults = {};
         tempResults.productId = results[0].productId;
         tempResults.menuTitle = results[0].menuTitle;
         
-
         
         tempResults.options = [];
        
         delete results[0].productId;        // remove so that the only thing left are the options
         delete results[0].menuTitle;
-
-       // tempResults.options.push(results[0]);  
+ 
         const labels = Object.keys(results[0]);
         const values = Object.values(results[0]);
+
         for (let i = 0; i < labels.length; i++) {
             let obj = {};
             let label = labels[i];
-            let value = values[i];
-            obj ={label: label, value: value};
+            let value = values[i]; // value needs to be price[:]productOptionId
+            //let temp = value.toString().split("[:]"); //splits the value for the obj
+            //console.log(temp);
+            obj ={label: label, value: value } //temp[0], productOptionId: temp[1]};
             if (obj.label != "_iter") {
                 tempResults.options.push(obj);
             }
@@ -203,10 +205,10 @@ function _createBuilderDrop(data) {
 
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + "}'";
+            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + "}'"; ///"[:]" + options[i]["productOptionId"] + "}'";
         }
         else{
-            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + ", ";
+            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + ", "; //"[:]" + options[i]["productOptionId"] + ", ";
         }
     }
     return [query1, query2]
@@ -214,8 +216,8 @@ function _createBuilderDrop(data) {
 
 function _createBuilderEngrave(data) {
     console.log("Engrave Builder")
-    var query1 = "productId, description, lineNum, price";
-    var query2 = "'" + data.productId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "'";
+    var query1 = "productId, description, lineNum, price, productOptionId";
+    var query2 = "'" + data.productId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "', '" + data.productOptionId + "'";
     return [query1, query2]
 }
 
@@ -225,7 +227,7 @@ async function _createTable(data) {
     if(data.optionType == "dropdown") { 
         queryStatement += 'productId NUMERIC(18,2), menuTitle VARCHAR(100), dataInfo VARCHAR(700) );';
     } else {
-        queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2) );";
+        queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2), productOptionId VARCHAR(700) );";
     }
     //console.log(queryStatement);
     return con.awaitQuery(queryStatement);
@@ -252,10 +254,10 @@ function _updateBuilderDrop(data) {
     //console.log(options);
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            queryTemp += options[i]["label"] + ":" + options[i]["value"] + "}'";
+            queryTemp += options[i]["label"] + ":" + options[i]["value"] + "}'";//"[:]" + options[i]["productOptionId"] + "}'";
         }
         else{
-            queryTemp += options[i]["label"] + ":" + options[i]["value"] + ", ";
+            queryTemp += options[i]["label"] + ":" + options[i]["value"] + ", "; //"[:]" + options[i]["productOptionId"] + ", ";
         }  
     }
     return queryTemp
@@ -263,7 +265,7 @@ function _updateBuilderDrop(data) {
 }
 
 function _updateBuilderEngrave(data) {
-    var queryTemp = "productId = '" + data.productId + "', description = " + "'" + data.description + "'," + "lineNum = '" + data.lines + "', price = '" +  data.price + "'";
+    var queryTemp = "productId = '" + data.productId + "', description = " + "'" + data.description + "'," + "lineNum = '" + data.lines + "', price = '" +  data.price + "', " + data.productOptionId + "'";
     return queryTemp
 }
 
@@ -350,3 +352,5 @@ async function _deleteTable(data) {
 
 module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
 _createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _updateBuilderDrop, _updateBuilderEngrave, _checkEmpty, _deleteTable, handleDeleteAllRequest, isConnected, con};
+
+
