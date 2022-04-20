@@ -171,11 +171,11 @@ function DropdownForm() {
                     inputValue={optionInputValue}
                     menuIsOpen={false}
                     onChange={(value) => handleChange('options', value)}
-                    placeholder='Type option and press enter...'
                     onKeyDown={handleKeyDown}
                     onInputChange={handleInputChange}
                     value={optionValues}
                   />
+                  <p>Type option and press enter...</p>
               </div>
               <div className={styles.ApplyOptionsBtn}>
                 <Button onClick={handleApplyOptions}>Apply Options</Button>
