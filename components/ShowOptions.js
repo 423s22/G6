@@ -10,6 +10,7 @@ import notifyError from "./toasts/ErrorToast";
 import notifySuccess from "./toasts/ErrorToast";
 import notifyDeleteSuccess from "./toasts/DeleteSuccessToast";
 import notifyEmpty from "./toasts/EmptyToast";
+import DeleteProduct from "../helpers/DeleteProduct";
 
 function ShowOptions() {
 
@@ -30,6 +31,7 @@ function ShowOptions() {
       }).then(res => {
         if (res.status == 204) {
           notifyEmpty();              // if no options are currently applied
+          setOptionsLoaded(false);
         }
         else if (res.status == 200) {
         res.json().then(json => {
