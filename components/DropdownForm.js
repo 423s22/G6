@@ -117,6 +117,7 @@ function DropdownForm() {
          menuTitle: menuTitle,
          options: optionValues,
      }
+     dropdownInfo.productOptionId = "productIdSKU";  //TEMP VAR DELETE WHEN CREATEPRODUCT IS MADE FOR Dropdown.js
      updateDB(dropdownInfo)
     }; 
 
