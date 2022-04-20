@@ -39,7 +39,7 @@ function ShowOptions() {
             //  notifySuccess();
             })
           }
-        if (res.status == 500) {
+        else  {
                 notifyError();                    // if get unsuccessful
               }
         });
