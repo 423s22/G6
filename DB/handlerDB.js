@@ -49,7 +49,7 @@ async function getProducts(productId) {
     let resultsArr = [];
     for (const i in tablesArr) {
         var tableName = tablesArr[i];
-        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + tableName + ` WHERE productId = ` + productId + `;`)));
+        var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + tableName + ` WHERE productId = '` + productId + `';`)));
         
         if (tableName == 'dropdown' && results[0] != undefined) {      // rebuild dropdown object
         var tempResults = {};
@@ -89,7 +89,6 @@ async function getProducts(productId) {
     }
     return (resultsObj);
 }
-
 async function handleGetAllRequest(ctx) {
     let productId = ctx.params.id;
     let popArr = [];
@@ -107,7 +106,7 @@ async function handleGetAllRequest(ctx) {
     });
     var results;
     for(var i in temp ) {
-        var queryStatement = `SELECT * FROM ` + process.env.MYSQL_DB + `.` + temp[i][`table${i}`][0] + ` WHERE productId = ` + productId + `;`;
+        var queryStatement = `SELECT * FROM ` + process.env.MYSQL_DB + `.` + temp[i][`table${i}`][0] + ` WHERE productId = '` + productId + `';`;
         optionType = temp[i][`table${i}`][0];
         results = await con.awaitQuery(queryStatement);
         for(var i in results) {
@@ -158,7 +157,7 @@ async function _createProduct(data) {
 }
 
 async function _createSearch(data) {
-    let result = await con.awaitQuery('SElECT * FROM ' + data.optionType + ' WHERE productId = ' + data.productId + ';');
+    let result = await con.awaitQuery("SElECT * FROM " + data.optionType + " WHERE productId = '" + data.productId + "';");
 
     if( result != undefined && result.length > 0) {
         for(let i = 0; i < result.length; i++) 
@@ -180,17 +179,17 @@ async function _createSearch(data) {
 }
 
 function _createHelp(data) {
-    let queryTemp = '';
-    let queryStr = '';
+    let queryTemp = "";
+    let queryStr = "";
     if( data.optionType == "dropdown") {
-        queryTemp += 'INSERT INTO ' + data.optionType + '( ';
+        queryTemp += "INSERT INTO " + data.optionType + "( ";
         queryStr = _createBuilderDrop(data);
     }
     else {
-        queryTemp += 'INSERT INTO ' + data.optionType + '( ';
+        queryTemp += "INSERT INTO " + data.optionType + "( ";
         queryStr = _createBuilderEngrave(data);
     }
-    queryTemp += queryStr[0] + ' ) VALUES ( ' + queryStr[1] + ' );';
+    queryTemp += queryStr[0] + " ) VALUES ( " + queryStr[1] + " );";
     console.log(queryTemp);
     return queryTemp;
 }
@@ -199,15 +198,15 @@ function _createBuilderDrop(data) {
     let optionsLength = data.options.length;
     
     var query1 = "productId, menuTitle, dataInfo";
-    var query2 = "" + data.productId + ", '" + data.menuTitle + "', ";
+    var query2 = "'" + data.productId + "', '" + data.menuTitle + "', ";
     query2 += "'{";
 
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            query2 += data.options[i]["label"] + ":" + data.options[i]["value"] + "}'";
+            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + "}'";
         }
         else{
-            query2 += data.options[i]["label"] + ":" + data.options[i]["value"] + ", ";
+            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + ", ";
         }
     }
     return [query1, query2]
@@ -216,12 +215,12 @@ function _createBuilderDrop(data) {
 function _createBuilderEngrave(data) {
     console.log("Engrave Builder")
     var query1 = "productId, description, lineNum, price";
-    var query2 = "" + data.productId + ", '" + data.description + "', " + data.lines + ", " + data.price;
+    var query2 = "'" + data.productId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "'";
     return [query1, query2]
 }
 
 async function _createTable(data) {
-    console.log(data.optionType);
+    //console.log(data.optionType);
     var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " ( _iter INT primary key AUTO_INCREMENT, ";
     if(data.optionType == "dropdown") { 
         queryStatement += 'productId NUMERIC(18,2), menuTitle VARCHAR(100), dataInfo VARCHAR(700) );';
@@ -241,7 +240,7 @@ function _updateHelp(data) {
     else {
         queryTemp += "UPDATE " + data.optionType + " SET " + _updateBuilderEngrave(data);
     }
-    queryTemp += " WHERE productId = "+ data.productId + " AND _iter = " + data._iter+";";
+    queryTemp += " WHERE productId = '"+ data.productId + "' AND _iter = '" + data._iter+"';";
     return queryTemp;
 }
 
@@ -250,7 +249,7 @@ function _updateBuilderDrop(data) {
     let optionsLength = options.length;
     var queryTemp = "";
     queryTemp += " dataInfo = '{" ;
-    console.log(options);
+    //console.log(options);
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
             queryTemp += options[i]["label"] + ":" + options[i]["value"] + "}'";
@@ -264,7 +263,7 @@ function _updateBuilderDrop(data) {
 }
 
 function _updateBuilderEngrave(data) {
-    var queryTemp = "productId = " + data.productId + ", description = " + "'" + data.description + "'," + "lineNum = " + data.lines + ", price = " +  data.price;
+    var queryTemp = "productId = '" + data.productId + "', description = " + "'" + data.description + "'," + "lineNum = '" + data.lines + "', price = '" +  data.price + "'";
     return queryTemp
 }
 
@@ -277,7 +276,7 @@ async function handleDeleteRequest(ctx) {
     let description = ctx.params.description;
     
     
-    await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = " + productId + " AND menuTitle = '" + description +"';");
+    await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND menuTitle = '" + description +"';");
     await _checkEmpty(optionType);
 }
 
@@ -307,7 +306,7 @@ async function handleDeleteAllRequest(ctx) {
     var results;
     var results2;
     for (var i = 0; i < temp.length; i++) {
-        var queryStatement = `SELECT * FROM ` + process.env.MYSQL_DB + `.` + temp[i][`table${i}`][0] + ` WHERE productId = ` + productId + `;`;
+        var queryStatement = `SELECT * FROM ` + process.env.MYSQL_DB + `.` + temp[i][`table${i}`][0] + ` WHERE productId = '` + productId + `';`;
         optionType = temp[i][`table${i}`][0];
 
         results = await con.awaitQuery(queryStatement);
@@ -315,12 +314,12 @@ async function handleDeleteAllRequest(ctx) {
             if(optionType.includes("dropdown")) {
                 //console.log(optionType)
                 results2 = con.awaitQuery(
-                    "DELETE FROM "+ optionType +" WHERE ProductId = "+ productId +";"
+                    "DELETE FROM "+ optionType +" WHERE ProductId = '"+ productId +"';"
                 );
             } else {
                 //console.log(optionType)
                 results2 = con.awaitQuery(
-                    "DELETE FROM engraving WHERE ProductId = "+ productId +";"
+                    "DELETE FROM engraving WHERE ProductId = '"+ productId +"';"
                 );
             }
         }
@@ -338,7 +337,7 @@ async function handleDeleteAllRequest(ctx) {
 async function _deleteTable(data) {
     if( data.optionType == "dropdown") {
         let result = await con.awaitQuery(
-            "DROP TABLE  " + data.optionType + data.menuTitle +";"
+            "DROP TABLE  " + data.optionType +";"
         );
     }
     else {
@@ -349,6 +348,5 @@ async function _deleteTable(data) {
     return JSON.stringify({ "message": "Successfully deleted" });
 }
 
-module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, /*getProducts,*/ handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
+module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
 _createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _updateBuilderDrop, _updateBuilderEngrave, _checkEmpty, _deleteTable, handleDeleteAllRequest, isConnected, con};
-
