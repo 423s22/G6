@@ -9,6 +9,7 @@ import {
 import notifyError from "./toasts/ErrorToast";
 import notifySuccess from "./toasts/ErrorToast";
 import notifyDeleteSuccess from "./toasts/DeleteSuccessToast";
+import notifyEmpty from "./toasts/EmptyToast";
 
 function ShowOptions() {
 
@@ -27,20 +28,21 @@ function ShowOptions() {
           Accept: "application/json"
         }
       }).then(res => {
-      if (res.ok) {
+        if (res.status == 204) {
+          notifyEmpty();              // if no options are currently applied
+        }
+        else if (res.status == 200) {
         res.json().then(json => {
           const responseData = json;
-            if (res.status == 200) {    
               setProductOptions(responseData.productOptions);
               setOptionsLoaded(true);
-              notifySuccess();
-            }
+            //  notifySuccess();
+            })
+          }
+        if (res.status == 500) {
+                notifyError();                    // if get unsuccessful
+              }
         });
-      }
-      else {
-        notifyError();
-      }
-    })
   }
   
   async function deleteOption(productId, optionType) {
