@@ -19,11 +19,11 @@ function EngravingForm() {
   const {productInfo, setProductInfo} = useProductContext() || {};
 
   const [selectedNumber, setSelectedNumber] = useState('1');
-  const [description, setDescription] = useState(' ');
+  const [description, setDescription] = useState('');  
   const [price, setPrice] = useState('0');
   const [exitForm, setExitForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const handleDescriptionChange = (value) => { setDescription(validateInput(value))};
+  const handleDescriptionChange = useCallback((value) => setDescription(validateInput(value)), []);
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
   
@@ -62,7 +62,7 @@ function EngravingForm() {
      }
      let productOptionId = await CreateProduct(engravingInfo);      // create product from option in Shopify and return back its productId
      engravingInfo.productOptionId = productOptionId;               // add ID of product option     
-
+     console.log(engravingInfo)
      updateDB(engravingInfo)                                        // call function to add option to DB
      }; 
 
@@ -114,8 +114,9 @@ function EngravingForm() {
                             <div className={styles.descDiv}>
                                 <TextField
                                     value={description}
-                                    onChange={ (value) => handleDescriptionChange(value)}
+                                    onChange={handleDescriptionChange}
                                     label="Engraving"
+                                    requiredIndicator={true}
                                     type="text"
                                     readOnly={false}
                                     helpText={
