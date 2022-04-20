@@ -27,6 +27,7 @@ function SelectOptions() {
           onSelection={(resources) => handleSelection(resources)}
           onCancel={() => {setOpen(false)}}
           selectMultiple={false}
+          showArchived={false}
         />
         <Layout>
           <EmptyState
