@@ -5,6 +5,7 @@ var isConnected = false;
 var con = null;
 
 
+
 async function _checkConnect() {
     //process.env.MYSQL_HOST,process.env.MYSQL_USER, process.env.MYSQL_KEY,process.env.MYSQL_DB
     con = mysql.createPool({
@@ -69,10 +70,9 @@ async function getProducts(productId) {
         for (let i = 0; i < labels.length; i++) {
             let obj = {};
             let label = labels[i];
-            let value = values[i]; // value needs to be price[:]productOptionId
-            //let temp = value.toString().split("[:]"); //splits the value for the obj
-            //console.log(temp);
-            obj ={label: label, value: value } //temp[0], productOptionId: temp[1]};
+            let value = values[i]; 
+
+            obj ={label: label, value: value } 
             if (obj.label != "_iter") {
                 tempResults.options.push(obj);
             }
@@ -196,7 +196,6 @@ function _createHelp(data) {
     return queryTemp;
 }
 function _createBuilderDrop(data) {
-
     let optionsLength = data.options.length;
     
     var query1 = "productId, menuTitle, dataInfo";
@@ -205,10 +204,10 @@ function _createBuilderDrop(data) {
 
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + "}'"; ///"[:]" + options[i]["productOptionId"] + "}'";
+            query2 += "" +data.options[i].label + ":" + data.options[i].value + ":" + data.options[i].productOptionId + "}'";
         }
         else{
-            query2 += "" +data.options[i]["label"] + ":" + data.options[i]["value"] + ", "; //"[:]" + options[i]["productOptionId"] + ", ";
+            query2 += "" +data.options[i].label + ":" + data.options[i].value + ":" + data.options[i].productOptionId + ", ";
         }
     }
     return [query1, query2]
@@ -251,13 +250,12 @@ function _updateBuilderDrop(data) {
     let optionsLength = options.length;
     var queryTemp = "";
     queryTemp += " dataInfo = '{" ;
-    //console.log(options);
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            queryTemp += options[i]["label"] + ":" + options[i]["value"] + "}'";//"[:]" + options[i]["productOptionId"] + "}'";
+            queryTemp += options[i].label + ":" + options[i].value + ":" + options[i].productOptionId + "}'";
         }
         else{
-            queryTemp += options[i]["label"] + ":" + options[i]["value"] + ", "; //"[:]" + options[i]["productOptionId"] + ", ";
+            queryTemp += options[i].label + ":" + options[i].value + ":" + options[i].productOptionId + ", ";
         }  
     }
     return queryTemp
