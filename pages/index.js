@@ -59,7 +59,6 @@ class Index extends React.Component {
           </Card>
         </Layout.Section>
       </Layout>
-      ;
     </Page>
   );
 };
