@@ -181,6 +181,32 @@ app.prepare().then(async () => {
     }
   });
 
+  // route to delete product option 
+
+  router.delete(`/api/delete-product-option/:id`, async (ctx) => {
+
+     // delete product in Shopify 
+     try { 
+      const productId = ctx.params.id;
+      const targetURL = `https://${process.env.SHOPIFY_API_KEY}${process.env.SHOPIFY_API_SECRET}@${process.env.SHOP_NAME}.myshopify.com/admin/api/2021-10/products/${productId}.json`;
+      console.log(targetURL);
+      var header = {
+        method: 'DELETE', 
+        headers: {
+            "Content-Type": "application/json",
+            "Accept-Charset": "UTF-8",
+            'X-Shopify-Access-Token': `${store_access_token}`,
+            'Authorization': `Bearer ${store_access_token}`
+        },
+    }
+   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {ctx.response.body = data; console.log(data)}).catch((error) => { console.log(error) })
+   ctx.status = 200;
+    } 
+  catch (e) {
+      console.log(`Shopify POST Error\n ${e}`);
+      ctx.status = 500;
+    }
+  });
   
   server.use(router.allowedMethods());
   server.use(router.routes());
