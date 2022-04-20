@@ -6,9 +6,9 @@ import styles from './css/ShowOptions.module.css';
 import {
   DeleteMinor, ViewMinor, HideMinor, RefreshMinor
 } from '@shopify/polaris-icons';
-import SuccessToast from "./SuccessToast";
-
-
+import notifyError from "./toasts/ErrorToast";
+import notifySuccess from "./toasts/ErrorToast";
+import notifyDeleteSuccess from "./toasts/DeleteSuccessToast";
 
 function ShowOptions() {
 
@@ -33,8 +33,12 @@ function ShowOptions() {
             if (res.status == 200) {    
               setProductOptions(responseData.productOptions);
               setOptionsLoaded(true);
+              notifySuccess();
             }
         });
+      }
+      else {
+        notifyError();
       }
     })
   }
@@ -48,7 +52,7 @@ function ShowOptions() {
         }
      }).then(res => {
           if (res.status == 200) {
-           // setOptionsLoaded(false);  
+            notifyDeleteSuccess();
             getOptions();
           }
         });

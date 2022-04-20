@@ -6,7 +6,8 @@ import AddOptions from './AddOptions';
 import React, { useState, useCallback } from 'react';
 import Creatable from 'react-select/creatable';
 import authFetch from '../utils/AuthFetch';
-import SuccessToast from './SuccessToast';
+import notifyError from './toasts/ErrorToast';
+import notifySuccess from './toasts/PostSuccessToast';
 
 function DropdownForm() {
 
@@ -101,7 +102,11 @@ function DropdownForm() {
         body: JSON.stringify(dropdownInfo),
       }).then((res) => {console.log(res.status)
         if (res.status == 200) {
-            setSubmitted(true);          
+            setSubmitted(true);    
+            notifySuccess();      
+        }
+        else {
+          notifyError();
         }});
   }
 
