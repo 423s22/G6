@@ -1,9 +1,9 @@
 import { toast} from 'react-toastify';
 
 export default function notifySuccess() {
-    toast('Success! Your custom option has been applied', {
+    toast.success('Success! Your custom option has been applied', {
         position: "top-right",
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

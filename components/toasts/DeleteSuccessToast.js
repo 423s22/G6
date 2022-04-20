@@ -1,9 +1,9 @@
 import { toast} from 'react-toastify';
 
 export default function notifyDeleteSuccess() {
-    toast('Success! The selected option has been removed', {
+    toast.success('Success! The selected option has been removed', {
         position: "top-right",
-        autoClose: false,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
