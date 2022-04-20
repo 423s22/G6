@@ -9,6 +9,8 @@ import "@shopify/polaris/build/esm/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import { ProductWrapper } from '../context/ProductContext'; // import based on where you put it
 import Router from '../utils/RoutePropagator';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function userLoggedInFetch(app) {
   const fetchFunction = authenticatedFetch(app);
@@ -73,6 +75,7 @@ class MyApp extends App {
           }}
         >
           <Router />
+          <ToastContainer />
           <MyProvider Component={Component} {...pageProps} />
         </Provider>
       </AppProvider>

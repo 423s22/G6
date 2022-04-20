@@ -6,9 +6,11 @@ import styles from './css/ShowOptions.module.css';
 import {
   DeleteMinor, ViewMinor, HideMinor, RefreshMinor
 } from '@shopify/polaris-icons';
-import SuccessToast from "./SuccessToast";
-
-
+import notifyError from "./toasts/ErrorToast";
+import notifySuccess from "./toasts/ErrorToast";
+import notifyDeleteSuccess from "./toasts/DeleteSuccessToast";
+import notifyEmpty from "./toasts/EmptyToast";
+import DeleteProduct from "../helpers/DeleteProduct";
 
 function ShowOptions() {
 
@@ -27,16 +29,22 @@ function ShowOptions() {
           Accept: "application/json"
         }
       }).then(res => {
-      if (res.ok) {
+        if (res.status == 204) {
+          notifyEmpty();              // if no options are currently applied
+          setOptionsLoaded(false);
+        }
+        else if (res.status == 200) {
         res.json().then(json => {
           const responseData = json;
-            if (res.status == 200) {    
               setProductOptions(responseData.productOptions);
               setOptionsLoaded(true);
-            }
+            //  notifySuccess();
+            })
+          }
+        else  {
+                notifyError();                    // if get unsuccessful
+              }
         });
-      }
-    })
   }
   
   async function deleteOption(productId, optionType) {
@@ -48,7 +56,7 @@ function ShowOptions() {
         }
      }).then(res => {
           if (res.status == 200) {
-           // setOptionsLoaded(false);  
+            notifyDeleteSuccess();
             getOptions();
           }
         });
