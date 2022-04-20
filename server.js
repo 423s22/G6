@@ -104,10 +104,11 @@ app.prepare().then(async () => {
     console.log("GET response");
     console.log(ctx.body);
     ctx.status = 200;
-      
-    if (ctx.body == undefined) {
-      ctx.status = 500;
+
+    if (ctx.body == undefined || ctx.body.productOptions.length < 1) {
+      ctx.status = 204;  // no content
     }
+
     } catch (e) {
       console.log(`GET Error\n ${e}`);
       ctx.status = 500;
