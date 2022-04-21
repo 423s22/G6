@@ -8,6 +8,8 @@ import Creatable from 'react-select/creatable';
 import authFetch from '../utils/AuthFetch';
 import notifyError from './toasts/ErrorToast';
 import notifySuccess from './toasts/PostSuccessToast';
+import BuildOptions from '../helpers/BuildOptions';
+import DeleteProduct from '../helpers/DeleteProduct';
 
 function DropdownForm() {
 
@@ -23,7 +25,43 @@ function DropdownForm() {
   // get product info from context
   const {productInfo, setProductInfo} = useProductContext() || {};
 
-  const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price dynamically 
+  const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price 
+  const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);   // update title 
+  const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);       // update selected option
+
+  // post form data to the backend
+  async function updateDB(dropdownInfo) {
+    console.log(dropdownInfo);
+    const response = await authFetch("/api/add-options", {
+        method: "POST",
+       headers: {
+          Accept: "application/json"
+        },  
+        body: JSON.stringify(dropdownInfo),
+      }).then((res) => {
+        if (res.status == 200) {
+            setSubmitted(true);    
+            notifySuccess();      
+        }
+        else {
+          notifyError();
+          dropdownInfo.options.forEach(option => {    // delete created option products 
+            DeleteProduct(option.productOptionId); 
+          }); 
+        }});
+      }
+
+   const handleSubmit = async () => {
+    checkPrices();
+     const dropdownInfo = {
+         productId: productInfo.id.replace("gid://shopify/Product/", ''),
+         optionType: 'dropdown',
+         menuTitle: menuTitle,
+         options: await BuildOptions(productInfo.title, menuTitle, optionValues)
+
+     }
+     updateDB(dropdownInfo)               // call function to add option to DB
+    }; 
 
   const handleChange = (field, value) => {      // used to clear user inputed options
     switch (field) {
@@ -64,9 +102,6 @@ function DropdownForm() {
   const validateInput = (value) => {
     return value.replaceAll(/[&/\\#,+()$~%.!;^'":*?<>{}]/g, "");
   }
-  
-  const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);
-  const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);
 
   // applies options
   const handleApplyOptions = () =>
@@ -78,9 +113,17 @@ function DropdownForm() {
     setSelectValue(optionValues[0].value)
   }
 
+  // check that additional prices were applied, otherwise, apply default
+  const checkPrices = () => {
+    optionValues.forEach(element => {
+      if (element.label === element.value) {     // if label and value are equal, no additional price was entered 
+        element.value = "0";                       // set price to 0
+      }
+    });
+  }
+
   const handleBackBtn = () => {
     setOptionsApplied(false);
-    console.log(optionsApplied)
   }
 
   const handleApplyPrice = () => {
@@ -91,35 +134,6 @@ function DropdownForm() {
     }
       
     }
-
-  // post form data to the backend
-  async function updateDB(dropdownInfo) {
-    const response = await authFetch("/api/add-options", {
-        method: "POST",
-       headers: {
-          Accept: "application/json"
-        },  
-        body: JSON.stringify(dropdownInfo),
-      }).then((res) => {console.log(res.status)
-        if (res.status == 200) {
-            setSubmitted(true);    
-            notifySuccess();      
-        }
-        else {
-          notifyError();
-        }});
-  }
-
-  const handleSubmit = () => {
-     const dropdownInfo = {
-         productId: productInfo.id,
-         optionType: 'dropdown',
-         menuTitle: menuTitle,
-         options: optionValues,
-     }
-     dropdownInfo.productOptionId = "productIdSKU";  //TEMP VAR DELETE WHEN CREATEPRODUCT IS MADE FOR Dropdown.js
-     updateDB(dropdownInfo)
-    }; 
 
   // is user clicked exit button
   if (exitForm) {
@@ -230,7 +244,8 @@ function DropdownForm() {
                   helpText={
                            "Please enter any additional cost associated with this option"
                            }
-                  min={0}   
+                  min={0}  
+                  requiredIndicator={true} 
                   onChange={handlePriceChange}
                 />
               </div>
@@ -260,4 +275,3 @@ function DropdownForm() {
 }
 
 export default DropdownForm;
-   
