@@ -4,7 +4,7 @@ import authFetch from "../utils/AuthFetch";
 export default async function CreateProduct(data) {
   var product;
   
-  if (data.optionType = "engraving") {
+  if (data.optionType == "engraving") {
     // build product object
     product = {
       "product": {
@@ -21,7 +21,7 @@ export default async function CreateProduct(data) {
   } 
 }
 
-  if (data.optionType = "dropdown") {
+  if (data.optionType == "dropdown") {
   // build product object
     product = {
       "product": {
