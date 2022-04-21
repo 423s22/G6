@@ -59,6 +59,9 @@ function ShowOptions() {
             notifyDeleteSuccess();
             getOptions();
           }
+          else {
+            notifyError();
+          }
         });
     }
 
