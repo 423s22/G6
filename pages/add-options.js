@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Card, Page} from '@shopify/polaris';
 import SelectOptions from '../components/SelectOptions';
+import Router from 'next/router';
 
 class CustomOptions extends React.Component {
   render() {
