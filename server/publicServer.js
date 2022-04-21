@@ -2,17 +2,11 @@ const dotenv = require('dotenv');
 const Koa = require('koa');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
-const db = require('./DB/handlerDB');
+const db = require('../DB/handlerDB');
 
 dotenv.config();
 
-export default function publicServer() {
-    const server = new Koa();
-    return server;
-}
-
-/*const publicServer = () => {
-
+module.exports = function publicServer() {
     const server = new Koa();
     server.use(koaBody());
     const router = new Router();
@@ -41,4 +35,4 @@ export default function publicServer() {
     server.use(router.routes());
 
     return server;
-};*/
+};

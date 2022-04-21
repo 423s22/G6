@@ -8,7 +8,7 @@ const {verifyRequest} = require('@shopify/koa-shopify-auth');
 const {default: Shopify, ApiVersion} = require('@shopify/shopify-api');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
-const db = require('./DB/handlerDB');
+const db = require('../DB/handlerDB');
 const mysql = require('mysql-await');
 const publicServer = require('./publicServer');
 
@@ -215,10 +215,10 @@ app.prepare().then(async () => {
   privateServer.use(router.routes());
 
   const serverWrapper = new Koa();
-  const public = new publicServer();
+  const publicAPI = new publicServer();
 
   serverWrapper.use(mount('/', privateServer));
-  serverWrapper.use(mount('/public', public));
+  serverWrapper.use(mount('/public', publicAPI));
 
   serverWrapper.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
