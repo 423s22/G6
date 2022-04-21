@@ -6,7 +6,7 @@ class CustomOptions extends React.Component {
   render() {
     return (
       <Page
-  breadcrumbs={[{content: 'Settings', url: '/settings'}]}
+  breadcrumbs={[{content: 'Homepage', url: '/index.js'}]}
   title="Add Product Options"
 >
   <Card title="Select Products to add." sectioned>
