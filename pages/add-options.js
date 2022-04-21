@@ -6,7 +6,7 @@ class CustomOptions extends React.Component {
   render() {
     return (
       <Page
-  breadcrumbs={[{content: 'Homepage', url: '/'}]}
+  breadcrumbs={[{content: 'Homepage',  onAction: () => (Router.push('/index'))}]}
   title="Add Product Options"
 >
   <Card title="Select Products to add." sectioned>
