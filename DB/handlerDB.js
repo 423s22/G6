@@ -160,15 +160,14 @@ async function _createProduct(data) {
 
 async function _createSearch(data) {
     let result = await con.awaitQuery("SElECT * FROM " + data.optionType + " WHERE productId = '" + data.productId + "';");
-
+    
     if( result != undefined && result.length > 0) {
         for(let i = 0; i < result.length; i++) 
         {
             if(data.optionType == "dropdown") {
                 data.description = data.menuTitle;
+                result[i].description = result[i].menuTitle;
             }
-            console.log(result[i].description);
-            console.log("atat" + data.description)
             if(result[i].description == data.description) {
                 return [true, result[i]]; // Yes update
             }
@@ -204,10 +203,10 @@ function _createBuilderDrop(data) {
 
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            query2 += "" +data.options[i].label + ":" + data.options[i].value + ":" + data.options[i].productOptionId + "}'";
+            query2 += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + "}'";
         }
         else{
-            query2 += "" +data.options[i].label + ":" + data.options[i].value + ":" + data.options[i].productOptionId + ", ";
+            query2 += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + ", ";
         }
     }
     return [query1, query2]
@@ -252,10 +251,10 @@ function _updateBuilderDrop(data) {
     queryTemp += " dataInfo = '{" ;
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            queryTemp += options[i].label + ":" + options[i].value + ":" + options[i].productOptionId + "}'";
+            queryTemp += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + "}'";
         }
         else{
-            queryTemp += options[i].label + ":" + options[i].value + ":" + options[i].productOptionId + ", ";
+            queryTemp += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + ", ";
         }  
     }
     return queryTemp
