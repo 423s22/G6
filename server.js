@@ -1,6 +1,7 @@
 require('isomorphic-fetch');
 const dotenv = require('dotenv');
 const Koa = require('koa');
+const mount = require('koa-mount');
 const next = require('next');
 const {default: createShopifyAuth} = require('@shopify/koa-shopify-auth');
 const {verifyRequest} = require('@shopify/koa-shopify-auth');
@@ -9,6 +10,7 @@ const Router = require('koa-router');
 const koaBody = require('koa-body');
 const db = require('./DB/handlerDB');
 const mysql = require('mysql-await');
+const publicServer = require('./publicServer');
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -36,11 +38,11 @@ Shopify.Context.initialize({
 const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
-  const server = new Koa();
-  server.use(koaBody());
+  const privateServer = new Koa();
+  privateServer.use(koaBody());
   const router = new Router();
-  server.keys = [Shopify.Context.API_SECRET_KEY];
-  server.use(
+  privateServer.keys = [Shopify.Context.API_SECRET_KEY];
+  privateServer.use(
     createShopifyAuth({
       async afterAuth(ctx) {
         // Access token and shop available in ctx.state.shopify
@@ -209,9 +211,16 @@ app.prepare().then(async () => {
     }
   });
   
-  server.use(router.allowedMethods());
-  server.use(router.routes());
-  server.listen(port, () => {
+  privateServer.use(router.allowedMethods());
+  privateServer.use(router.routes());
+
+  const serverWrapper = new Koa();
+  const public = new publicServer();
+
+  serverWrapper.use(mount('/', privateServer));
+  serverWrapper.use(mount('/public', public));
+
+  serverWrapper.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
