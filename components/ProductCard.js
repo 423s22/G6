@@ -4,8 +4,7 @@ import { useProductContext } from '../context/ProductContext';
 
 function ProductCard() {
 
-    const {productInfo, setProductInfo} = useProductContext() || {};
-    console.log(productInfo)
+  const {productInfo, setProductInfo} = useProductContext() || {};
     
   return (   
     <ResourceList

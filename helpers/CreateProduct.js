@@ -2,9 +2,11 @@ import authFetch from "../utils/AuthFetch";
 
 // POST to backend route that create product in Shopify admin
 export default async function CreateProduct(data) {
-
+  var product;
+  
+  if (data.optionType = "engraving") {
     // build product object
-    const product = {
+    product = {
       "product": {
           "title": `${data.title} ${data.description} ${data.optionType}`,
           "product_type": `${data.optionType}`,
@@ -17,14 +19,33 @@ export default async function CreateProduct(data) {
         "status": "archived",    // make it an archived product so it won't be shown on the store front
     }
   } 
+}
 
-  const response = await authFetch("/api/add-engraving-product-option", {
+  if (data.optionType = "dropdown") {
+  // build product object
+    product = {
+      "product": {
+        "title": `${data.title} ${data.menuTitle} ${data.optionName}`,
+        "product_type": `${data.optionType}`,
+        "variants": [
+          {
+            "title": `${data.menuTitle} ${data.optionName}`,
+            "price": `${data.price}`,
+        }
+      ],
+      "status": "archived",    // make it an archived product so it won't be shown on the store front
+  }
+ } 
+}
+
+  const response = await authFetch("/api/add-product-option", {
       method: "POST",
-     headers: {
+      headers: {
         Accept: "application/json"
       },  
       body: JSON.stringify(product),
     }).then(res => res.text()).then(data => { return JSON.parse(data).product.id }).catch((error) => { console.log(error) })
   
-    return response;
-    };
+    return response;    // productId
+  };
+

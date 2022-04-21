@@ -31,10 +31,6 @@ function AddOptions() {
           toggleActive();
           setAddOption(false);
         }
-      
-        const toastMarkup = active ? (
-          <Toast content="Option currently unavailable" onDismiss={closeToast} />
-        ) : null; 
 
         // if the user hasn't added an option, display the option type menu and add button
         if (!addOption) {

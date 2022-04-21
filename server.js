@@ -158,7 +158,7 @@ app.prepare().then(async () => {
   });
   
   // route to receive create a Shopify product for an option from engraving form
-  router.post("/api/add-engraving-product-option", async (ctx) => {   
+  router.post("/api/add-product-option", async (ctx) => {   
     // create product in Shopify 
      try { 
       const product = JSON.parse(ctx.request.body);
@@ -190,7 +190,7 @@ app.prepare().then(async () => {
      try { 
       const productId = ctx.params.id;
       const targetURL = `https://${process.env.SHOPIFY_API_KEY}${process.env.SHOPIFY_API_SECRET}@${process.env.SHOP_NAME}.myshopify.com/admin/api/2021-10/products/${productId}.json`;
-      console.log(targetURL);
+      
       var header = {
         method: 'DELETE', 
         headers: {
@@ -200,7 +200,7 @@ app.prepare().then(async () => {
             'Authorization': `Bearer ${store_access_token}`
         },
     }
-   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {ctx.response.body = data; console.log(data)}).catch((error) => { console.log(error) })
+   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {ctx.response.body = data;}).catch((error) => { console.log(error) })
    ctx.status = 200;
     } 
   catch (e) {
