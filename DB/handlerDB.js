@@ -59,7 +59,7 @@ async function getProducts(productId) {
                 let objFull = [];
                 for(var currOption in tempOptions) {
                     let byColon = tempOptions[currOption].split(':');
-                    let obj = {label: byColon[0], value: byColon[1], productOptionId: byColon[2]};
+                    let obj = {option: byColon[0], price: byColon[1], productOptionId: byColon[2]};
                     objFull.push(obj);
                 }
                 results[curr].options = objFull;
