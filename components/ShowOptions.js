@@ -95,7 +95,6 @@ async function deleteDropdownOption(productId, optionType, menuTitle, options) {
   } 
 
 if (optionsLoaded) {
-  console.log(productOptions)
     return(
       <div className={styles.ShowOptionsCard}>
         <Card title={<div>

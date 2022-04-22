@@ -31,7 +31,6 @@ function DropdownForm() {
 
   // post form data to the backend
   async function updateDB(dropdownInfo) {
-    console.log(dropdownInfo);
     const response = await authFetch("/api/add-options", {
         method: "POST",
        headers: {
@@ -60,7 +59,6 @@ function DropdownForm() {
          options: await BuildOptions(productInfo.title, menuTitle, optionValues)
 
      }
-     console.log(dropdownInfo)
      updateDB(dropdownInfo)               // call function to add option to DB
     }; 
 
