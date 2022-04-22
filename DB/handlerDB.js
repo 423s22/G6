@@ -257,9 +257,13 @@ async function handleDeleteRequest(ctx) {
     let productId = ctx.params.id;
     let optionType = ctx.params.optionType;
     let description = ctx.params.description;
+    if ( optionType == 'dropdown') {
+        await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND menuTitle = '" + description +"';");
+    }
+    else {
+        await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND description = '" + description +"';");
+    }
     
-    
-    await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND menuTitle = '" + description +"';");
     await _checkEmpty(optionType);
 }
 
