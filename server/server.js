@@ -217,8 +217,8 @@ app.prepare().then(async () => {
   const serverWrapper = new Koa();
   const publicAPI = new publicServer();
 
-  serverWrapper.use(mount('/', privateServer));
   serverWrapper.use(mount('/public', publicAPI));
+  serverWrapper.use(mount('/', privateServer));
 
   serverWrapper.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
