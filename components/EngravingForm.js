@@ -117,7 +117,7 @@ function EngravingForm() {
                                 <TextField
                                     value={description}
                                     onChange={handleDescriptionChange}
-                                    label="Engraving"
+                                    label="Description"
                                     requiredIndicator={true}
                                     type="text"
                                     readOnly={false}
