@@ -1,7 +1,7 @@
 import {Select, TextField, Button, Card, Icon} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 import styles from './css/DropdownForm.module.css';
-import { MobileCancelMajor, MobileBackArrowMajor} from '@shopify/polaris-icons';
+import { MobileCancelMajor, MobileBackArrowMajor, GamesConsoleMajor} from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
 import React, { useState, useCallback } from 'react';
 import Creatable from 'react-select/creatable';
@@ -60,6 +60,7 @@ function DropdownForm() {
          options: await BuildOptions(productInfo.title, menuTitle, optionValues)
 
      }
+     console.log(dropdownInfo)
      updateDB(dropdownInfo)               // call function to add option to DB
     }; 
 
@@ -100,7 +101,7 @@ function DropdownForm() {
   }
 
   const validateInput = (value) => {
-    return value.replaceAll(/[&/\\#,+()$~%.!;^'":*?<>{}]/g, "");
+    return value.replaceAll(/[&/\\#,+()$~%!;^':*?<>{}]/g, "");
   }
 
   // applies options
