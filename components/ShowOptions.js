@@ -105,7 +105,7 @@ if (optionsLoaded) {
                     <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleDropdownDeletion(item.productId, item.optionType, item.menuTitle)}></Button></div>
                     <p>Menu title: {item.menuTitle} </p>
                     <p>Options: {item.options.map((element) => 
-                          <p>&emsp;{element.label}: ${element.value}&nbsp;</p>)}
+                          <p>&emsp;{element.label}: ${element.value} <br/>&emsp;{"productOptionId "} : {element.productOptionId} &nbsp;</p>)}
                     </p>
                 </div>
               ) : (

@@ -52,38 +52,22 @@ async function getProducts(productId) {
         var tableName = tablesArr[i];
         var results = JSON.parse(JSON.stringify(await con.awaitQuery(`SELECT * FROM ` + tableName + ` WHERE productId = '` + productId + `';`)));
         
-        //console.log("IMPORTANT : " + results[0])
-        if (tableName == 'dropdown' && results[0] != undefined) {      // rebuild dropdown object
-        var tempResults = {};
-        tempResults.productId = results[0].productId;
-        tempResults.menuTitle = results[0].menuTitle;
-        
-        
-        tempResults.options = [];
-       
-        delete results[0].productId;        // remove so that the only thing left are the options
-        delete results[0].menuTitle;
- 
-        const labels = Object.keys(results[0]);
-        const values = Object.values(results[0]);
-
-        for (let i = 0; i < labels.length; i++) {
-            let obj = {};
-            let label = labels[i];
-            let value = values[i]; 
-
-            obj ={label: label, value: value } 
-            if (obj.label != "_iter") {
-                tempResults.options.push(obj);
+        //console.log("IMPORTANT : " + results)
+        for(const curr in results) {
+            if(tableName == 'dropdown' && results[curr] != undefined) {
+                let tempOptions = results[curr].options.replace('{','').replace('}','').split(',');
+                let objFull = [];
+                for(var currOption in tempOptions) {
+                    let byColon = tempOptions[currOption].split(':');
+                    let obj = {label: byColon[0], value: byColon[1], productOptionId: byColon[2]};
+                    objFull.push(obj);
+                }
+                results[curr].options = objFull;
             }
-            
-        }
-        results[0] = tempResults;
-        } 
-        
-        if (results[0] != undefined) {
-            results[0].optionType = tableName;  // add option type to results
-            resultsArr.push(results[0]);
+            if (results[curr] != undefined) {
+                results[curr].optionType = tableName;  // add option type to results
+                resultsArr.push(results[curr]);
+            }
         }
     }
     var resultsObj = {                          // add results array to JSON object
@@ -91,7 +75,7 @@ async function getProducts(productId) {
     }
     return (resultsObj);
 }
-async function handleGetAllRequest(ctx) {
+async function handleGetAllRequest(ctx) {  //not really needed anymore, use getProucts() for the unAuth GET request
     let productId = ctx.params.id;
     let popArr = [];
 
@@ -197,7 +181,7 @@ function _createHelp(data) {
 function _createBuilderDrop(data) {
     let optionsLength = data.options.length;
     
-    var query1 = "productId, menuTitle, dataInfo";
+    var query1 = "productId, menuTitle, options";
     var query2 = "'" + data.productId + "', '" + data.menuTitle + "', ";
     query2 += "'{";
 
@@ -223,7 +207,7 @@ async function _createTable(data) {
     //console.log(data.optionType);
     var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " ( _iter INT primary key AUTO_INCREMENT, ";
     if(data.optionType == "dropdown") { 
-        queryStatement += 'productId NUMERIC(18,2), menuTitle VARCHAR(100), dataInfo VARCHAR(700) );';
+        queryStatement += 'productId NUMERIC(18,2), menuTitle VARCHAR(100), options VARCHAR(700) );';
     } else {
         queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2), productOptionId VARCHAR(700) );";
     }
@@ -248,7 +232,7 @@ function _updateBuilderDrop(data) {
     options = data.options
     let optionsLength = options.length;
     var queryTemp = "";
-    queryTemp += " dataInfo = '{" ;
+    queryTemp += " options = '{" ;
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
             queryTemp += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + "}'";
@@ -273,9 +257,13 @@ async function handleDeleteRequest(ctx) {
     let productId = ctx.params.id;
     let optionType = ctx.params.optionType;
     let description = ctx.params.description;
+    if ( optionType == 'dropdown') {
+        await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND menuTitle = '" + description +"';");
+    }
+    else {
+        await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND description = '" + description +"';");
+    }
     
-    
-    await con.awaitQuery("DELETE FROM " + optionType + " WHERE productID = '" + productId + "' AND menuTitle = '" + description +"';");
     await _checkEmpty(optionType);
 }
 
@@ -349,5 +337,3 @@ async function _deleteTable(data) {
 
 module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
 _createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _updateBuilderDrop, _updateBuilderEngrave, _checkEmpty, _deleteTable, handleDeleteAllRequest, isConnected, con};
-
-
