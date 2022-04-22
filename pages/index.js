@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page , Layout , Card, TextStyle, Thumbnail, Button, ButtonGroup, AppProvider, EmptyState} from "@shopify/polaris";
+import { Page , Layout , Card, TextStyle, Thumbnail, Button, ButtonGroup, AppProvider, EmptyState, CalloutCard} from "@shopify/polaris";
 //import ProductList from '../components/ProductList';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import Router from 'next/router';
@@ -8,7 +8,13 @@ class Index extends React.Component {
 
   render(){
   return (
-    <Page title="Home Page">
+    <Page>
+    <CalloutCard
+  title="Home Page"
+  illustration="https://cdn.shopify.com/s/files/1/0626/6771/8904/files/logo_256x256_crop_center.png?v=1649899346"
+>
+  <p>Welcome to Eagle Apparel </p>
+</CalloutCard>
       <Layout>
         <Layout.Section oneHalf>
           <Card title="Create Products">
