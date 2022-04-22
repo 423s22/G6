@@ -134,7 +134,7 @@ function EngravingForm() {
                                  <TextField
                                     value={price}
                                     onChange={handlePriceChange}
-                                    label="Price"
+                                    label="Price $"
                                     type="number"
                                     helpText={
                                             "Please enter any additional cost associated with this option"
