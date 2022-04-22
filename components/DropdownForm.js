@@ -10,6 +10,8 @@ import notifyError from './toasts/ErrorToast';
 import notifySuccess from './toasts/PostSuccessToast';
 import BuildOptions from '../helpers/BuildOptions';
 import DeleteProduct from '../helpers/DeleteProduct';
+import notifyRefresh from './toasts/RefreshToast';
+import notifyPriceSuccess from './toasts/PriceSuccessToast'
 
 function DropdownForm() {
 
@@ -41,7 +43,9 @@ function DropdownForm() {
         if (res.status == 200) {
             setSubmitted(true);    
             notifySuccess();      
+            notifyRefresh();
         }
+
         else {
           notifyError();
           dropdownInfo.options.forEach(option => {    // delete created option products 
@@ -125,15 +129,24 @@ function DropdownForm() {
     setOptionsApplied(false);
   }
 
+  // apply individual price to selected option
   const handleApplyPrice = () => {
     for (const option in optionValues) {
       if (optionValues[option].label == selectValue) {
         optionValues[option].value = price;
       }
     }
+    notifyPriceSuccess();
       
     }
 
+  // apply selected price to all options
+  const handleApplyAllPrice = () => {
+    for (const option in optionValues) {
+        optionValues[option].value = price;   
+    }
+    notifyPriceSuccess();
+  }
   // is user clicked exit button
   if (exitForm) {
     return (
@@ -238,21 +251,27 @@ function DropdownForm() {
                <div className={styles.priceDiv}>
                 <TextField               
                   value={price}
-                  label="Price"
+                  label="Price $"
                   type="number"
                   helpText={
                            "Please enter any additional cost associated with this option"
                            }
                   min={0}  
-                  requiredIndicator={true} 
                   onChange={handlePriceChange}
                 />
               </div>
                 <div className={styles.ApplyPriceBtn}>
                   <Button
-                    onClick={handleApplyPrice}>Apply Price</Button>
+                    onClick={handleApplyPrice}>Apply</Button>
+                    <p>Click here to apply price to selected option</p>
+                    <div className={styles.ApplyAllBtn}>
+                    <Button
+                    onClick={handleApplyAllPrice}>Apply All</Button>
+                    <p>Click here to apply price to all options</p>
               </div>
-            </div>
+                </div>
+                
+              </div>
               <div className={styles.backBtn}>
                 <Button onClick={handleBackBtn}>
                 <Icon

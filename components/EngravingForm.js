@@ -11,6 +11,7 @@ import CreateProduct from '../helpers/CreateProduct';
 import DeleteProduct from '../helpers/DeleteProduct';
 import notifyError from './toasts/ErrorToast';
 import notifySuccess from './toasts/PostSuccessToast';
+import notifyRefresh from './toasts/RefreshToast';
 
 
 function EngravingForm() {
@@ -39,6 +40,7 @@ function EngravingForm() {
         if (res.status == 200) {
             setSubmitted(true);  
             notifySuccess();
+            notifyRefresh();
         }
         else {         
             DeleteProduct(engravingInfo.productOptionId);  // if post is unsuccessful, delete option product
