@@ -8,13 +8,7 @@ class Index extends React.Component {
 
   render(){
   return (
-    <Page>
-    <CalloutCard
-  title="Home Page"
-  illustration="https://cdn.shopify.com/s/files/1/0626/6771/8904/files/logo_256x256_crop_center.png?v=1649899346"
->
-  <p>Welcome to Eagle Apparel </p>
-</CalloutCard>
+    <Page title ="Home Page">
       <Layout>
         <Layout.Section oneHalf>
           <Card title="Create Products">
