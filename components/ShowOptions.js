@@ -47,7 +47,8 @@ function ShowOptions() {
         });
   }
   
-  async function deleteOption(productId, optionType, description) {
+  // delete engraving options from DB
+  async function deleteEngravingOption(productId, optionType, description, productOptionId) {
     const targetURL = `/api/delete-options/${productId}/${optionType}/${description}`;
     const response = await authFetch(targetURL,  {
       method: "DELETE",
@@ -58,6 +59,7 @@ function ShowOptions() {
           if (res.status == 200) {
             notifyDeleteSuccess();
             getOptions();
+            DeleteProduct(productOptionId);     // delete option product in Shopify
           }
           else {
             notifyError();
@@ -69,15 +71,31 @@ const hideOptions = () => {
   setOptionsLoaded(false);
 }
 
-const handleDropdownDeletion = (productId, optionType, menuTitle) => {
-  deleteOption(productId, optionType, menuTitle);
-}
+// delete dropdown options from DB
+async function deleteDropdownOption(productId, optionType, menuTitle, options) {
+  const targetURL = `/api/delete-options/${productId}/${optionType}/${menuTitle}`;
+  const response = await authFetch(targetURL,  {
+    method: "DELETE",
+      headers: {
+        Accept: "application/json",
+      }
+   }).then(res => {
+        if (res.status == 200) {
+          notifyDeleteSuccess();
+          getOptions();                                     // refresh applied options
 
-const handleEngravingDeletion = (productId, optionType, description) => {
-  deleteOption(productId, optionType, description);
-}
+          for (var i in options) {                          // delete all products associated with the dropdown menu
+            DeleteProduct(options[i].productOptionId);      // delete product in Shopify
+          }
+        }
+        else {
+          notifyError();
+        }
+      });
+  } 
 
 if (optionsLoaded) {
+  console.log(productOptions)
     return(
       <div className={styles.ShowOptionsCard}>
         <Card title={<div>
@@ -102,15 +120,15 @@ if (optionsLoaded) {
             <div className={styles.parentOptionDiv}>
                 {item.optionType.includes('dropdown') ? (
                 <div className={styles.optionDiv} key={index}>
-                    <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleDropdownDeletion(item.productId, item.optionType, item.menuTitle)}></Button></div>
+                    <span><b>Option type:</b> Dropdown</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => deleteDropdownOption(item.productId, item.optionType, item.menuTitle, item.options)}></Button></div>
                     <p>Menu title: {item.menuTitle} </p>
-                    <p>Options: {item.options.map((element) => 
-                          <p>&emsp;{element.label}: ${element.value} <br/>&emsp;{"productOptionId "} : {element.productOptionId} &nbsp;</p>)}
-                    </p>
+                    <div>Options: {item.options.map((element) => 
+                          <p><span>&emsp;</span>{element.option.replace(/ /g, "")}: ${element.price}</p>)}
+                    </div>
                 </div>
               ) : (
                 <div className={styles.optionDiv} key={index}>
-                  <span><b>Option type:</b> Engraving</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => handleEngravingDeletion(item.productId, item.optionType, item.description)}></Button></div>                
+                  <span><b>Option type:</b> Engraving</span><div className={styles.deleteIcon}><Button icon= {DeleteMinor} onClick={() => deleteEngravingOption(item.productId, item.optionType, item.description, item.productOptionId)}></Button></div>                
                   <p>Description: {item.description} </p>
                   <p>Number of lines: {item.lineNum} </p>
                   <p>Price: ${item.price} </p>
