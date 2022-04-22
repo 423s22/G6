@@ -423,7 +423,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                           htmlFor="PolarisTextField2"
                           id="PolarisTextField2Label"
                         >
-                          Price
+                          Price $
                         </label>
                       </div>
                     </div>
