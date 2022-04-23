@@ -214,13 +214,13 @@ app.prepare().then(async () => {
   privateServer.use(router.allowedMethods());
   privateServer.use(router.routes());
 
-  const serverWrapper = new Koa();
-  const publicAPI = new publicServer();
+  //const serverWrapper = new Koa();
+  //const publicAPI = new publicServer();
 
-  serverWrapper.use(mount('/public', publicAPI));
-  serverWrapper.use(mount('/', privateServer));
+  //serverWrapper.use(mount('/public', publicAPI));
+  //serverWrapper.use(mount('/', privateServer));
 
-  serverWrapper.listen(port, () => {
+  privateServer.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
