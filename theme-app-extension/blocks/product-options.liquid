@@ -1,9 +1,14 @@
 <div class="options-block">
-Product Id: {{product.id}} 
+  Product Id: {{product.id}} 
+
+
+  <script src='../assets/fetchProductOptions.js' defer>
+    let dataObj = new fetchProductOptions();
+    let productData = dataObj.fetchOptions({{ product.id }});
+    console.log(55);
+    console.log(productData);
+  </script>
 </div>
-
-<script src="{{ 'productOptions.js' | asset_url }}" defer></script>
-
 {% schema %}
   {
     "name": "Product Options",
