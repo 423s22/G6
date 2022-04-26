@@ -7,9 +7,45 @@
       let productData = fetch(`https://pricing-options-app.herokuapp.com/api/show-options/${productID}`)
           .then(response => response.json())
           .then(data => console.log(data));
+      return productData.data;
     }
 
-    fetchOptions({{ productId }});
+    const pageContent = document.getElementsByClassName("option-block");
+    let productData = fetchOptions({{ productId }});
+    let optionsArray = productData.productOptions;
+    let HTMLString = "";
+
+    for (let i = 0; i < optionsArray.length; i++) {
+      let optionItem = optionsArray[i];
+      // new div/header/title for the name of this option in html
+      //pageContent.insertAdjacentHTML('beforeend', `<div id="${optionItem.optionType}">`)
+      HTMLString += `<div id="${optionItem.optionType}">`;
+
+      if (optionItem.optionType == "dropdown") {  // create a dropdown menu
+        HTMLString += `<label for="${optionItem.menuTitle}">${optionItem.menuTitle}</label>`;
+        HTMLString += `<select name="${optionItem.menuTitle}" id="dropdown${optionType}">`;
+        for (let j = 0; j < optionItem.options; j++) {
+          let choice = optionItem.options[j];  // loop through the choices for the dropdown
+          HTMLString += `<option value="${choice.productOptionId}">${choice.option}</option>`;
+        }
+        
+        HTMLString += `</select>`;
+      } else {
+        // engraving
+        // optionsArray[i] ... {}
+        /*{
+          description
+          lineNum
+          optionType
+          price
+          productId (OF THE MAIN PRODUCT)
+          productOptionId (OF THE EXTRA PRODUCT TO ADD TO CART)
+        }*/
+      }
+      HTMLString += `</div>`;  
+    }
+    pageContent.insertAdjacentHTML('beforeend', HTMLString);
+
   </script>
 
 </div>
