@@ -15,7 +15,7 @@ class Index extends React.Component {
             <Card.Section>
               <Thumbnail
                 source="https://thumbs.dreamstime.com/b/web-186774980.jpg"
-                size="large"
+                size="medium"
                 alt="Click"
               />
               
@@ -41,7 +41,7 @@ class Index extends React.Component {
             <Card.Section>
               <Thumbnail
                 source="https://thumbs.dreamstime.com/b/faq-icon-vector-illustration-eps-146073139.jpg"
-                size="large"
+                size="medium"
                 alt="Samurai Shirt"
               />
 
