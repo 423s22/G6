@@ -1,14 +1,16 @@
 require('isomorphic-fetch');
 const dotenv = require('dotenv');
 const Koa = require('koa');
+const mount = require('koa-mount');
 const next = require('next');
 const {default: createShopifyAuth} = require('@shopify/koa-shopify-auth');
 const {verifyRequest} = require('@shopify/koa-shopify-auth');
 const {default: Shopify, ApiVersion} = require('@shopify/shopify-api');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
-const db = require('./DB/handlerDB');
+const db = require('../DB/handlerDB');
 const mysql = require('mysql-await');
+const publicServer = require('./publicServer');
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -18,6 +20,7 @@ const app = next({
 });
 const handle = app.getRequestHandler();
 
+let store_access_token = null;
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -35,15 +38,18 @@ Shopify.Context.initialize({
 const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
-  const server = new Koa();
-  server.use(koaBody());
+  const privateServer = new Koa();
+  privateServer.use(koaBody());
   const router = new Router();
-  server.keys = [Shopify.Context.API_SECRET_KEY];
-  server.use(
+  privateServer.keys = [Shopify.Context.API_SECRET_KEY];
+  privateServer.use(
     createShopifyAuth({
       async afterAuth(ctx) {
         // Access token and shop available in ctx.state.shopify
         const { shop, accessToken, scope } = ctx.state.shopify;
+      
+        store_access_token = accessToken;    // assign store access token
+
         const host = ctx.query.host;
         ACTIVE_SHOPIFY_SHOPS[shop] = scope;
 
@@ -100,17 +106,18 @@ app.prepare().then(async () => {
     console.log("GET response");
     console.log(ctx.body);
     ctx.status = 200;
-      
-    if (ctx.body == undefined) {
-      ctx.status = 500;
+
+    if (ctx.body == undefined || ctx.body.productOptions.length < 1) {
+      ctx.status = 204;  // no content
     }
+
     } catch (e) {
       console.log(`GET Error\n ${e}`);
       ctx.status = 500;
     }
   });
   
-  router.delete("/api/delete-options/:id/:optionType", async (ctx) => {
+  router.delete("/api/delete-options/:id/:optionType/:description", async (ctx) => {
        
     try { 
     db.connect();
@@ -152,11 +159,68 @@ app.prepare().then(async () => {
     }
   });
   
+  // route to receive create a Shopify product for an option from engraving form
+  router.post("/api/add-product-option", async (ctx) => {   
+    // create product in Shopify 
+     try { 
+      const product = JSON.parse(ctx.request.body);
+      const targetURL = `https://${process.env.SHOPIFY_API_KEY}${process.env.SHOPIFY_API_SECRET}@${process.env.SHOP_NAME}.myshopify.com/admin/api/2021-10/products.json`;
+      var header = {
+        method: 'POST', 
+        headers: {
+            "Content-Type": "application/json",
+            "Accept-Charset": "UTF-8",
+            'X-Shopify-Access-Token': `${store_access_token}`,
+            'Authorization': `Bearer ${store_access_token}`
+        },
+        body: JSON.stringify(product)
+    }
+   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {ctx.response.body = data}).catch((error) => { console.log(error) })
+   ctx.status = 200;
+    } 
+  catch (e) {
+      console.log(`Shopify POST Error\n ${e}`);
+      ctx.status = 500;
+    }
+  });
 
+  // route to delete product option 
 
-  server.use(router.allowedMethods());
-  server.use(router.routes());
-  server.listen(port, () => {
+  router.delete(`/api/delete-product-option/:id`, async (ctx) => {
+
+     // delete product in Shopify 
+     try { 
+      const productId = ctx.params.id;
+      const targetURL = `https://${process.env.SHOPIFY_API_KEY}${process.env.SHOPIFY_API_SECRET}@${process.env.SHOP_NAME}.myshopify.com/admin/api/2021-10/products/${productId}.json`;
+      
+      var header = {
+        method: 'DELETE', 
+        headers: {
+            "Content-Type": "application/json",
+            "Accept-Charset": "UTF-8",
+            'X-Shopify-Access-Token': `${store_access_token}`,
+            'Authorization': `Bearer ${store_access_token}`
+        },
+    }
+   let results =  await fetch(targetURL, header).then(res => res.text()).then(data => {ctx.response.body = data;}).catch((error) => { console.log(error) })
+   ctx.status = 200;
+    } 
+  catch (e) {
+      console.log(`Shopify POST Error\n ${e}`);
+      ctx.status = 500;
+    }
+  });
+  
+  privateServer.use(router.allowedMethods());
+  privateServer.use(router.routes());
+
+  //const serverWrapper = new Koa();
+  //const publicAPI = new publicServer();
+
+  //serverWrapper.use(mount('/public', publicAPI));
+  //serverWrapper.use(mount('/', privateServer));
+
+  privateServer.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });

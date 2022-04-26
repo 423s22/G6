@@ -348,11 +348,11 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                         className="Polaris-Label"
                       >
                         <label
-                          className="Polaris-Label__Text"
+                          className="Polaris-Label__Text Polaris-Label__RequiredIndicator"
                           htmlFor="PolarisTextField1"
                           id="PolarisTextField1Label"
                         >
-                          Engraving
+                          Description
                         </label>
                       </div>
                     </div>
@@ -365,7 +365,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                         onFocus={[Function]}
                       >
                         <div
-                          className="Polaris-TextField Polaris-TextField--hasValue"
+                          className="Polaris-TextField"
                           onBlur={[Function]}
                           onClick={[Function]}
                           onFocus={[Function]}
@@ -374,6 +374,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                             aria-describedby="PolarisTextField1HelpText"
                             aria-invalid={false}
                             aria-labelledby="PolarisTextField1Label"
+                            aria-required={true}
                             className="Polaris-TextField__Input"
                             id="PolarisTextField1"
                             onChange={[Function]}
@@ -381,7 +382,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                             readOnly={false}
                             style={null}
                             type="text"
-                            value="description"
+                            value=""
                           />
                           <div
                             className="Polaris-TextField__Backdrop"
@@ -422,7 +423,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                           htmlFor="PolarisTextField2"
                           id="PolarisTextField2Label"
                         >
-                          Price
+                          Price $
                         </label>
                       </div>
                     </div>

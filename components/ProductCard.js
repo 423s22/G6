@@ -1,11 +1,11 @@
 import React from "react";
 import {ResourceList, Thumbnail, ResourceItem, TextStyle}  from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
+import { ProductsMajor} from '@shopify/polaris-icons';
 
 function ProductCard() {
 
-    const {productInfo, setProductInfo} = useProductContext() || {};
-    console.log(productInfo)
+  const {productInfo, setProductInfo} = useProductContext() || {};
     
   return (   
     <ResourceList
@@ -18,15 +18,17 @@ function ProductCard() {
       ]}
       renderItem={(item) => {
         const {id, name } = item;
+        console.log(productInfo)
         const media = (
             <Thumbnail
                 source={
-                    productInfo.images[0]
+                    (productInfo.images.length > 0)
                     ? productInfo.images[0].originalSrc
-                    : ''
+                    : ProductsMajor                         // if no image available, display default product icon
                     }
                 alt={
-                  productInfo.images[0].altText
+                  (productInfo.images.length > 0) ?
+                   productInfo.images[0].altText : "default product image"
                       }
                    /> 
         );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page , Layout , Card, TextStyle, Thumbnail, Button, ButtonGroup, AppProvider, EmptyState} from "@shopify/polaris";
+import { Page , Layout , Card, TextStyle, Thumbnail, Button, ButtonGroup, AppProvider, EmptyState, CalloutCard} from "@shopify/polaris";
 //import ProductList from '../components/ProductList';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import Router from 'next/router';
@@ -8,7 +8,7 @@ class Index extends React.Component {
 
   render(){
   return (
-    <Page title="Home Page">
+    <Page title ="Home Page">
       <Layout>
         <Layout.Section oneHalf>
           <Card title="Create Products">
@@ -59,7 +59,6 @@ class Index extends React.Component {
           </Card>
         </Layout.Section>
       </Layout>
-      ;
     </Page>
   );
 };

@@ -6,26 +6,28 @@ import {
     MobileCancelMajor
   } from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
-import app from '@shopify/app-bridge-react';
-import { getSessionToken } from '@shopify/app-bridge-utils';
 import authFetch from '../utils/AuthFetch';
-//import SuccessToast from './SuccessToast';
+import CreateProduct from '../helpers/CreateProduct';
+import DeleteProduct from '../helpers/DeleteProduct';
+import notifyError from './toasts/ErrorToast';
+import notifySuccess from './toasts/PostSuccessToast';
+import notifyRefresh from './toasts/RefreshToast';
 
 
 function EngravingForm() {
 
   // get product info from context
   const {productInfo, setProductInfo} = useProductContext() || {};
-  
 
   const [selectedNumber, setSelectedNumber] = useState('1');
-  const [description, setDescription] = useState('description');
+  const [description, setDescription] = useState('');  
   const [price, setPrice] = useState('0');
   const [exitForm, setExitForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const handleDescriptionChange = useCallback((value) => {setDescription(validateInput(value))}, []);
+  const handleDescriptionChange = useCallback((value) => setDescription(validateInput(value)), []);
   const handlePriceChange = useCallback((value) => setPrice(value), []);
 
+  
   // post form data to the backend
   async function updateDB(engravingInfo) {
     const response = await authFetch("/api/add-options", {
@@ -34,25 +36,36 @@ function EngravingForm() {
           Accept: "application/json"
         },  
         body: JSON.stringify(engravingInfo),
-      }).then((res) => {console.log(res.status)
+      }).then((res) => {
         if (res.status == 200) {
-            setSubmitted(true);         
-        }});
+            setSubmitted(true);  
+            notifySuccess();
+            notifyRefresh();
+        }
+        else {         
+            DeleteProduct(engravingInfo.productOptionId);  // if post is unsuccessful, delete option product
+            notifyError();      
+        }
+    });
   }
 
   const validateInput = (value) => {
-    return value.replaceAll(/[&/\\#,+()$~%;^'":*?<>{}]/g, "");
+    return value.replaceAll(/[&/\\#,+()$~%;^':*?<>{}]/g, "");
   }
 
-  const handleSubmit = () => {
+  async function handleSubmit () {
      const engravingInfo = {
-         productId: productInfo.id,
+         productId: productInfo.id.replace("gid://shopify/Product/", ''),
          optionType: 'engraving',
          lines: selectedNumber,
          description: description,
          price: price,
+         title: productInfo.title
      }
-     updateDB(engravingInfo)
+     let productOptionId = await CreateProduct(engravingInfo);      // create product from option in Shopify and return back its productId
+     engravingInfo.productOptionId = productOptionId;               // add ID of product option     
+   
+     updateDB(engravingInfo)                                        // call function to add option to DB
      }; 
 
    const numbers = [
@@ -104,7 +117,8 @@ function EngravingForm() {
                                 <TextField
                                     value={description}
                                     onChange={handleDescriptionChange}
-                                    label="Engraving"
+                                    label="Description"
+                                    requiredIndicator={true}
                                     type="text"
                                     readOnly={false}
                                     helpText={
@@ -120,7 +134,7 @@ function EngravingForm() {
                                  <TextField
                                     value={price}
                                     onChange={handlePriceChange}
-                                    label="Price"
+                                    label="Price $"
                                     type="number"
                                     helpText={
                                             "Please enter any additional cost associated with this option"

@@ -1,12 +1,17 @@
 import {Select, TextField, Button, Card, Icon} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 import styles from './css/DropdownForm.module.css';
-import { MobileCancelMajor, MobileBackArrowMajor} from '@shopify/polaris-icons';
+import { MobileCancelMajor, MobileBackArrowMajor, GamesConsoleMajor} from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
 import React, { useState, useCallback } from 'react';
 import Creatable from 'react-select/creatable';
 import authFetch from '../utils/AuthFetch';
-import SuccessToast from './SuccessToast';
+import notifyError from './toasts/ErrorToast';
+import notifySuccess from './toasts/PostSuccessToast';
+import BuildOptions from '../helpers/BuildOptions';
+import DeleteProduct from '../helpers/DeleteProduct';
+import notifyRefresh from './toasts/RefreshToast';
+import notifyPriceSuccess from './toasts/PriceSuccessToast'
 
 function DropdownForm() {
 
@@ -22,7 +27,44 @@ function DropdownForm() {
   // get product info from context
   const {productInfo, setProductInfo} = useProductContext() || {};
 
-  const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price dynamically 
+  const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price 
+  const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);   // update title 
+  const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);       // update selected option
+
+  // post form data to the backend
+  async function updateDB(dropdownInfo) {
+    const response = await authFetch("/api/add-options", {
+        method: "POST",
+       headers: {
+          Accept: "application/json"
+        },  
+        body: JSON.stringify(dropdownInfo),
+      }).then((res) => {
+        if (res.status == 200) {
+            setSubmitted(true);    
+            notifySuccess();      
+            notifyRefresh();
+        }
+
+        else {
+          notifyError();
+          dropdownInfo.options.forEach(option => {    // delete created option products 
+            DeleteProduct(option.productOptionId); 
+          }); 
+        }});
+      }
+
+   const handleSubmit = async () => {
+    checkPrices();
+     const dropdownInfo = {
+         productId: productInfo.id.replace("gid://shopify/Product/", ''),
+         optionType: 'dropdown',
+         menuTitle: menuTitle,
+         options: await BuildOptions(productInfo.title, menuTitle, optionValues)
+
+     }
+     updateDB(dropdownInfo)               // call function to add option to DB
+    }; 
 
   const handleChange = (field, value) => {      // used to clear user inputed options
     switch (field) {
@@ -61,11 +103,8 @@ function DropdownForm() {
   }
 
   const validateInput = (value) => {
-    return value.replaceAll(/[&/\\#,+()$~%.!;^'":*?<>{}]/g, "");
+    return value.replaceAll(/[&/\\#,+()$~%!;^':*?<>{}]/g, "");
   }
-  
-  const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);
-  const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);
 
   // applies options
   const handleApplyOptions = () =>
@@ -77,44 +116,37 @@ function DropdownForm() {
     setSelectValue(optionValues[0].value)
   }
 
-  const handleBackBtn = () => {
-    setOptionsApplied(false);
-    console.log(optionsApplied)
+  // check that additional prices were applied, otherwise, apply default
+  const checkPrices = () => {
+    optionValues.forEach(element => {
+      if (element.label === element.value) {     // if label and value are equal, no additional price was entered 
+        element.value = "0";                       // set price to 0
+      }
+    });
   }
 
+  const handleBackBtn = () => {
+    setOptionsApplied(false);
+  }
+
+  // apply individual price to selected option
   const handleApplyPrice = () => {
     for (const option in optionValues) {
       if (optionValues[option].label == selectValue) {
         optionValues[option].value = price;
       }
     }
+    notifyPriceSuccess();
       
     }
 
-  // post form data to the backend
-  async function updateDB(dropdownInfo) {
-    const response = await authFetch("/api/add-options", {
-        method: "POST",
-       headers: {
-          Accept: "application/json"
-        },  
-        body: JSON.stringify(dropdownInfo),
-      }).then((res) => {console.log(res.status)
-        if (res.status == 200) {
-            setSubmitted(true);          
-        }});
+  // apply selected price to all options
+  const handleApplyAllPrice = () => {
+    for (const option in optionValues) {
+        optionValues[option].value = price;   
+    }
+    notifyPriceSuccess();
   }
-
-  const handleSubmit = () => {
-     const dropdownInfo = {
-         productId: productInfo.id,
-         optionType: 'dropdown',
-         menuTitle: menuTitle,
-         options: optionValues,
-     }
-     updateDB(dropdownInfo)
-    }; 
-
   // is user clicked exit button
   if (exitForm) {
     return (
@@ -166,11 +198,11 @@ function DropdownForm() {
                     inputValue={optionInputValue}
                     menuIsOpen={false}
                     onChange={(value) => handleChange('options', value)}
-                    placeholder='Type option and press enter...'
                     onKeyDown={handleKeyDown}
                     onInputChange={handleInputChange}
                     value={optionValues}
                   />
+                  <p>Type option and press enter...</p>
               </div>
               <div className={styles.ApplyOptionsBtn}>
                 <Button onClick={handleApplyOptions}>Apply Options</Button>
@@ -219,20 +251,27 @@ function DropdownForm() {
                <div className={styles.priceDiv}>
                 <TextField               
                   value={price}
-                  label="Price"
+                  label="Price $"
                   type="number"
                   helpText={
                            "Please enter any additional cost associated with this option"
                            }
-                  min={0}   
+                  min={0}  
                   onChange={handlePriceChange}
                 />
               </div>
                 <div className={styles.ApplyPriceBtn}>
                   <Button
-                    onClick={handleApplyPrice}>Apply Price</Button>
+                    onClick={handleApplyPrice}>Apply</Button>
+                    <p>Click here to apply price to selected option</p>
+                    <div className={styles.ApplyAllBtn}>
+                    <Button
+                    onClick={handleApplyAllPrice}>Apply All</Button>
+                    <p>Click here to apply price to all options</p>
               </div>
-            </div>
+                </div>
+                
+              </div>
               <div className={styles.backBtn}>
                 <Button onClick={handleBackBtn}>
                 <Icon
@@ -254,4 +293,3 @@ function DropdownForm() {
 }
 
 export default DropdownForm;
-   

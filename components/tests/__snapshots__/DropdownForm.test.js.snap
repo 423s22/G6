@@ -324,7 +324,7 @@ exports[`<DropdownForm /> Create snapshot of the DropdownForm react component. 1
                     className=" css-14el2xx-placeholder"
                     id="react-select-2-placeholder"
                   >
-                    Type option and press enter...
+                    Select...
                   </div>
                   <div
                     className=" css-6j8wv5-Input"
@@ -375,6 +375,9 @@ exports[`<DropdownForm /> Create snapshot of the DropdownForm react component. 1
                 />
               </div>
             </div>
+            <p>
+              Type option and press enter...
+            </p>
           </div>
           <div>
             <button
