@@ -12,6 +12,8 @@ import notifyDeleteSuccess from "./toasts/DeleteSuccessToast";
 import notifyEmpty from "./toasts/EmptyToast";
 import DeleteProduct from "../helpers/DeleteProduct";
 
+// component that allows user to view and delete applied options 
+
 function ShowOptions() {
 
    // get product info from context
@@ -94,6 +96,7 @@ async function deleteDropdownOption(productId, optionType, menuTitle, options) {
       });
   } 
 
+// if applied options has been clicked, display them
 if (optionsLoaded) {
     return(
       <div className={styles.ShowOptionsCard}>
@@ -140,6 +143,7 @@ if (optionsLoaded) {
   );
 }
 
+// if applied options have been hidden, display button
 else {
   return (
     <div className={styles.ShowOptionsCard}>
