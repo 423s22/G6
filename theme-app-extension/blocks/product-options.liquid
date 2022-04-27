@@ -1,7 +1,4 @@
 <div class="options-block">
-  Product Id: {{ product.id }}
-  {% assign productId = 7664308912376 %} 
-
   <script>
     let optionsBlockProductData = {};
     optionsWrapper();
@@ -13,7 +10,7 @@
     }
 
     async function optionsWrapper() {
-      let productData = await fetchOptions({{ productId }});
+      let productData = await fetchOptions({{ product.id }});
       optionsBlockProductData = productData;
       renderPage();
     }
@@ -82,7 +79,7 @@
         HTMLString += `<button type="button" onclick="updateCart()">ADD TO CART</button>`;
         pageContent.insertAdjacentHTML('beforeend', HTMLString);
     } 
-
+    /*
     async function updateCart() {
         if (Object.keys(optionsBlockProductData).length === 0) return;
 
@@ -135,7 +132,7 @@
           console.error('Error:', error);
         });
     }
-
+    */
   </script>
 
 </div>
