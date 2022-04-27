@@ -4,6 +4,9 @@ import styles from './css/AddOptions.module.css'
 import EngravingForm from './EngravingForm';
 import DropdownForm from './DropdownForm';
 
+/* component that allows a user to select which option, dropdown or engraving, 
+  that they would like to add to the selected product */
+  
 function AddOptions() {
         const [selected, setSelected] = useState('engraving');
         const [addOption, setAddOption] = useState(false);
@@ -21,16 +24,6 @@ function AddOptions() {
           {label: 'Engraving', value: 'engraving'},
           {label: 'Dropdown Menu', value: 'dropdown'},
         ];
-
-        // temporary usage of a toast component to alert the user that the radio button option is not available
-        const [active, setActive] = useState(false);
-        const toggleActive = useCallback(() => setActive((active) => !active), []);
-
-        // on toast close, toggle off toast and reset added option state
-        const closeToast = () => {
-          toggleActive();
-          setAddOption(false);
-        }
 
         // if the user hasn't added an option, display the option type menu and add button
         if (!addOption) {

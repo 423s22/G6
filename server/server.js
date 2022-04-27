@@ -105,6 +105,7 @@ app.prepare().then(async () => {
     db.disconnect(); 
     console.log("GET response");
     console.log(ctx.body);
+    ctx.set('Access-Control-Allow-Origin', '*');
     ctx.status = 200;
 
     if (ctx.body == undefined || ctx.body.productOptions.length < 1) {
