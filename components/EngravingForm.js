@@ -53,6 +53,7 @@ function EngravingForm() {
     return value.replaceAll(/[&/\\#,+()$~%;^':*?<>{}]/g, "");
   }
 
+  // create submit object
   async function handleSubmit () {
      const engravingInfo = {
          productId: productInfo.id.replace("gid://shopify/Product/", ''),
@@ -83,6 +84,7 @@ function EngravingForm() {
         )
     }
 
+    // if user clicked exit, navigate back to add options 
     if (exitForm) {
         return (
             <AddOptions />

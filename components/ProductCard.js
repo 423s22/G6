@@ -3,6 +3,9 @@ import {ResourceList, Thumbnail, ResourceItem, TextStyle}  from '@shopify/polari
 import { useProductContext } from '../context/ProductContext';
 import { ProductsMajor} from '@shopify/polaris-icons';
 
+/* component that display the selected product to the user, 
+  and allows them to return to product selection */
+
 function ProductCard() {
 
   const {productInfo, setProductInfo} = useProductContext() || {};
