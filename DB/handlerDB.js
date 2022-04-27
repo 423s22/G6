@@ -120,47 +120,11 @@ async function handlePostRequest(ctx) {
 }
 
 async function _createProduct(data) {
-        let alreadyExists = await _createSearch(data);
-
-        if (!alreadyExists[0]) {  
-            queryStatement = _createHelp(data);
-            console.log("insert")
-            //console.log(queryStatement)
-            let result = await con.awaitQuery(queryStatement);
-            return JSON.stringify({ "insertId": result.insertId });
-        }
-        if (alreadyExists[0]) {
-            data._iter = alreadyExists[1]._iter;
-            var queryStatement = _updateHelp(data);
-            console.log("update")
-            //console.log(queryStatement)
-            let result = await con.awaitQuery(queryStatement) 
-            return JSON.stringify({ "Upate insertId": result.insertId });
-        }
-        else {
-            console.log("this is not being inserted" + data.productId);
-        }
-}
-
-async function _createSearch(data) {
-    let result = await con.awaitQuery("SElECT * FROM " + data.optionType + " WHERE productId = '" + data.productId + "';");
-    
-    if( result != undefined && result.length > 0) {
-        for(let i = 0; i < result.length; i++) 
-        {
-            if(data.optionType == "dropdown") {
-                data.description = data.menuTitle;
-                result[i].description = result[i].menuTitle;
-            }
-            if(result[i].description == data.description) {
-                return [true, result[i]]; // Yes update
-            }
-        }
-        return [false, undefined];
-    }
-    else {
-        return [false, undefined];
-    }
+        queryStatement = _createHelp(data);
+        console.log("insert")
+        //console.log(queryStatement)
+        let result = await con.awaitQuery(queryStatement);
+        return JSON.stringify({ "insertId": result.insertId });
 }
 
 function _createHelp(data) {
@@ -214,43 +178,6 @@ async function _createTable(data) {
     //console.log(queryStatement);
     return con.awaitQuery(queryStatement);
 }
-
-//Upate Requests
-function _updateHelp(data) {
-    let queryTemp ='';
-    if( data.optionType == "dropdown") {
-        queryTemp += "UPDATE " + data.optionType + " SET " + _updateBuilderDrop(data);
-    }
-    else {
-        queryTemp += "UPDATE " + data.optionType + " SET " + _updateBuilderEngrave(data);
-    }
-    queryTemp += " WHERE productId = '"+ data.productId + "' AND _iter = '" + data._iter+"';";
-    return queryTemp;
-}
-
-function _updateBuilderDrop(data) {
-    options = data.options
-    let optionsLength = options.length;
-    var queryTemp = "";
-    queryTemp += " options = '{" ;
-    for (let i = 0; i < optionsLength; i++) {
-        if( i == optionsLength-1) {
-            queryTemp += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + "}'";
-        }
-        else{
-            queryTemp += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + ", ";
-        }  
-    }
-    return queryTemp
-    
-}
-
-function _updateBuilderEngrave(data) {
-    var queryTemp = "productId = '" + data.productId + "', description = " + "'" + data.description + "'," + "lineNum = '" + data.lines + "', price = '" +  data.price + "', " + data.productOptionId + "'";
-    return queryTemp
-}
-
-
 
 //Delete Requests
 async function handleDeleteRequest(ctx) {
@@ -321,19 +248,5 @@ async function handleDeleteAllRequest(ctx) {
     
 }
 
-async function _deleteTable(data) {
-    if( data.optionType == "dropdown") {
-        let result = await con.awaitQuery(
-            "DROP TABLE  " + data.optionType +";"
-        );
-    }
-    else {
-        let result = await con.awaitQuery(
-            "DROP TABLE  " + data.optionType +";"
-        );
-    }
-    return JSON.stringify({ "message": "Successfully deleted" });
-}
-
-module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _updateHelp, _createProduct, _createSearch,
-_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _updateBuilderDrop, _updateBuilderEngrave, _checkEmpty, _deleteTable, handleDeleteAllRequest, isConnected, con};
+module.exports = {connect, disconnect, _checkConnect, handleGetAllRequest, handleGetRequest, getProducts, handleDeleteRequest, handlePostRequest,  _createProduct,
+_createHelp, _createBuilderDrop, _createBuilderEngrave, _createTable, _checkEmpty, handleDeleteAllRequest, isConnected, con};
