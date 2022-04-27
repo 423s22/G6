@@ -3,13 +3,138 @@
   {% assign productId = 7664308912376 %} 
 
   <script>
-    function fetchOptions(productID) {
-      let productData = fetch(`https://pricing-options-app.herokuapp.com/api/show-options/${productID}`)
-          .then(response => response.json())
-          .then(data => console.log(data));
+    let optionsBlockProductData = {};
+    optionsWrapper();
+
+    async function fetchOptions(productID) {
+      let response = await fetch(`https://pricing-options-app.herokuapp.com/api/show-options/${productID}`);
+      let data = await response.json();
+      return data;
     }
 
-    fetchOptions({{ productId }});
+    async function optionsWrapper() {
+      let productData = await fetchOptions({{ productId }});
+      optionsBlockProductData = productData;
+      renderPage();
+    }
+
+    async function renderPage() {
+        const pageContent = document.getElementsByClassName("options-block")[0];
+        console.log(optionsBlockProductData);  // first console log
+        let optionsArray = optionsBlockProductData.productOptions;
+        console.log(optionsArray);  // second console log
+        let HTMLString = "";
+
+        for (let i = 0; i < optionsArray.length; i++) {
+          let optionItem = optionsArray[i];
+          let optionType = optionItem.optionType;
+          console.log(optionItem);  // third console log; logs 3 times
+          console.log(optionType);  // fourth console log; logs 3 times
+          // new div/header/title for the name of this option in html
+
+          HTMLString += `<div id="${optionType}">`;
+
+          if (optionType == "dropdown") {  // create a dropdown menu
+            HTMLString += `<label for="${optionItem.menuTitle}">${optionItem.menuTitle}</label>`;
+            HTMLString += `<select name="${optionItem.menuTitle}" id="dropdown${optionItem.menuTitle}">`;
+            for (let j = 0; j < optionItem.options.length; j++) {
+              let choice = optionItem.options[j];  // loop through the choices for the dropdown
+              HTMLString += `<option value="${choice.productOptionId}">${choice.option}</option>`;
+            // <option value="7676470657272">red</option>
+
+            }
+            
+            HTMLString += `</select>`;
+
+            // document.getElementById(`dropdown${optionItem.menuTitle}`).value
+            // 7676470657272
+            // document.getElementById(`dropdown${optionItem.menuTitle}`).options[2].text;
+            // { extracomments: "red" }
+
+          } else {  // create engraving text field
+            let id = optionItem.productOptionId
+
+            HTMLString += `<form><label for="${id}">Engraving</label><br>`;
+            HTMLString += `<input type="text" id="${id}" name="${id}" value="${optionItem.description}"><br>`;
+
+            // document.getElementById(id).value
+
+
+
+            // Shopify.cart.add(productOptionId)
+            
+            // optionsArray[i] ... {}
+            /*{
+              description
+              lineNum
+              optionType
+              price
+              productId (OF THE MAIN PRODUCT)
+              productOptionId (OF THE EXTRA PRODUCT TO ADD TO CART)
+            }*/
+            // HTMLString += `<input type="submit" value="Submit">`;
+
+            HTMLString += `</form>`;
+          }
+
+          HTMLString += `</div>`;  
+        }
+        HTMLString += `<button type="button" onclick="updateCart()">ADD TO CART</button>`;
+        pageContent.insertAdjacentHTML('beforeend', HTMLString);
+    } 
+
+    async function updateCart() {
+        if (Object.keys(optionsBlockProductData).length === 0) return;
+
+        let formData = {
+          'items': [{
+              'quantity': 1,
+              'id': {{ product.selected_variant.id }}
+            }]
+        };
+
+        console.log(formData);
+
+        await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => {
+          return response.json();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
+        const pageContent = document.getElementsByClassName("options-block")[0];
+        let optionsArray = optionsBlockProductData.productOptions;
+        console.log(optionsArray);  // second console log
+        let HTMLString = "";
+
+        for (let i = 0; i < optionsArray.length; i++) {
+          let optionItem = optionsArray[i];
+          let optionType = optionItem.optionType;
+
+          // new div/header/title for the name of this option in html
+          if (optionType == "dropdown") {  // create a dropdown menu
+            // HTMLString += `<select name="${optionItem.menuTitle}" id="dropdown${optionItem.menuTitle}">`;
+            // <option value="7676470657272">red</option>
+            
+            // document.getElementById(`dropdown${optionItem.menuTitle}`).value
+            // 7676470657272
+            // document.getElementById(`dropdown${optionItem.menuTitle}`).options[2].text;
+            // { extracomments: "red" }
+
+          } else {  // create engraving text field
+            let id = optionItem.productOptionId
+            // document.getElementById(id).value
+          }
+        }
+    }
+
   </script>
 
 </div>
