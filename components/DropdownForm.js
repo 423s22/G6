@@ -13,6 +13,9 @@ import DeleteProduct from '../helpers/DeleteProduct';
 import notifyRefresh from './toasts/RefreshToast';
 import notifyPriceSuccess from './toasts/PriceSuccessToast'
 
+/* component that allows a user to customize and add 
+   a dropdown menut to their product */
+
 function DropdownForm() {
 
   const [optionInputValue, setOptionInputValue] = useState('')
@@ -54,6 +57,7 @@ function DropdownForm() {
         }});
       }
 
+   // create submit object 
    const handleSubmit = async () => {
     checkPrices();
      const dropdownInfo = {
