@@ -89,25 +89,10 @@
         let formData = {
           'items': [{
               'quantity': 1,
-              'id': {{ product.selected_variant.id }}
+              'id': {{ product.selected_variant.id }},
+              'Description': "Base item"
             }]
         };
-
-        console.log(formData);
-
-        await fetch(window.Shopify.routes.root + 'cart/add.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        })
-        .then(response => {
-          return response.json();
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
 
         const pageContent = document.getElementsByClassName("options-block")[0];
         let optionsArray = optionsBlockProductData.productOptions;
@@ -133,6 +118,22 @@
             // document.getElementById(id).value
           }
         }
+
+        console.log(formData);
+
+        await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => {
+          return response.json();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
 
   </script>
