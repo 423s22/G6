@@ -7,9 +7,11 @@ import styles from './css/SelectOptions.module.css';
 import { useProductContext } from '../context/ProductContext';
 import ShowOptions from './ShowOptions';
 
+// component that allows user to select a product to add options to 
+
 function SelectOptions() {
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);        // state of product selector
   const {productInfo, setProductInfo} = useProductContext() || {};
 
   const handleSelection = (resources) => {
@@ -17,6 +19,7 @@ function SelectOptions() {
     setProductInfo(resources.selection[0]);
   }
 
+  // if product had not been selected
     if (!productInfo) {
     return (
       <Page>
@@ -44,6 +47,7 @@ function SelectOptions() {
     );
   }
 
+  // if product selected
   if (productInfo) {
   return (
       <Layout>
