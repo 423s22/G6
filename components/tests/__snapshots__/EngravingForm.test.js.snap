@@ -238,317 +238,323 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                 className="Polaris-Card__Section"
               >
                 <div>
-                  <div
-                    className=""
-                  >
+                  <div>
                     <div
-                      className="Polaris-Labelled__LabelWrapper"
+                      className=""
                     >
                       <div
-                        className="Polaris-Label"
+                        className="Polaris-Labelled__LabelWrapper"
                       >
-                        <label
-                          className="Polaris-Label__Text"
-                          htmlFor="PolarisSelect1"
-                          id="PolarisSelect1Label"
+                        <div
+                          className="Polaris-Label"
                         >
-                          Number of Lines
-                        </label>
+                          <label
+                            className="Polaris-Label__Text"
+                            htmlFor="PolarisSelect1"
+                            id="PolarisSelect1Label"
+                          >
+                            Number of Lines
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      className="Polaris-Select"
-                    >
-                      <select
-                        aria-invalid={false}
-                        className="Polaris-Select__Input"
-                        id="PolarisSelect1"
-                        onChange={[Function]}
-                        value="1"
+                      <div
+                        className="Polaris-Select"
                       >
-                        <option
+                        <select
+                          aria-invalid={false}
+                          className="Polaris-Select__Input"
+                          id="PolarisSelect1"
+                          onChange={[Function]}
                           value="1"
                         >
-                          1
-                        </option>
-                        <option
-                          value="2"
-                        >
-                          2
-                        </option>
-                        <option
-                          value="3"
-                        >
-                          3
-                        </option>
-                        <option
-                          value="4"
-                        >
-                          4
-                        </option>
-                        <option
-                          value="5"
-                        >
-                          5
-                        </option>
-                      </select>
-                      <div
-                        aria-hidden={true}
-                        className="Polaris-Select__Content"
-                      >
-                        <span
-                          className="Polaris-Select__SelectedOption"
-                        >
-                          1
-                        </span>
-                        <span
-                          className="Polaris-Select__Icon"
+                          <option
+                            value="1"
+                          >
+                            1
+                          </option>
+                          <option
+                            value="2"
+                          >
+                            2
+                          </option>
+                          <option
+                            value="3"
+                          >
+                            3
+                          </option>
+                          <option
+                            value="4"
+                          >
+                            4
+                          </option>
+                          <option
+                            value="5"
+                          >
+                            5
+                          </option>
+                        </select>
+                        <div
+                          aria-hidden={true}
+                          className="Polaris-Select__Content"
                         >
                           <span
-                            className="Polaris-Icon"
+                            className="Polaris-Select__SelectedOption"
+                          >
+                            1
+                          </span>
+                          <span
+                            className="Polaris-Select__Icon"
                           >
                             <span
-                              className="Polaris-VisuallyHidden"
-                            />
-                            <svg
-                              aria-hidden="true"
-                              className="Polaris-Icon__Svg"
-                              focusable="false"
-                              viewBox="0 0 20 20"
+                              className="Polaris-Icon"
                             >
-                              <path
-                                d="M7.676 9h4.648c.563 0 .879-.603.53-1.014l-2.323-2.746a.708.708 0 0 0-1.062 0l-2.324 2.746c-.347.411-.032 1.014.531 1.014zm4.648 2h-4.648c-.563 0-.878.603-.53 1.014l2.323 2.746c.27.32.792.32 1.062 0l2.323-2.746c.349-.411.033-1.014-.53-1.014z"
+                              <span
+                                className="Polaris-VisuallyHidden"
                               />
-                            </svg>
+                              <svg
+                                aria-hidden="true"
+                                className="Polaris-Icon__Svg"
+                                focusable="false"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  d="M7.676 9h4.648c.563 0 .879-.603.53-1.014l-2.323-2.746a.708.708 0 0 0-1.062 0l-2.324 2.746c-.347.411-.032 1.014.531 1.014zm4.648 2h-4.648c-.563 0-.878.603-.53 1.014l2.323 2.746c.27.32.792.32 1.062 0l2.323-2.746c.349-.411.033-1.014-.53-1.014z"
+                                />
+                              </svg>
+                            </span>
                           </span>
+                        </div>
+                        <div
+                          className="Polaris-Select__Backdrop"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="Polaris-FormLayout__Item"
+            >
+              <div
+                className="Polaris-Card__Section"
+              >
+                <div>
+                  <div>
+                    <div
+                      className=""
+                    >
+                      <div
+                        className="Polaris-Labelled__LabelWrapper"
+                      >
+                        <div
+                          className="Polaris-Label"
+                        >
+                          <label
+                            className="Polaris-Label__Text Polaris-Label__RequiredIndicator"
+                            htmlFor="PolarisTextField1"
+                            id="PolarisTextField1Label"
+                          >
+                            Description
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        className="Polaris-Connected"
+                      >
+                        <div
+                          className="Polaris-Connected__Item Polaris-Connected__Item--primary"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                        >
+                          <div
+                            className="Polaris-TextField"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                          >
+                            <input
+                              aria-describedby="PolarisTextField1HelpText"
+                              aria-invalid={false}
+                              aria-labelledby="PolarisTextField1Label"
+                              aria-required={true}
+                              className="Polaris-TextField__Input"
+                              id="PolarisTextField1"
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              readOnly={false}
+                              style={null}
+                              type="text"
+                              value=""
+                            />
+                            <div
+                              className="Polaris-TextField__Backdrop"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="Polaris-Labelled__HelpText"
+                        id="PolarisTextField1HelpText"
+                      >
+                        <span>
+                          Please enter a description of your engraving option.
                         </span>
                       </div>
-                      <div
-                        className="Polaris-Select__Backdrop"
-                      />
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="Polaris-FormLayout__Item"
-            >
-              <div
-                className="Polaris-Card__Section"
-              >
-                <div>
-                  <div
-                    className=""
-                  >
+                  <div>
                     <div
-                      className="Polaris-Labelled__LabelWrapper"
+                      className=""
                     >
                       <div
-                        className="Polaris-Label"
-                      >
-                        <label
-                          className="Polaris-Label__Text Polaris-Label__RequiredIndicator"
-                          htmlFor="PolarisTextField1"
-                          id="PolarisTextField1Label"
-                        >
-                          Description
-                        </label>
-                      </div>
-                    </div>
-                    <div
-                      className="Polaris-Connected"
-                    >
-                      <div
-                        className="Polaris-Connected__Item Polaris-Connected__Item--primary"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
+                        className="Polaris-Labelled__LabelWrapper"
                       >
                         <div
-                          className="Polaris-TextField"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
+                          className="Polaris-Label"
                         >
-                          <input
-                            aria-describedby="PolarisTextField1HelpText"
-                            aria-invalid={false}
-                            aria-labelledby="PolarisTextField1Label"
-                            aria-required={true}
-                            className="Polaris-TextField__Input"
-                            id="PolarisTextField1"
-                            onChange={[Function]}
-                            onKeyPress={[Function]}
-                            readOnly={false}
-                            style={null}
-                            type="text"
-                            value=""
-                          />
-                          <div
-                            className="Polaris-TextField__Backdrop"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="Polaris-Labelled__HelpText"
-                      id="PolarisTextField1HelpText"
-                    >
-                      <span>
-                        Please enter a description of your engraving option.
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="Polaris-FormLayout__Item"
-            >
-              <div
-                className="Polaris-Card__Section"
-              >
-                <div>
-                  <div
-                    className=""
-                  >
-                    <div
-                      className="Polaris-Labelled__LabelWrapper"
-                    >
-                      <div
-                        className="Polaris-Label"
-                      >
-                        <label
-                          className="Polaris-Label__Text"
-                          htmlFor="PolarisTextField2"
-                          id="PolarisTextField2Label"
-                        >
-                          Price $
-                        </label>
-                      </div>
-                    </div>
-                    <div
-                      className="Polaris-Connected"
-                    >
-                      <div
-                        className="Polaris-Connected__Item Polaris-Connected__Item--primary"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                      >
-                        <div
-                          className="Polaris-TextField Polaris-TextField--hasValue"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                        >
-                          <input
-                            aria-describedby="PolarisTextField2HelpText"
-                            aria-invalid={false}
-                            aria-labelledby="PolarisTextField2Label"
-                            className="Polaris-TextField__Input"
-                            id="PolarisTextField2"
-                            min={0}
-                            onChange={[Function]}
-                            onKeyPress={[Function]}
-                            style={null}
-                            type="number"
-                            value="0"
-                          />
-                          <div
-                            aria-hidden={true}
-                            className="Polaris-TextField__Spinner"
+                          <label
+                            className="Polaris-Label__Text"
+                            htmlFor="PolarisTextField2"
+                            id="PolarisTextField2Label"
                           >
-                            <div
-                              className="Polaris-TextField__Segment"
-                              onClick={[Function]}
-                              onMouseDown={[Function]}
-                              onMouseUp={[Function]}
-                              role="button"
-                              tabIndex={-1}
-                            >
-                              <div
-                                className="Polaris-TextField__SpinnerIcon"
-                              >
-                                <span
-                                  className="Polaris-Icon"
-                                >
-                                  <span
-                                    className="Polaris-VisuallyHidden"
-                                  />
-                                  <svg
-                                    aria-hidden="true"
-                                    className="Polaris-Icon__Svg"
-                                    focusable="false"
-                                    viewBox="0 0 20 20"
-                                  >
-                                    <path
-                                      d="M6.902 12h6.196c.751 0 1.172-.754.708-1.268l-3.098-3.432c-.36-.399-1.055-.399-1.416 0l-3.098 3.433c-.464.513-.043 1.267.708 1.267z"
-                                    />
-                                  </svg>
-                                </span>
-                              </div>
-                            </div>
-                            <div
-                              className="Polaris-TextField__Segment"
-                              onClick={[Function]}
-                              onMouseDown={[Function]}
-                              onMouseUp={[Function]}
-                              role="button"
-                              tabIndex={-1}
-                            >
-                              <div
-                                className="Polaris-TextField__SpinnerIcon"
-                              >
-                                <span
-                                  className="Polaris-Icon"
-                                >
-                                  <span
-                                    className="Polaris-VisuallyHidden"
-                                  />
-                                  <svg
-                                    aria-hidden="true"
-                                    className="Polaris-Icon__Svg"
-                                    focusable="false"
-                                    viewBox="0 0 20 20"
-                                  >
-                                    <path
-                                      d="M13.098 8h-6.196c-.751 0-1.172.754-.708 1.268l3.098 3.432c.36.399 1.055.399 1.416 0l3.098-3.433c.464-.513.043-1.267-.708-1.267z"
-                                    />
-                                  </svg>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            className="Polaris-TextField__Backdrop"
-                          />
+                            Price $
+                          </label>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      className="Polaris-Labelled__HelpText"
-                      id="PolarisTextField2HelpText"
-                    >
-                      Please enter any additional cost associated with this option
+                      <div
+                        className="Polaris-Connected"
+                      >
+                        <div
+                          className="Polaris-Connected__Item Polaris-Connected__Item--primary"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                        >
+                          <div
+                            className="Polaris-TextField Polaris-TextField--hasValue"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                          >
+                            <input
+                              aria-describedby="PolarisTextField2HelpText"
+                              aria-invalid={false}
+                              aria-labelledby="PolarisTextField2Label"
+                              className="Polaris-TextField__Input"
+                              id="PolarisTextField2"
+                              min={0}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              style={null}
+                              type="number"
+                              value="0"
+                            />
+                            <div
+                              aria-hidden={true}
+                              className="Polaris-TextField__Spinner"
+                            >
+                              <div
+                                className="Polaris-TextField__Segment"
+                                onClick={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseUp={[Function]}
+                                role="button"
+                                tabIndex={-1}
+                              >
+                                <div
+                                  className="Polaris-TextField__SpinnerIcon"
+                                >
+                                  <span
+                                    className="Polaris-Icon"
+                                  >
+                                    <span
+                                      className="Polaris-VisuallyHidden"
+                                    />
+                                    <svg
+                                      aria-hidden="true"
+                                      className="Polaris-Icon__Svg"
+                                      focusable="false"
+                                      viewBox="0 0 20 20"
+                                    >
+                                      <path
+                                        d="M6.902 12h6.196c.751 0 1.172-.754.708-1.268l-3.098-3.432c-.36-.399-1.055-.399-1.416 0l-3.098 3.433c-.464.513-.043 1.267.708 1.267z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                className="Polaris-TextField__Segment"
+                                onClick={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseUp={[Function]}
+                                role="button"
+                                tabIndex={-1}
+                              >
+                                <div
+                                  className="Polaris-TextField__SpinnerIcon"
+                                >
+                                  <span
+                                    className="Polaris-Icon"
+                                  >
+                                    <span
+                                      className="Polaris-VisuallyHidden"
+                                    />
+                                    <svg
+                                      aria-hidden="true"
+                                      className="Polaris-Icon__Svg"
+                                      focusable="false"
+                                      viewBox="0 0 20 20"
+                                    >
+                                      <path
+                                        d="M13.098 8h-6.196c-.751 0-1.172.754-.708 1.268l3.098 3.432c.36.399 1.055.399 1.416 0l3.098-3.433c.464-.513.043-1.267-.708-1.267z"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="Polaris-TextField__Backdrop"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="Polaris-Labelled__HelpText"
+                        id="PolarisTextField2HelpText"
+                      >
+                        Please enter any additional cost associated with this option
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div
+              className="Polaris-FormLayout__Item"
+            >
+              <div
+                className="Polaris-Card__Section"
+              >
                 <div>
-                  <button
-                    className="Polaris-Button"
-                    onMouseUp={[Function]}
-                    type="submit"
-                  >
-                    <span
-                      className="Polaris-Button__Content"
+                  <div>
+                    <button
+                      className="Polaris-Button"
+                      onMouseUp={[Function]}
+                      type="submit"
                     >
                       <span
-                        className="Polaris-Button__Text"
+                        className="Polaris-Button__Content"
                       >
-                        Submit
+                        <span
+                          className="Polaris-Button__Text"
+                        >
+                          Submit
+                        </span>
                       </span>
-                    </span>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
