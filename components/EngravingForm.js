@@ -105,6 +105,7 @@ function EngravingForm() {
                     </div> 
                     <FormLayout>
                          <Card.Section>  
+                         <div className={styles.linesParentDiv}>
                             <div className={styles.numLinesDiv}>
                                 <Select
                                     label="Number of Lines"
@@ -113,8 +114,10 @@ function EngravingForm() {
                                     value={selectedNumber}
                                 />   
                             </div>
-                        </Card.Section>   
+                        </div>
+                        </Card.Section>
                         <Card.Section>
+                        <div className={styles.parentDiv}>
                             <div className={styles.descDiv}>
                                 <TextField
                                     value={description}
@@ -130,8 +133,6 @@ function EngravingForm() {
                                     }
                                 />
                             </div>
-                        </Card.Section>
-                        <Card.Section>
                             <div className={styles.priceDiv}>
                                  <TextField
                                     value={price}
@@ -144,9 +145,14 @@ function EngravingForm() {
                                     min={0}   
                                 />
                             </div>
+                        </div>
+                        </Card.Section>
+                        <Card.Section>
+                        <div className={styles.parentDiv}>
                             <div className={styles.submitButton}>
                                 <Button submit>Submit</Button>
                             </div>
+                        </div>
                         </Card.Section>
                     </FormLayout>
                 </Form>
