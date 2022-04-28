@@ -44,10 +44,14 @@ Once the software testing was completed the user was interviewed and asked where
 
 
  ## User Background
+
+User 2 is a student at MSU with a double major in Accounting and Finance. This user frequently uses technology in their day to day and would consider themselves as tech savvy. The user has some experience with retail work, but they have never set up the database for a store. Entering this test, the user felt confident critiquing the design elements from experiences in their degree. 
  
  ## Results 
- 
+ Part of the results from this user test can be noted in the interview response questions located above(https://github.com/423s22/G6/blob/main/userTesting/UserTest1.md#phase-2-interview). In addition to the interview questions the user was able to use the app with little difficulty. The user did feel confused a few times when using the app, they contributed this being their first time working with this software.
+
  ## Analysis
+ This user test had fewer notable challenges within the tests. The user had more issues with wording within the app then features in the app itself. The problem with the wording is important to note because it slowed the user from completing the tasks. The FAQ page also affected the users testing since the bright colors distracted the user, and the user felt as if they were on a different website since the colors did not line up. 
  
  ## Software Changes
 1) Change wording on a few buttons on the homepage change “Listed Products” to “Create Options” and “FAQ”
