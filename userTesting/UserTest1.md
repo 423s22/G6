@@ -56,8 +56,17 @@ Once the software testing was completed the user was interviewed and asked where
  Part of the results from this user test can be noted in the interview response questions located above(https://github.com/423s22/G6/blob/main/userTesting/UserTest1.md#phase-2-interview). In addition to the interview questions the user was able to use the app with little difficulty. Often the user would figure out how to complete the task in a timely manner, but when they faced challenges, it took them longer but eventually they figured it out.
 
  ## Analysis
- As mentioned before the user was resilient when faced with challenges. Some of the challenges came from being new to the system. They agreed with time they would be able to use the system with no problem. Their biggest critics was the wording of buttons in the app. All of their issues with the program were an easy fix.
+As mentioned before the user was resilient when faced with challenges. Some of the challenges came from being new to the system. They agreed with time they would be able to use the system with no problem. Their biggest critics was the wording of buttons in the app. All their issues with the program were an easy fix. Overall, a lot of the issues that the user face could be remedy by having toast features to guide the user.
 
  ## Software Changes
+1) Database issue when add options- known bug we didn’t have the user test it
+2)	Success, refresh, and error toast features 
+3)	Add button to add prices to all options 
+4)	Change the colors from gray and green in FAQ to more neutral colors
+5)	Have more spacing between boxes in FAQ
+6)	Homepage needs to reconfigure the layout to stacked boxes
+7)	Add a logo and brand the app
+
+
 
 
