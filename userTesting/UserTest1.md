@@ -31,7 +31,9 @@ Once the software testing was completed the user was interviewed and asked where
 4)	What did you think about the engraving option?
     1)	They liked the engraving option they just got confused when typing information in.
 5)	What did you think about the dropdown option?
-    1)	They got confused by the “press enter” to add options. Once they read the directions on how to use it, they understood the information. 
+    1)	They got confused by the “press enter” to add options. Once they read the directions on how to use it, they understood the information.
+    2)	They wish there was a way to do an add price to all options.
+ 
 6)	Was it easy to navigate back to the homepage?
     1) At the time of testing there was a back arrow for going back to the homepage. This button was broken and made the whole page stale where the user had to research everything to continue. 
 7)	How did you like the format of the FAQ page?
