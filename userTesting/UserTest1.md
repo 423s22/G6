@@ -48,6 +48,8 @@ Once the software testing was completed the user was interviewed and asked where
  
  ## User Background
  
+ User 1 is a recent graduate from MSU, they have a B.S. in Environmental Science. With this degree they have had many opportunities to work in their industry. Within their industry they often are working for clients, and they are familiar with coding a line or two of simple SQL for their databases they work with. Their career has them working out in the field collecting data and compiling it into a presentation for their clients. This user 1 is used to developing products that all background and education types can understand. User 1 provided insightful information on how they would like the product to be improved and how simple changes to our design could elevate it to the next level. 
+ 
  ## Results 
  
  ## Analysis
