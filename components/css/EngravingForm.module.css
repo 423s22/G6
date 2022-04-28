@@ -7,16 +7,16 @@
 .priceDiv {
     width: 160px;
     float: right;
-    padding-top: 7px;
+    padding-top: 19px;
     padding-right: 20px;
     margin-bottom: 10px;
 }
 
 .EditOptionCard {
-    width: 900px;
+    width: inherit;
     padding: 20px;
-    height: 400px;
-    overflow: hidden;
+    height: inherit;
+    overflow: auto;
 }
 
 .numLinesDiv {
@@ -26,13 +26,25 @@
 }
 
 .descDiv {
+    height: inherit;
     float: left;
-    width: 600px;
+    width: 300px;
     padding: 20px;
-    
 }
 
 .submitButton {
     padding-left: 20px;
     clear: left;
+    padding-top: 20px;
+}
+
+.parentDiv {
+    height: 100px;
+    display: flex;
+}
+
+.linesParentDiv {
+    height: 50px;
+    display: flex;
+
 }
