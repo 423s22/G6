@@ -22,18 +22,18 @@ In the duration of testing our app we had our users complete a few tasks to see 
 ### Phase 2: Interview 
 Once the software testing was completed the user was interviewed and asked where they wish changes could be made to the system. After the user was answered the overarching question of where they wanted change. We dove into following questions about the software:
 1)	Did you like the design of the homepage?
-    1)	No, they preferred for the boxes to be smaller and stacked rather than side by side
+    1)	No, they preferred for the boxes to be smaller and stacked rather than side by side.
 2)	Did the buttons make sense on all the pages?
-    1)	Yes, they liked that they were rounded and all the same style
+    1)	Yes, they liked that they were rounded and all the same style.
 3)	How easy was it to add an option?
     1)	They said it was easy to navigate to the page and select the product, but they ran into issues when doing the engraving and drop-down options.
-    2)	When looking at entering the details for the drop-down options they got confused and forgot to press enter when adding the products
+    2)	When looking at entering the details for the drop-down options they got confused and forgot to press enter when adding the products.
 4)	What did you think about the engraving option?
-    1)	They liked the engraving option they just got confused when typing information in
+    1)	They liked the engraving option they just got confused when typing information in.
 5)	What did you think about the dropdown option?
-    1)	They got confused by the “press enter” to add options. Once they read the directions on how to use it, they understood the information 
+    1)	They got confused by the “press enter” to add options. Once they read the directions on how to use it, they understood the information. 
 6)	Was it easy to navigate back to the homepage?
-    1) At the time of testing there was a back arrow for going back to the homepage. This button was broken and made the whole page stale where the user had to research everything to continue 
+    1) At the time of testing there was a back arrow for going back to the homepage. This button was broken and made the whole page stale where the user had to research everything to continue. 
 7)	How did you like the format of the FAQ page?
     1)	They did not like the colors. The green and gray was too dull, and it was hard to read text off it. 
 8)	Was it easy to navigate the FAQ?
@@ -41,8 +41,8 @@ Once the software testing was completed the user was interviewed and asked where
 9)	Thoughts on homepage
     1)	They did not like that the box for navigation was right next to each other. They wanted the boxes stacked and smaller- less white space.
 10)	Thoughts on add options
-    1)	They did not like having to add a price to each option, they wanted an add all option
-    2)	They were confused by the press enter to add to options in dropdown
+    1)	They did not like having to add a price to each option, they wanted an add all option.
+    2)	They were confused by the press enter to add to options in dropdown.
 
 
  
