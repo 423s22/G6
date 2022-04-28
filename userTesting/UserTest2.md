@@ -50,3 +50,12 @@ Once the software testing was completed the user was interviewed and asked where
  ## Analysis
  
  ## Software Changes
+1) Change wording on a few buttons on the homepage change “Listed Products” to “Create Options” and “FAQ”
+2)	When adding data to the “dropdown option” have the user be able to press enter and have a button to press
+3)	Change the wording “Price $” to “Set Price”
+4)	In dropdown menu create better wording for selecting the option, it is currently the name of the product in question
+5)	Change “Applied Options” to “View Options” to view and “Close View Options” to close the page
+6)	Change the color of the FAQ bar, the blue was too bright
+7)	The boxes in the FAQ should all be flushed with the boarder
+
+
