@@ -51,9 +51,11 @@ Once the software testing was completed the user was interviewed and asked where
  User 1 is a recent graduate from MSU, they have a B.S. in Environmental Science. With this degree they have had many opportunities to work in environmental science industry. Within their industry they often are working for clients directly on a weekly basis. While they main take measures of properties, they are also familiar with coding a line or two of simple SQL for their databases. Their career has them working out in the field collecting data and compiling the information into presentations for their clients on a regular bais. With all this in mind it would be sufficient to condsider this user qualified to criticize key design elemnets with our app, Rival. User 1 provided insightful information on how they would like the product to be improved and how simple changes to our design could elevate it to the next level. 
  
  ## Results 
- 
+ Part of the results from this user test can be noted in the interview response questions located above(https://github.com/423s22/G6/blob/main/userTesting/UserTest1.md#phase-2-interview). In addition to the interview questions the user was able to use the app with little difficulty. Often the user would figure out how to complete the task in a timely manner, but when they faced challenges, it took them longer but eventually they figured it out.
+
  ## Analysis
- 
+ As mentioned before the user was resilient when faced with challenges. Some of the challenges came from being new to the system. They agreed with time they would be able to use the system with no problem. Their biggest critics was the wording of buttons in the app. All of their issues with the program were an easy fix.
+
  ## Software Changes
 
 
