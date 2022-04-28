@@ -1,6 +1,7 @@
 .ShowOptionsCard {
-    width: 880px;
+    width: inherit;
     padding-left: 20px;
+    padding-top: 20px;
     height: inherit;
     padding-bottom: 40px;
     overflow: auto;
