@@ -107,7 +107,7 @@ if (optionsLoaded) {
                           onClick={hideOptions}> 
                           Applied Options
                         </Button>
-                        <p className = {styles.paragraph}>Click here to hide applied options</p>
+                        <p className = {styles.paragraph}>Hide applied options</p>
                       </div>
                       <div className={styles.refreshBtn}>
                         <Button 
@@ -154,7 +154,7 @@ else {
                         onClick={getOptions}> 
                         Applied Options
                        </Button>
-                       <p className = {styles.paragraph}>Click here to view applied options</p>
+                       <p className = {styles.paragraph}>View applied options</p>
                     </div>}
        >
          </Card>
