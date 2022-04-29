@@ -33,7 +33,7 @@ function AddOptions() {
                 title="Option Selection"
               >
               <p>
-                Add Options and Variants if this product comes in multiple versions, like
+                Add options and variants if this product comes in multiple versions, like
                 different sizes or colors.
               </p>
               <Card.Section>
