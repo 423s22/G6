@@ -216,7 +216,7 @@ function DropdownForm() {
                       onInputChange={handleInputChange}
                       value={optionValues}
                     />
-                    <p>Type option and press enter...</p>
+                    <p className={styles.paragraph}>Type option and press enter...</p>
                 </div>
                 <div className={styles.addOptionButton}>
                   <Button onClick={handleAddOption}>Add</Button>
@@ -261,7 +261,7 @@ function DropdownForm() {
                   value={selectValue}
                   onChange={handleSelectChange}
                   helpText={
-                    "Select an option"
+                    "Please select an option"
                   }
                 />
                </div>
@@ -271,7 +271,7 @@ function DropdownForm() {
                   label="Price $"
                   type="number"
                   helpText={
-                           "Please enter any additional cost associated with this option"
+                           "Please enter a price"
                            }
                   min={0}  
                   onChange={handlePriceChange}
@@ -280,11 +280,11 @@ function DropdownForm() {
                 <div className={styles.ApplyPriceBtn}>
                   <Button
                     onClick={handleApplyPrice}>Apply</Button>
-                    <p>Click here to apply price to selected option</p>
+                    <p className={styles.paragraph}>Apply price to selected option</p>
                     <div className={styles.ApplyAllBtn}>
                     <Button
                     onClick={handleApplyAllPrice}>Apply All</Button>
-                    <p>Click here to apply price to all options</p>
+                    <p className={styles.paragraph}>Apply price to all options</p>
                 </div>
               </div> 
               </div>

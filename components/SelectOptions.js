@@ -34,13 +34,13 @@ function SelectOptions() {
         />
         <Layout>
         <EmptyState
-            heading="Add product options"
+            heading="Add Product Options"
             action={{
-              content: 'Select products',
+              content: 'Select product',
               onAction: () => setOpen(true),
             }}
          >
-            <p>Select products to add options.</p>
+            <p>Select a product to add options</p>
           </EmptyState>
         </Layout> 
       </Page>

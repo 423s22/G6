@@ -41,3 +41,9 @@
     display: inline;
     float: right;
 }
+
+.paragraph {
+    font-size: 9.5px;
+    padding-left: 2px;
+    color: #6f7378;
+}
