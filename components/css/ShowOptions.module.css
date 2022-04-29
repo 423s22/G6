@@ -1,5 +1,5 @@
 .ShowOptionsCard {
-    width: 880px;
+    width: inherit;
     padding-left: 20px;
     height: inherit;
     padding-bottom: 40px;
@@ -39,4 +39,10 @@
 .refreshBtn{
     display: inline;
     float: right;
+}
+
+.paragraph {
+    font-size: 9.5px;
+    padding-left: 32px;
+    color: #6f7378;
 }

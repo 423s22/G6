@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {Page, Layout, EmptyState, Banner} from "@shopify/polaris";
-import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
+import {Page, Layout, Banner, EmptyState} from "@shopify/polaris";
+import { ResourcePicker} from '@shopify/app-bridge-react';
 import ProductCard from '../components/ProductCard';
 import AddOptions from '../components/AddOptions';
 import styles from './css/SelectOptions.module.css';
@@ -33,14 +33,14 @@ function SelectOptions() {
           showArchived={false}
         />
         <Layout>
-          <EmptyState
-            heading="Add product options"
+        <EmptyState
+            heading="Add Product Options"
             action={{
-              content: 'Select products',
+              content: 'Select product',
               onAction: () => setOpen(true),
             }}
-          >
-            <p>Select products to add options.</p>
+         >
+            <p>Select a product to add options</p>
           </EmptyState>
         </Layout> 
       </Page>

@@ -61,11 +61,11 @@ function EngravingForm() {
          lines: selectedNumber,
          description: description,
          price: price,
-         title: productInfo.title
+         title: productInfo.title,
+         variantId: productInfo.options[0].id.replace("gid://shopify/ProductOption/", '')
      }
      let productOptionId = await CreateProduct(engravingInfo);      // create product from option in Shopify and return back its productId
      engravingInfo.productOptionId = productOptionId;               // add ID of product option     
-   
      updateDB(engravingInfo)                                        // call function to add option to DB
      }; 
 
@@ -105,6 +105,7 @@ function EngravingForm() {
                     </div> 
                     <FormLayout>
                          <Card.Section>  
+                         <div className={styles.linesParentDiv}>
                             <div className={styles.numLinesDiv}>
                                 <Select
                                     label="Number of Lines"
@@ -113,8 +114,10 @@ function EngravingForm() {
                                     value={selectedNumber}
                                 />   
                             </div>
-                        </Card.Section>   
+                        </div>
+                        </Card.Section>
                         <Card.Section>
+                        <div className={styles.parentDiv}>
                             <div className={styles.descDiv}>
                                 <TextField
                                     value={description}
@@ -125,13 +128,11 @@ function EngravingForm() {
                                     readOnly={false}
                                     helpText={
                                         <span>
-                                            Please enter a description of your engraving option. 
+                                            Please enter a description for your engraving option 
                                         </span>
                                     }
                                 />
                             </div>
-                        </Card.Section>
-                        <Card.Section>
                             <div className={styles.priceDiv}>
                                  <TextField
                                     value={price}
@@ -139,14 +140,19 @@ function EngravingForm() {
                                     label="Price $"
                                     type="number"
                                     helpText={
-                                            "Please enter any additional cost associated with this option"
+                                            "Please enter a price for this option"
                                         }
                                     min={0}   
                                 />
                             </div>
+                        </div>
+                        </Card.Section>
+                        <Card.Section>
+                        <div className={styles.parentDiv}>
                             <div className={styles.submitButton}>
                                 <Button submit>Submit</Button>
                             </div>
+                        </div>
                         </Card.Section>
                     </FormLayout>
                 </Form>

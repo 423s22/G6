@@ -10,7 +10,7 @@ class CustomOptions extends React.Component {
   //removing breadcrumb for now, might use an emptystate with an icon to go back, cant seem to find url for homepag
   title="Add Product Options"
 >
-  <Card title="Select Products to add." sectioned>
+  <Card>
     <SelectOptions/>
   </Card>
 </Page>
