@@ -128,7 +128,7 @@ function EngravingForm() {
                                     readOnly={false}
                                     helpText={
                                         <span>
-                                            Please enter a description of your engraving option. 
+                                            Please enter a description for your engraving option 
                                         </span>
                                     }
                                 />
@@ -140,7 +140,7 @@ function EngravingForm() {
                                     label="Price $"
                                     type="number"
                                     helpText={
-                                            "Please enter any additional cost associated with this option"
+                                            "Please enter a price for this option"
                                         }
                                     min={0}   
                                 />
