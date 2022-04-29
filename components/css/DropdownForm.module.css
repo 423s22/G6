@@ -83,3 +83,9 @@
 .parentDiv {
     height: inherit;
 }
+
+.paragraph {
+    color: #6f7378;
+    font-size: 0.875rem;
+    padding-top: 5px;
+}
