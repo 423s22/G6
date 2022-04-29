@@ -256,7 +256,7 @@ function DropdownForm() {
             <div className={styles.parentDiv}>
               <div className={styles.selectDiv}>
                 <Select
-                  label={menuTitle}
+                  label={`Menu Title: ${menuTitle}`}
                   options={optionValues}
                   value={selectValue}
                   onChange={handleSelectChange}
