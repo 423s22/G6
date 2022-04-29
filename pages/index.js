@@ -22,7 +22,7 @@ class Index extends React.Component {
           title="Select and Create Products"
           illustration="https://thumbs.dreamstime.com/b/web-186774980.jpg"
           primaryAction={{
-            content: "Listed Products",
+            content: "Create Options",
             onAction: () => Router.push("/add-options")
           }}
         >
@@ -37,7 +37,7 @@ class Index extends React.Component {
           title="Frequently Asked Questions"
           illustration="https://thumbs.dreamstime.com/b/faq-icon-vector-illustration-eps-146073139.jpg"
           primaryAction={{
-            content: "Listed Products",
+            content: "FAQ",
             onAction: () => Router.push("/FAQindex")
           }}
         >
