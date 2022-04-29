@@ -21,6 +21,7 @@ function ProductCard() {
       ]}
       renderItem={(item) => {
         const {id, name } = item;
+        console.log(productInfo)
         const media = (
             <Thumbnail
                 source={
