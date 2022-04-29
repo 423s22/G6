@@ -17,16 +17,16 @@ moves it to cart. </ul>
   <li> In your Shopify admin, authorize the use of the app by clicking install app </li> 
 </ul> 
    
-## Using the Options app
+## Using Rival
 
-Once you have successfully installed the `Options` app, you can find it within your *Apps* page in your Shopify Admin. 
+Once you have successfully installed the `Rival` app, you can find it within your *Apps* page in your Shopify Admin. 
 
 After you have clicked on *Apps* you will be directed towards your *Apps* page for your store, which will display all the Apps you have currently installed on your store. 
         
-You can open the `Options` app by clicking on the app's name. 
+You can open `Rival` by clicking on the app's name. 
 
 ## Homepage 
-On the `Options` app homepage you will find buttons that navigate to the various pages of the app such as the *Add Options* and *FAQ* pages. You can can also click on a page's name within the top navigation bar to navigate directly to it. The current page is indicated on the navigation tabs by a green line underneath it.
+On the `Rival` homepage you will find buttons that navigate to the various pages of the app such as the *Add Options* and *FAQ* pages. You can can also click on a page's name within the top navigation bar to navigate directly to it. The current page is indicated on the navigation tabs by a green line underneath it.
 
 ## Add Options
 
