@@ -1,7 +1,7 @@
 import { toast} from 'react-toastify';
 
 export default function notifyRefresh() {
-toast.info('Please click Refresh to view newly applied options', {
+toast.info('Please click Applied Options or Refresh to view newly applied options', {
     position: "top-right",
     autoClose: 8000,
     hideProgressBar: false,
