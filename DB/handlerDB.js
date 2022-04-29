@@ -145,8 +145,8 @@ function _createHelp(data) {
 function _createBuilderDrop(data) {
     let optionsLength = data.options.length;
     
-    var query1 = "productId, menuTitle, options";
-    var query2 = "'" + data.productId + "', '" + data.menuTitle + "', ";
+    var query1 = "productId, variantId, menuTitle, options";
+    var query2 = "'" + data.productId + "', '" + data.variantId + "', '" + data.menuTitle + "', ";
     query2 += "'{";
 
     for (let i = 0; i < optionsLength; i++) {
@@ -162,8 +162,8 @@ function _createBuilderDrop(data) {
 
 function _createBuilderEngrave(data) {
     console.log("Engrave Builder")
-    var query1 = "productId, description, lineNum, price, productOptionId";
-    var query2 = "'" + data.productId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "', '" + data.productOptionId + "'";
+    var query1 = "productId, variantId, description, lineNum, price, productOptionId";
+    var query2 = "'" + data.productId + "', '" + data.variantId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "', '" + data.productOptionId + "'";
     return [query1, query2]
 }
 
@@ -171,9 +171,9 @@ async function _createTable(data) {
     //console.log(data.optionType);
     var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " ( _iter INT primary key AUTO_INCREMENT, ";
     if(data.optionType == "dropdown") { 
-        queryStatement += 'productId NUMERIC(18,2), menuTitle VARCHAR(100), options VARCHAR(700) );';
+        queryStatement += 'productId NUMERIC(18,2), variantId NUMERIC(18,2), menuTitle VARCHAR(100), options VARCHAR(700) );';
     } else {
-        queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2), productOptionId VARCHAR(700) );";
+        queryStatement += "productId NUMERIC(18,2), variantId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2), productOptionId VARCHAR(700) );";
     }
     //console.log(queryStatement);
     return con.awaitQuery(queryStatement);
