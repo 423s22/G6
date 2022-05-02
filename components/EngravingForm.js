@@ -66,7 +66,6 @@ function EngravingForm() {
      }
      let productOptionId = await CreateProduct(engravingInfo);      // create product from option in Shopify and return back its productId
      engravingInfo.productOptionId = productOptionId;               // add ID of product option     
-     console.log(engravingInfo);
      updateDB(engravingInfo)                                        // call function to add option to DB
      }; 
 
