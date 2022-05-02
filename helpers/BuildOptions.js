@@ -14,8 +14,8 @@ export default async function BuildOptions(title, menuTitle, optionValues) {
         productData.optionName = optionValues[i].label;         
         productData.price = optionValues[i].value;
 
-        let productOptionId =  await CreateProduct(productData);        // create a Shopify product for the option
-        options.push({option: productData.optionName, price: productData.price, productOptionId: productOptionId}); // add the option to the options array
+        let info =  await CreateProduct(productData);        // create a Shopify product for the option
+        options.push({option: productData.optionName, price: productData.price, productOptionId: info.productOptionId, variantOptionId:  info.optionVariantId}); // add the option to the options array
         
     };
     return options;
