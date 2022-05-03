@@ -204,13 +204,11 @@
       ...
     {\% endform %}*/
   </script>
-  
+  <div> PRODUCT ID {{ product.id }} </div>
+  <div> VARIANT ID {{ product.variants[0].id }} </div>
   <button type="button" class="button" style="vertical-align:middle" onclick="updateCart()"><span>ADD TO CART </span></button>
-
-
-
-
 </div>
+
 {% schema %}
   {
     "name": "Product Options",
