@@ -59,7 +59,7 @@ async function getProducts(productId) {
                 let objFull = [];
                 for(var currOption in tempOptions) {
                     let byColon = tempOptions[currOption].split(':');
-                    let obj = {option: byColon[0], price: byColon[1], productOptionId: byColon[2]};
+                    let obj = {option: byColon[0], price: byColon[1], productOptionId: byColon[2], variantOptionId: byColon[3]};
                     objFull.push(obj);
                 }
                 results[curr].options = objFull;
@@ -145,16 +145,16 @@ function _createHelp(data) {
 function _createBuilderDrop(data) {
     let optionsLength = data.options.length;
     
-    var query1 = "productId, menuTitle, options";
-    var query2 = "'" + data.productId + "', '" + data.menuTitle + "', ";
+    var query1 = "productId, variantId, menuTitle, options";
+    var query2 = "'" + data.productId + "', '" + data.variantId + "', '" + data.menuTitle + "', ";
     query2 += "'{";
 
     for (let i = 0; i < optionsLength; i++) {
         if( i == optionsLength-1) {
-            query2 += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + "}'";
+            query2 += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + ":" + data.options[i].variantOptionId + "}'";
         }
         else{
-            query2 += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + ", ";
+            query2 += "" +data.options[i].option + ":" + data.options[i].price + ":" + data.options[i].productOptionId + ":" + data.options[i].variantOptionId + ", ";
         }
     }
     return [query1, query2]
@@ -162,8 +162,8 @@ function _createBuilderDrop(data) {
 
 function _createBuilderEngrave(data) {
     console.log("Engrave Builder")
-    var query1 = "productId, description, lineNum, price, productOptionId";
-    var query2 = "'" + data.productId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "', '" + data.productOptionId + "'";
+    var query1 = "productId, variantId, description, lineNum, price, productOptionId, optionVariantId";
+    var query2 = "'" + data.productId + "', '" + data.variantId + "', '" + data.description + "', '" + data.lines + "', '" + data.price + "', '" + data.productOptionId + "', '" + data.optionVariantId + "'";
     return [query1, query2]
 }
 
@@ -171,9 +171,9 @@ async function _createTable(data) {
     //console.log(data.optionType);
     var queryStatement = "CREATE TABLE IF NOT EXISTS " + data.optionType + " ( _iter INT primary key AUTO_INCREMENT, ";
     if(data.optionType == "dropdown") { 
-        queryStatement += 'productId NUMERIC(18,2), menuTitle VARCHAR(100), options VARCHAR(700) );';
+        queryStatement += 'productId NUMERIC(18,2), variantId NUMERIC(18,2), menuTitle VARCHAR(100), options VARCHAR(700) );';
     } else {
-        queryStatement += "productId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2), productOptionId VARCHAR(700) );";
+        queryStatement += "productId NUMERIC(18,2), variantId NUMERIC(18,2), description VARCHAR(100), lineNum SMALLINT, price NUMERIC(15,2), productOptionId VARCHAR(700), optionVariantId VARCHAR(700) );";
     }
     //console.log(queryStatement);
     return con.awaitQuery(queryStatement);

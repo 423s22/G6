@@ -1,9 +1,9 @@
 import {Select, TextField, Button, Card, Icon} from '@shopify/polaris';
 import { useProductContext } from '../context/ProductContext';
 import styles from './css/DropdownForm.module.css';
-import { MobileCancelMajor, MobileBackArrowMajor, GamesConsoleMajor} from '@shopify/polaris-icons';
+import { MobileCancelMajor, MobileBackArrowMajor} from '@shopify/polaris-icons';
 import AddOptions from './AddOptions';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback} from 'react';
 import Creatable from 'react-select/creatable';
 import authFetch from '../utils/AuthFetch';
 import notifyError from './toasts/ErrorToast';
@@ -18,7 +18,7 @@ import notifyPriceSuccess from './toasts/PriceSuccessToast'
 
 function DropdownForm() {
 
-  const [optionInputValue, setOptionInputValue] = useState('')
+  const [optionInputValue, setOptionInputValue] = useState('')      // user input into options textfield
   const [optionValues, setOptionValues] = useState('')              // user entered option values 
   const [optionsApplied, setOptionsApplied] = useState(false);    
   const [selectValue, setSelectValue] = useState('');             
@@ -26,6 +26,7 @@ function DropdownForm() {
   const [price, setPrice] = useState('0');
   const [menuTitle, setMenuTitle] = useState('');                 // dropdown menu title
   const [submitted, setSubmitted] = useState(false);
+  const [addOptionVal, setAddOptionVal] = useState('');           // copy of optionsInputValue
 
   // get product info from context
   const {productInfo, setProductInfo} = useProductContext() || {};
@@ -33,6 +34,7 @@ function DropdownForm() {
   const handlePriceChange = useCallback((value) => setPrice(value), []);   // update price 
   const handleTitleChange = useCallback((value) => setMenuTitle(validateInput(value)), []);   // update title 
   const handleSelectChange = useCallback((value) => {setSelectValue(value)}, []);       // update selected option
+  const handleInputChange = (value) => {setOptionInputValue(validateInput(value)); setAddOptionVal(optionInputValue)};       // update selected option
 
   // post form data to the backend
   async function updateDB(dropdownInfo) {
@@ -64,12 +66,13 @@ function DropdownForm() {
          productId: productInfo.id.replace("gid://shopify/Product/", ''),
          optionType: 'dropdown',
          menuTitle: menuTitle,
-         options: await BuildOptions(productInfo.title, menuTitle, optionValues)
-
+         options: await BuildOptions(productInfo.title, menuTitle, optionValues),
+         variantId: productInfo.options[0].id.replace("gid://shopify/ProductOption/", ''),
      }
      updateDB(dropdownInfo)               // call function to add option to DB
     }; 
 
+  
   const handleChange = (field, value) => {      // used to clear user inputed options
     switch (field) {
       case 'options':
@@ -81,11 +84,12 @@ function DropdownForm() {
     }
   }
 
-  const handleKeyDown = event => {        
+  // add option after pressing enter or tab
+  const handleKeyDown = event => {   
   if (!optionInputValue) return
     switch (event.key) {
       case 'Enter':
-      case 'Tab':
+      case 'Tab': 
         setOptionValues([...optionValues, createOption(optionInputValue)])
         setOptionInputValue('')
         event.preventDefault()
@@ -96,15 +100,11 @@ function DropdownForm() {
     }
   }
 
+  // used to create an option
   const createOption = label => ({
     label,
     value: label
-  })
-
-  const handleInputChange = (value) => 
-  {
-    setOptionInputValue(validateInput(value))
-  }
+  }); 
 
   const validateInput = (value) => {
     return value.replaceAll(/[&/\\#,+()$~%!;^':*?<>{}]/g, "");
@@ -133,6 +133,14 @@ function DropdownForm() {
     setOptionsApplied(false);
   }
 
+  // add option after clicking button
+  const handleAddOption = () => {
+    if (addOptionVal !== '') {
+      setOptionValues([...optionValues, createOption(addOptionVal)])
+      setOptionInputValue('')
+    } 
+  }
+
   // apply individual price to selected option
   const handleApplyPrice = () => {
     for (const option in optionValues) {
@@ -151,6 +159,7 @@ function DropdownForm() {
     }
     notifyPriceSuccess();
   }
+
   // is user clicked exit button
   if (exitForm) {
     return (
@@ -177,7 +186,7 @@ function DropdownForm() {
                 <TextField 
                 value={menuTitle}
                 onChange={handleTitleChange}
-                label="Title"
+                label="Menu Title"
                 type="text"
                 requiredIndicator
                 readOnly={false}
@@ -189,24 +198,29 @@ function DropdownForm() {
                 />
               </div>
             </Card.Section>
-                
             <Card.Section>
-              <div className={styles.input}>
-                <label>Options(s)</label>
-                  <Creatable
-                    isClearable
-                    isMulti
-                    components={
-                      { DropdownIndicator: null }
-                    }
-                    inputValue={optionInputValue}
-                    menuIsOpen={false}
-                    onChange={(value) => handleChange('options', value)}
-                    onKeyDown={handleKeyDown}
-                    onInputChange={handleInputChange}
-                    value={optionValues}
-                  />
-                  <p>Type option and press enter...</p>
+              <div className={styles.parentDiv}>
+                <div className={styles.input}>
+                  <label>Options(s)</label>
+                    <Creatable
+                      isClearable
+                      isMulti
+                      components={
+                        { DropdownIndicator: null
+                          }
+                      }
+                      inputValue={optionInputValue}
+                      menuIsOpen={false}
+                      onChange={(value) => handleChange('options', value)}
+                      onKeyDown={handleKeyDown}
+                      onInputChange={handleInputChange}
+                      value={optionValues}
+                    />
+                    <p className={styles.paragraph}>Type option and press enter...</p>
+                </div>
+                <div className={styles.addOptionButton}>
+                  <Button onClick={handleAddOption}>Add</Button>
+                </div>
               </div>
               <div className={styles.ApplyOptionsBtn}>
                 <Button onClick={handleApplyOptions}>Apply Options</Button>
@@ -234,21 +248,20 @@ function DropdownForm() {
           sectioned={true}
         >
         <h2><b>Dropdown Menu</b></h2>
-
           <div className={styles.ExitButton}>
                             <Button icon={MobileCancelMajor}
-                            onClick = {() => setExitForm(true)} />
+                             onClick = {() => setExitForm(true)} />
           </div> 
           <Card.Section>
             <div className={styles.parentDiv}>
               <div className={styles.selectDiv}>
                 <Select
-                  label={menuTitle}
+                  label={`Menu Title: ${menuTitle}`}
                   options={optionValues}
                   value={selectValue}
                   onChange={handleSelectChange}
                   helpText={
-                    "Select an option"
+                    "Please select an option"
                   }
                 />
                </div>
@@ -258,7 +271,7 @@ function DropdownForm() {
                   label="Price $"
                   type="number"
                   helpText={
-                           "Please enter any additional cost associated with this option"
+                           "Please enter a price"
                            }
                   min={0}  
                   onChange={handlePriceChange}
@@ -267,14 +280,13 @@ function DropdownForm() {
                 <div className={styles.ApplyPriceBtn}>
                   <Button
                     onClick={handleApplyPrice}>Apply</Button>
-                    <p>Click here to apply price to selected option</p>
+                    <p className={styles.paragraph}>Apply price to selected option</p>
                     <div className={styles.ApplyAllBtn}>
                     <Button
                     onClick={handleApplyAllPrice}>Apply All</Button>
-                    <p>Click here to apply price to all options</p>
-              </div>
+                    <p className={styles.paragraph}>Apply price to all options</p>
                 </div>
-                
+              </div> 
               </div>
               <div className={styles.backBtn}>
                 <Button onClick={handleBackBtn}>

@@ -44,7 +44,11 @@ export default async function CreateProduct(data) {
         Accept: "application/json"
       },  
       body: JSON.stringify(product),
-    }).then(res => res.text()).then(data => { return JSON.parse(data).product.id }).catch((error) => { console.log(error) })
+    }).then(res => res.text()).then(data => { 
+        let info = {
+          productOptionId:JSON.parse(data).product.id, 
+          optionVariantId: JSON.parse(data).product.options[0].id
+        }; return info; }).catch((error) => { console.log(error) })
   
     return response;    // productId
   };

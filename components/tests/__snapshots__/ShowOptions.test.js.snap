@@ -223,6 +223,9 @@ exports[`<ShowOptions /> Create snapshot of the ShowOptions react component. 1`]
               </span>
             </span>
           </button>
+          <p>
+            View applied options
+          </p>
         </div>
       </div>
     </div>
