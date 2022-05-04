@@ -100,7 +100,7 @@ app.prepare().then(async () => {
   // route to retrieve options
   router.get(`/api/show-options/:id`, async (ctx) => {  
     try {
-    db.connect();
+    await db.connect();
     await db.handleGetRequest(ctx);
     db.disconnect(); 
     console.log("GET response");
@@ -121,7 +121,7 @@ app.prepare().then(async () => {
   router.delete("/api/delete-options/:id/:optionType/:description", async (ctx) => {
        
     try { 
-    db.connect();
+    await db.connect();
     await db.handleDeleteRequest(ctx);
     db.disconnect();
     ctx.status = 200;
@@ -150,7 +150,7 @@ app.prepare().then(async () => {
   // route to receive submit data from option forms
   router.post("/api/add-options", async (ctx) => {   
     try { 
-    db.connect();
+    await db.connect();
     await db.handlePostRequest(ctx);
     db.disconnect(); 
     ctx.status = 200;
