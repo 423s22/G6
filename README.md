@@ -20,12 +20,16 @@ Shopify app that will allow merchants to add additional options and customizatio
 
 ### Backend Technologies
 * Node.js
+* MySQL
 
 #### Instructions
 
 * Clone repository
 * Verify Node.js is installed on your computer by running `node -v` in the terminal.  
   * Node.js can be downloaded [here](https://nodejs.org/en/download/)
+* Verify MySQL is installed on your computer by Searching Operating System for MySQL Workbench.
+  * MySQL can be downloaded [here](https://dev.mysql.com/downloads/)
+  * Then run `ALTER USER 'MYSQL_DB'@'MYSQL_HOST' IDENTIFIED WITH mysql_native_password BY 'MYSQL_KEY';` in MySQL Workbench
 * run `npm install` to install dependencies
 * In order to do local development with Shopify you will need an [ngrok](https://ngrok.com/) account. 
 * Once you have ngrok setup, run `ngrok http [port number]` to login and get the URL of your tunnel which will look something like this example URL from ngrok's [documentation](https://ngrok.com/docs)` https://92832de0.ngrok.io`
@@ -40,7 +44,13 @@ Shopify app that will allow merchants to add additional options and customizatio
   `SHOPIFY_API_KEY='your API key'`<br/>  
   `SHOPIFY_API_SECRET='your secret API key'`<br/>  
   `SCOPES=write_products,write_customers,write_draft_orders`<br/>  
-  `HOST='your ngrok URL'`<br/><br/>  
+  `HOST='your ngrok URL'`<br/> 
+  `MYSQL_KEY='your MySQL Database Password'`<br/> 
+  `MYSQL_USER='your MySQL Database Username'`<br/>
+  `MYSQL_HOST='your MySQL Database URL'`<br/>
+  `MYSQL_DB='your MySQL Database Name'`<br/>
+  `SHOP_NAME='your Shopify Shop Name'`<br/>
+  
 * Run `npm run dev` to start the server
 * Navigate back to your application's page in Shopify and `Select` a `Development Store` to install your application on
 * Once you have installed the application your development store, navigate to the `Apps` section of your Shopify Admin and click on the application

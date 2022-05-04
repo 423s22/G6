@@ -67,8 +67,9 @@ function DropdownForm() {
          optionType: 'dropdown',
          menuTitle: menuTitle,
          options: await BuildOptions(productInfo.title, menuTitle, optionValues),
-         variantId: productInfo.variants[0].id.replace("gid://shopify/ProductOption/", ''),
+         variantId: productInfo.variants[0].id.replace("gid://shopify/ProductVariant/", ''),
      }
+     console.log(dropdownInfo);
      updateDB(dropdownInfo)               // call function to add option to DB
     }; 
 
