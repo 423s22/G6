@@ -195,7 +195,7 @@ exports[`<AddOptions /> Create snapshot of the AddOptions react component. 1`] =
         className="Polaris-Card__Section"
       >
         <p>
-          Add Options and Variants if this product comes in multiple versions, like different sizes or colors.
+          Add options and variants if this product comes in multiple versions, like different sizes or colors.
         </p>
         <div
           className="Polaris-Card__Section"
