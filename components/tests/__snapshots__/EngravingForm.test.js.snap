@@ -398,7 +398,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                         id="PolarisTextField1HelpText"
                       >
                         <span>
-                          Please enter a description of your engraving option.
+                          Please enter a description for your engraving option
                         </span>
                       </div>
                     </div>
@@ -524,7 +524,7 @@ exports[`<EngravingForm /> Create snapshot of the EngravingForm react component.
                         className="Polaris-Labelled__HelpText"
                         id="PolarisTextField2HelpText"
                       >
-                        Please enter any additional cost associated with this option
+                        Please enter a price for this option
                       </div>
                     </div>
                   </div>

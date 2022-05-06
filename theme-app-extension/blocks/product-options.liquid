@@ -38,14 +38,58 @@
     opacity: 1;
     right: 0px;
   }
+
+  .priceDiv {
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  #quantitySelector {
+    padding-bottom: 25px;
+  }
 </style>
 
 <div class="options-block">
+  <div id="options-block-price" class="priceDiv"></div>
+ 
   <script>
-    // 1F6D2
-    var optionsBlockProductData = {};
+    var optionsBlockProductData = {}; // state data for this options block
+    var price = {{ product.price }} / 100; // price data
+    var priceDictionary = {};
     optionsWrapper();
+    printPrice();
 
+    function updatePrice(checkboxElement) {
+      console.log(priceDictionary);
+      console.log(checkboxElement.id);
+      let priceChange = 0
+
+      if (checkboxElement.id.includes("dropdown")) {  // DROPDOWN
+        let dropdownId = checkboxElement.id.replace('checkbox', '');
+        let userChoice = document.getElementById(dropdownId);
+        let optionID = userChoice.value;  // ID user selects
+        let id = userChoice.options[userChoice.selectedIndex].value;  // name of selected option
+        priceChange = priceDictionary[`dropdowncheckbox${id}`];
+      } else {  // ENGRAVING
+        priceChange = priceDictionary[checkboxElement.id];
+      }
+      
+
+      if (checkboxElement.checked) {
+        price += priceChange;
+      } else {
+        price -= priceChange;
+      }
+
+      printPrice();
+    }
+
+    function printPrice() {
+      let pageContent = document.getElementById("options-block-price");
+      pageContent.textContent = `$ ${price.toFixed(2)}`;
+    }
+
+    
     async function fetchOptions(productID) {
       let response = await fetch(`https://pricing-options-app.herokuapp.com/api/show-options/${productID}`);      
       if (response.status != 200) return {};
@@ -54,15 +98,18 @@
       return data;
     }
 
+
     async function optionsWrapper() {
       let productData = await fetchOptions({{ product.id }});
       optionsBlockProductData = productData;
       renderPage();
     }
 
+
     async function renderPage() {
         const pageContent = document.getElementsByClassName("options-block")[0];
-        console.log(optionsBlockProductData);  // first console log
+        // log our state data for debugging
+        console.log(optionsBlockProductData);
         let optionsArray = optionsBlockProductData.productOptions || [];
         let HTMLString = "";
 
@@ -72,117 +119,81 @@
 
           HTMLString += `<div class="${optionType}">`;
 
-
-          if (optionType == "dropdown") {  // create a dropdown menu
-            HTMLString += `<br><input type="checkbox" id="checkbox${optionItem.menuTitle}" name="checkbox${optionItem.menuTitle}">`;
-            HTMLString += `<label for="checkbox${optionItem.menuTitle}">Check to include option in cart</label><br>`;
+          if (optionType == "dropdown") {  // DROPDOWN
+            HTMLString += `<br><input type="checkbox" id="dropdowncheckbox${optionItem.menuTitle}" name="dropdowncheckbox${optionItem.menuTitle}" onclick="updatePrice(dropdowncheckbox${optionItem.menuTitle})">`;
+            HTMLString += `<label for="downdowncheckbox${optionItem.menuTitle}">Check to include option in cart</label><br>`;
             HTMLString += `<label for="${optionItem.menuTitle}">${optionItem.menuTitle}</label>`;
-            HTMLString += ` <select name="${optionItem.menuTitle}" id="dropdown${optionItem.menuTitle}">`;
-            for (let j = 0; j < optionItem.options.length; j++) {
-              let choice = optionItem.options[j];  // loop through the choices for the dropdown
-              HTMLString += `<option value="${choice.variantId}">${choice.option}</option>`;
+            HTMLString += ` <select name="${optionItem.menuTitle}" id="dropdown${optionItem.menuTitle}" onchange="updatePrice(dropdowncheckbox${optionItem.menuTitle})">`;
+            for (let j = 0; j < optionItem.options.length; j++) {  // loop through the choices for the dropdown
+              let choice = optionItem.options[j];
+              priceDictionary[`dropdowncheckbox${choice.variantOptionId}`] = parseFloat(choice.price);  
+              HTMLString += `<option value="${choice.variantOptionId}">${choice.option}</option>`;
             }
-            
             HTMLString += `</select>`;
 
-
-            // Engraving [x]
-            // [              ]
-
-            // Dropdown [x]
-            // [red v]
-
-          } else {  // create engraving text field
-            let id = optionItem.variantId;
+          } else {  // ENGRAVING
+            let id = optionItem.optionVariantId;
+            priceDictionary[`engravingcheckbox${id}`] = parseFloat(optionItem.price);
             
-            HTMLString += `<br><input type="checkbox" id="checkbox${id}" name="checkbox${id}">`;
-            HTMLString += `<label for="checkbox${id}">Check to include engraving in cart</label>`;
-
+            HTMLString += `<br><input type="checkbox" id="engravingcheckbox${id}" name="engravingcheckbox${id}" onclick="updatePrice(engravingcheckbox${id})">`;
+            HTMLString += `<label for="engravingcheckbox${id}">Check to include engraving in cart</label>`;
+            
             HTMLString += `<form><label for="${id}">Engraving</label>`;
             HTMLString += ` <input type="text" id="${id}" name="${id}" value="${optionItem.description}"><br>`;
-          
-            /*
-            optionItem object structure:
-            {
-              description
-              lineNum
-              optionType
-              price
-              productId (OF THE MAIN PRODUCT)
-              productOptionId (OF THE EXTRA PRODUCT TO ADD TO CART)
-            }
-            */
-
             HTMLString += `</form>`;
           }
-
           HTMLString += `</div>`;  
         }
-
-
         HTMLString += `<br><div id="quantitySelector">Enter Quantity<label for="quantitySelectorBox">`;
         HTMLString += ` <input type="number" id="quantitySelectorBox" name="quantitySelectorBox" value="1"><br>`;
         HTMLString += `</label></div>`;
+        HTMLString += `<button type="button" class="button" style="vertical-align:middle" onclick="updateCart()"><span>ADD TO CART </span></button>`;
 
         pageContent.insertAdjacentHTML('beforeend', HTMLString);
     } 
     
+    
     async function updateCart() {
         let optionsArray = optionsBlockProductData.productOptions || [];
         let purchaseQuantity = document.getElementById("quantitySelectorBox").value
-        //const pageContent = document.getElementsByClassName("options-block")[0];
-
         let formData = {
           'items': [{
               'quantity': purchaseQuantity,
               'id': {{ product.variants[0].id }},
-              'Description': "Base item" // write user friendly list of options attached to this product
+              'Description': "Red Rope with Engraving" // TODO: write user friendly list of options attached to this product
             }]
         };
 
         for (let i = 0; i < optionsArray.length; i++) {
           let optionItem = optionsArray[i];
 
-          if (optionItem.optionType == "dropdown") {
-            if (document.getElementById(`checkbox${optionItem.menuTitle}`).checked) {        
+          if (optionItem.optionType == "dropdown") {  // DROPDOWN
+            if (document.getElementById(`dropdowncheckbox${optionItem.menuTitle}`).checked) {        
               let userChoice = document.getElementById(`dropdown${optionItem.menuTitle}`);  // dropdown option selected by the user
               let optionID = userChoice.value;  // ID user selects
               let optionName = userChoice.options[userChoice.selectedIndex].text;  // name of selected option
 
               let optionObject = {
                 'quantity': purchaseQuantity, // get QTY from quantity selector
-                'id': optionID,
+                'id': parseInt(optionID),
                 'description': "make sure to note which item this option is for" // get main product ID or name
               };
-
-              // #TODO: ADD ITEMS TO FORM
-              formData.items.push(/*optionObject*/);
+              formData.items.push(optionObject);
             }
-          } else {
-            if (document.getElementById(`checkbox${optionItem.variantId}`).checked) {
+          } else {  // ENGRAVING
+            if (document.getElementById(`engravingcheckbox${optionItem.optionVariantId}`).checked) {
               
               let optionObject = {
               'quantity': purchaseQuantity, // get QTY from quantity selector
-              'id': optionItem.variantId,
-              'Engraving Text': document.getElementById(`${optionItem.variantId}`).value // get main product ID or name
+              'id': parseInt(optionItem.optionVariantId),
+              'Engraving Text': document.getElementById(`${optionItem.optionVariantId}`).value // get main product ID or name
               };
-
+              formData.items.push(optionObject);
             }
-            
-            // #TODO: ADD ITEMS TO FORM
-            formData.items.push(/*optionsArray*/);
           }  
         }
 
-        // id: "gid://shopify/ProductVariant/42732828459256"
-
-            
-        // document.getElementById(`dropdown${optionItem.menuTitle}`).value
-        // 7676470657272
-        // document.getElementById(`dropdown${optionItem.menuTitle}`).options[2].text;
-        // { extracomments: "red" }
-
-
+        // Form Data For Debugging
         console.log(formData);
 
         await fetch(window.Shopify.routes.root + 'cart/add.js', {
@@ -199,15 +210,9 @@
           console.error('Error:', error);
         });
     }
-
-    /*{\% form "product", product %}
-      ...
-    {\% endform %}*/
   </script>
-  <div> PRODUCT ID {{ product.id }} </div>
-  <div> VARIANT ID {{ product.variants[0].id }} </div>
-  <button type="button" class="button" style="vertical-align:middle" onclick="updateCart()"><span>ADD TO CART </span></button>
 </div>
+
 
 {% schema %}
   {
