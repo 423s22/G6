@@ -11,6 +11,7 @@
 <p> Engraving Form: https://github.com/423s22/G6/blob/main/components/EngravingForm.js </p>
 <p> Product Card: https://github.com/423s22/G6/blob/main/components/ProductCard.js </p>
 <p> Drop Down Form: https://github.com/423s22/G6/blob/main/components/DropdownForm.js </p>
+<p> App Homepage UI: https://github.com/423s22/G6/blob/main/pages/index.js</p>
 <p> FAQ Page Code: https://github.com/423s22/G6/blob/main/pages/FAQ.js </p>
 <p> FAQ List Generator: https://github.com/423s22/G6/blob/main/pages/List.js </p>
 <p> FAQ list of questions: https://github.com/423s22/G6/blob/main/components/json/ListData.json </p>
