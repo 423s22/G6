@@ -55,7 +55,6 @@ function EngravingForm() {
 
   // create submit object
   async function handleSubmit () {
-     console.log(productInfo);
      const engravingInfo = {
          productId: productInfo.id.replace("gid://shopify/Product/", ''),
          optionType: 'engraving',
@@ -69,7 +68,7 @@ function EngravingForm() {
      let info = await CreateProduct(engravingInfo);      // create product from option in Shopify and return back its productId
      engravingInfo.productOptionId = info.productOptionId;               // add ID of product option     
      engravingInfo.optionVariantId = info.optionVariantId;               // add ID of product variant 
-     console.log(engravingInfo);
+
      updateDB(engravingInfo)                                        // call function to add option to DB
      }; 
 
